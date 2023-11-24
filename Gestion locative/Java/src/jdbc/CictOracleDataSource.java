@@ -1,4 +1,4 @@
-package jdbc;
+package JDBC;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -211,14 +211,12 @@ public class CictOracleDataSource extends OracleDataSource {
     /*------------- Locataire -------------*/
 
     public void callAddLocataire(
-            int p_id_locataire,
             String p_nom,
             String p_prenom,
             String p_date_de_naissance,
             String p_telephone,
             String p_e_mail,
             String p_statut,
-            int p_id_bail,
             String p_date_debut,
             String p_date_fin,
             float p_frais_d_agence,
@@ -229,24 +227,22 @@ public class CictOracleDataSource extends OracleDataSource {
             int p_id_batiment,
             int p_id_logement
         ) throws SQLException {
-        try (CallableStatement cs = this.connection.prepareCall("{call AddLocataire(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }")) {
-        	cs.setInt(1, p_id_locataire);
-        	cs.setString(2,p_nom);
-        	cs.setString(3,p_prenom);
-        	cs.setString(4,p_date_de_naissance);
-        	cs.setString(5,p_telephone);
-        	cs.setString(6,p_e_mail);
-        	cs.setString(7,p_statut);
-        	cs.setInt(8,p_id_bail);
-        	cs.setString(9,p_date_debut);
-        	cs.setString(10,p_date_fin);
-            cs.setFloat(11,p_frais_d_agence);
-            cs.setFloat(12,p_loyer);
-            cs.setFloat(13,p_charges_fixes);
-            cs.setInt(14,p_jour_Paiement);
-            cs.setInt(15, p_solod_TC);
-            cs.setInt(16, p_id_batiment);
-            cs.setInt(17, p_id_logement);
+        try (CallableStatement cs = this.connection.prepareCall("{call AddLocataire(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }")) {
+        	cs.setString(1,p_nom);
+        	cs.setString(2,p_prenom);
+        	cs.setString(3,p_date_de_naissance);
+        	cs.setString(4,p_telephone);
+        	cs.setString(5,p_e_mail);
+        	cs.setString(6,p_statut);
+        	cs.setString(7,p_date_debut);
+        	cs.setString(8,p_date_fin);
+            cs.setFloat(9,p_frais_d_agence);
+            cs.setFloat(10,p_loyer);
+            cs.setFloat(11,p_charges_fixes);
+            cs.setInt(12,p_jour_Paiement);
+            cs.setInt(13, p_solod_TC);
+            cs.setInt(14, p_id_batiment);
+            cs.setInt(15, p_id_logement);
             cs.execute();
         }
     }
@@ -272,23 +268,26 @@ public class CictOracleDataSource extends OracleDataSource {
     }
 
     public void callSetStatutEntree(
-    	      int p_id_locataire,
+    	      int p_id_bail,
+    	      int p_id_EDL,
     	      String p_statut_entree
         ) throws SQLException {
-        try (CallableStatement cs = this.connection.prepareCall("{all SetStatutEntree(?,?) }")) {
-            cs.setInt(1, p_id_locataire);
-            cs.setString(2, p_statut_entree);
+        try (CallableStatement cs = this.connection.prepareCall("{all SetStatutEntree(?,?,?) }")) {
+            cs.setInt(1, p_id_bail);
+            cs.setInt(2, p_id_EDL);
+            cs.setString(3, p_statut_entree);
             cs.execute();
         }
     }
 
     public void callSetStatutSorti(
-    	      int p_id_locataire,
+    	      int p_id_bail,
     	      int p_id_EDL,
     	      String p_statut_sortie
         ) throws SQLException {
-        try (CallableStatement cs = this.connection.prepareCall("{all SetStatutSorti(?,?) }")) {
-            cs.setInt(1, p_id_locataire);
+        try (CallableStatement cs = this.connection.prepareCall("{all SetStatutSorti(?,?,?) }")) {
+            cs.setInt(1, p_id_bail);
+            cs.setInt(2, p_id_EDL);
             cs.setString(3, p_statut_sortie);
             cs.execute();
         }
@@ -464,7 +463,7 @@ public class CictOracleDataSource extends OracleDataSource {
     
     /*------------- Batiment -------------*/
 
-    public void AddLogemont(
+    public void AddLogement(
     		  int p_id_batiment,
     	      int p_id_logement,
     	      String p_type,
