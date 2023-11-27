@@ -196,6 +196,9 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
     }
 
 
+    public CictOracleDataSource getConnectionBD() {
+        return this.bd;
+    }
 	
 	
 }
