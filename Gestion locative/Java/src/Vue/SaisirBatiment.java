@@ -9,21 +9,29 @@ import javax.swing.JPanel;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.MaskFormatter;
 
 import Controleur.GestionFenPaiement;
 import Controleur.GestionSaisirBatiement;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import java.awt.SystemColor;
+import java.text.ParseException;
+
+import javax.swing.JSpinner;
+import javax.swing.JFormattedTextField;
+import javax.swing.SpinnerNumberModel;
 
 @SuppressWarnings("serial")
 public class SaisirBatiment extends JInternalFrame{
-	private JTextField textFieldDebsemc;
-	private JTextField textFieldCP;
-	private JTextField textFieldVille;
-	private JTextField textFieldIdGrpC;
-	private JTextField textFieldDateConstruction;
+	private JTextField Fd_Adresse;
+	private JTextField Fd_Ville;
 	private GestionSaisirBatiement gsb;
+	private JButton btn_Inserer;
+	private JButton btn_Annuler;
+	private JSpinner sp_CodePostal;
+	private JSpinner sp_RegimeJuridique;
+	private JFormattedTextField Fd_DateConstruction;
 	// private JTable tableC;
 	
 
@@ -47,8 +55,9 @@ public class SaisirBatiment extends JInternalFrame{
 
 	/**
 	 * Create the frame.
+	 * @throws ParseException 
 	 */
-	public SaisirBatiment() {
+	public SaisirBatiment() throws ParseException {
 		setBorder(new LineBorder(SystemColor.activeCaption, 2));
 		setTitle("Saisie des informations");
 		setBounds(100, 100, 471, 567);
@@ -57,105 +66,108 @@ public class SaisirBatiment extends JInternalFrame{
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBackground(new Color(255, 255, 255));
-		panel.setBounds(10, 49, 439, 479);
+		panel.setBounds(14, 49, 439, 479);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JLabel labelDebsemc = new JLabel("Adresse :");
 		labelDebsemc.setFont(new Font("Tahoma", Font.BOLD, 10));
-		labelDebsemc.setBounds(10, 40, 61, 13);
+		labelDebsemc.setBounds(28, 31, 113, 13);
 		panel.add(labelDebsemc);
 		
-		textFieldDebsemc = new JTextField();
-		textFieldDebsemc.setBounds(133, 27, 231, 35);
-		panel.add(textFieldDebsemc);
-		textFieldDebsemc.setColumns(10);
+		Fd_Adresse = new JTextField();
+		Fd_Adresse.setBounds(186, 20, 231, 35);
+		panel.add(Fd_Adresse);
+		Fd_Adresse.setColumns(10);
 		
 		JLabel labelCP = new JLabel("Code Postal :");
 		labelCP.setFont(new Font("Tahoma", Font.BOLD, 10));
-		labelCP.setBounds(10, 109, 61, 13);
+		labelCP.setBounds(28, 113, 113, 13);
 		panel.add(labelCP);
-		
-		textFieldCP = new JTextField();
-		textFieldCP.setColumns(10);
-		textFieldCP.setBounds(133, 96, 231, 35);
-		panel.add(textFieldCP);
 		
 		JLabel labelVille = new JLabel("Ville :");
 		labelVille.setFont(new Font("Tahoma", Font.BOLD, 10));
-		labelVille.setBounds(10, 179, 61, 13);
+		labelVille.setBounds(28, 195, 113, 13);
 		panel.add(labelVille);
 		
-		textFieldVille = new JTextField();
-		textFieldVille.setColumns(10);
-		textFieldVille.setBounds(133, 166, 231, 35);
-		panel.add(textFieldVille);
+		Fd_Ville = new JTextField();
+		Fd_Ville.setColumns(10);
+		Fd_Ville.setBounds(186, 184, 231, 35);
+		panel.add(Fd_Ville);
 		
 		JLabel label_Id_GrpC = new JLabel("Regime Juridique :");
 		label_Id_GrpC.setFont(new Font("Tahoma", Font.BOLD, 10));
-		label_Id_GrpC.setBounds(10, 253, 113, 13);
+		label_Id_GrpC.setBounds(28, 277, 113, 13);
 		panel.add(label_Id_GrpC);
-		
-		textFieldIdGrpC = new JTextField();
-		textFieldIdGrpC.setColumns(10);
-		textFieldIdGrpC.setBounds(133, 240, 231, 35);
-		panel.add(textFieldIdGrpC);
 		
 		JLabel labelHeureFC = new JLabel("Date Construction : ");
 		labelHeureFC.setFont(new Font("Tahoma", Font.BOLD, 10));
-		labelHeureFC.setBounds(10, 317, 61, 13);
+		labelHeureFC.setBounds(28, 359, 113, 13);
 		panel.add(labelHeureFC);
 		
-		textFieldDateConstruction = new JTextField();
-		textFieldDateConstruction.setColumns(10);
-		textFieldDateConstruction.setBounds(133, 304, 231, 35);
-		panel.add(textFieldDateConstruction);
 		
+		btn_Inserer = new JButton("Inserer");
+		btn_Inserer.addActionListener(this.gsb);
+		btn_Inserer.setBounds(263, 436, 85, 21);
+		panel.add(btn_Inserer);
 		
-		JButton btnInserer = new JButton("Inserer");
-		btnInserer.addActionListener(this.gsb);
-		btnInserer.setBounds(119, 436, 85, 21);
-		panel.add(btnInserer);
+		btn_Annuler = new JButton("Annuler");
+		btn_Annuler.addActionListener(this.gsb);
+		btn_Annuler.setBounds(89, 436, 85, 21);
+		panel.add(btn_Annuler);
 		
-		JButton btnAnnuler = new JButton("Annuler");
-		btnAnnuler.addActionListener(this.gsb);
-		btnAnnuler.setBounds(246, 436, 85, 21);
-		panel.add(btnAnnuler);
+		sp_CodePostal = new JSpinner();
+		sp_CodePostal.setModel(new SpinnerNumberModel(0, 0, 99999, 1));
+		sp_CodePostal.setBounds(186, 102, 231, 35);
+		panel.add(sp_CodePostal);
+		
+		sp_RegimeJuridique = new JSpinner();
+		sp_RegimeJuridique.setModel(new SpinnerNumberModel(Float.valueOf(0), Float.valueOf(0), null, Float.valueOf(1)));
+		sp_RegimeJuridique.setBounds(186, 266, 231, 35);
+		panel.add(sp_RegimeJuridique);
+
+        MaskFormatter dateFormatter = new MaskFormatter("####-##-##");
+		Fd_DateConstruction = new JFormattedTextField(dateFormatter);
+		Fd_DateConstruction.setText("0000-00-00");
+		Fd_DateConstruction.setColumns(10);
+		Fd_DateConstruction.setBounds(186, 348, 231, 35);
+		panel.add(Fd_DateConstruction);
 		
 		JLabel lblNewLabel = new JLabel("Saisir les informations du batiment");
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 13));
-		lblNewLabel.setBounds(125, 26, 236, 13);
+		lblNewLabel.setBounds(115, 26, 236, 13);
 		getContentPane().add(lblNewLabel);
 	}
 
 
-	public JTextField getTextFieldDebsemc() {
-		return textFieldDebsemc;
+	public String getTextFieldDebsemc() {
+		return this.Fd_Adresse.getText();
 	}
 
 
-	public JTextField getTextFieldCP() {
-		return textFieldCP;
+	public int getTextFieldCP() {
+		return (int)this.sp_CodePostal.getValue();
 	}
 
 
-	public JTextField getTextFieldVille() {
-		return textFieldVille;
+	public String getTextFieldVille() {
+		return this.Fd_Ville.getText();
 	}
 
 
-	public JTextField getTextFieldIdGrpC() {
-		return textFieldIdGrpC;
+	public float getTextFieldRegimeJuridique() {
+		return (float)this.sp_RegimeJuridique.getValue();
 	}
 
-
-	public JTextField getTextFieldDateConstruction() {
-		return textFieldDateConstruction;
+	public String getTextFieldDateConstruction() {
+		return this.Fd_DateConstruction.getText();
 	}
-
-
+	
+	
 	public GestionSaisirBatiement getGsb() {
 		return gsb;
 	}
+	
+	
 }
 

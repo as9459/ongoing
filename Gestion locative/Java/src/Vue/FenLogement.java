@@ -56,7 +56,7 @@ public class FenLogement extends JInternalFrame {
 	public FenLogement() {
 		setTitle("Fenètre Logement");
 		setDefaultCloseOperation(JInternalFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 710, 303);
+		setBounds(100, 100, 775, 303);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -71,20 +71,20 @@ public class FenLogement extends JInternalFrame {
 		table.setBounds(5, 5, 684, 373);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null, null, null},
 			},
 			new String[] {
-				"Type Logement" ,"Loyer", "Etage", "ICC", "Garage", "Jardin", "Balcon",  "Documents"
+				"Logement", "Etage", "Type", "Surface", "ICC", "Garage", "Jardin", "Balcon", "State", "Documents"
 			}
 		));
 		scrollPane.setViewportView(table);
