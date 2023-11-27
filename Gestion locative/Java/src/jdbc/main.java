@@ -13,13 +13,14 @@ public class main {
 	        String password = "Ps1052";
 
 	        
-	        CictOracleDataSource bd = new CictOracleDataSource(username,password);
+	        CictOracleDataSource bd = new CictOracleDataSource();
+	        bd.creerAcces(username,password);
 	        
 	        
 	        
 
             System.out.printf("id : "+ bd.callGetNextId("Locataire", "id_locataire"));
-	        bd.deconnecter();
+	        bd.close();
 	    }
 	} 
 

@@ -25,12 +25,10 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	protected boolean estConnecte;
 	private JMenuItem mntm_Déconnecter;
-	private JMenu mntm_Batiment;
-	private JMenuItem mntm_Locataire;
-	private JMenuItem mntm_Paiement;
+	private JMenuItem mntm_Connecter;
+	private JMenu mn_Affichage;
 	
 	private GestionFenetrePrincipale gestionClic;
-	private JMenuItem mntm_Connecter;
 	
 
 	/**
@@ -89,17 +87,16 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 		mntm_Déconnecter.setEnabled(false);
 		menu2.add(mntm_Déconnecter);
 		
-		JMenu menu3 = new JMenu("Affichage");
-		menuBar.add(menu3);
+		mn_Affichage = new JMenu("Affichage");
+		mn_Affichage.setEnabled(false);
+		menuBar.add(mn_Affichage);
 		
-		mntm_Locataire = new JMenuItem("Locataire");
+		JMenuItem mntm_Locataire = new JMenuItem("Locataire");
 		mntm_Locataire.addActionListener(this.gestionClic);
 		this.gestionClic = new GestionFenetrePrincipale(this);
-		mntm_Locataire.setEnabled(false);
 		
-		mntm_Batiment = new JMenu("Batiment");
-		menu3.add(mntm_Batiment);
-		mntm_Batiment.setEnabled(false);
+		JMenu mntm_Batiment = new JMenu("Batiment");
+		mn_Affichage.add(mntm_Batiment);
 		
 		JMenuItem item4 = new JMenuItem("Logement");
 		item4.addActionListener(this.gestionClic);
@@ -110,14 +107,13 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 		this.gestionClic = new GestionFenetrePrincipale(this);
 		mntm_Batiment.add(item7);
 		mntm_Batiment.add(item4);
-		menu3.add(mntm_Locataire);
+		mn_Affichage.add(mntm_Locataire);
 		
-		mntm_Paiement = new JMenuItem("Paiement");
+		JMenuItem mntm_Paiement = new JMenuItem("Paiement");
 		mntm_Paiement.setBackground(new Color(240, 240, 240));
 		mntm_Paiement.addActionListener(this.gestionClic);
 		this.gestionClic = new GestionFenetrePrincipale(this);
-		mntm_Paiement.setEnabled(false);
-		menu3.add(mntm_Paiement);
+		mn_Affichage.add(mntm_Paiement);
 	}
 	/*public void actionPerformed(ActionEvent e) {
 		JMenuItem itemm = (JMenuItem) e.getSource();
@@ -165,9 +161,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 		boolean param1,param2;
 		if(param) { param1 = true ;param2 = false; } else {param1 = false ;param2 = true; }
 			mntm_Déconnecter.setEnabled(param1);
-			mntm_Batiment.setEnabled(param1);
-			mntm_Locataire.setEnabled(param1);
-			mntm_Paiement.setEnabled(param1);
+			mn_Affichage.setEnabled(param1);
 			
 			mntm_Connecter.setEnabled(param2);
 			
@@ -196,6 +190,11 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 	public void setAcces(CictOracleDataSource con) {
 		this.bd = con;
 	}
+	
+    public void deconnecter() {
+        this.bd.close();
+    }
+
 
 	
 	

@@ -52,7 +52,7 @@ public class Connexion extends JInternalFrame {
 		
 		Fd_password = new JPasswordField();
 		Fd_password.setHorizontalAlignment(SwingConstants.LEFT);
-		Fd_password.setToolTipText("Ps1052");
+		Fd_password.setText("Ps1052");
 		Fd_password.setBounds(236, 130, 153, 20);
 		getContentPane().add(Fd_password);
 		

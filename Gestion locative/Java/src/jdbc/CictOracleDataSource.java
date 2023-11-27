@@ -122,7 +122,7 @@ public class CictOracleDataSource extends OracleDataSource {
     	}
     }
     
-    public void deconnecter() {
+    public void close() {
         try {
             if (this.result != null) {
                 this.result.close();

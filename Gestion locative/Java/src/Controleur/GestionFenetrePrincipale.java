@@ -36,7 +36,8 @@ public class GestionFenetrePrincipale implements ActionListener{
 				cn.setVisible(true);
 				break;
 			case "Déconnecter":
-				fen.setEstConnecte(true);
+				fen.deconnecter();
+				fen.setEstConnecte(false);
 				fen.activerItems(false);
 				break;
 			case "Locataire":
