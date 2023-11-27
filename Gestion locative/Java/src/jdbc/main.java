@@ -19,7 +19,7 @@ public class main {
 	        
 
             System.out.printf("id : "+ bd.callGetNextId("Locataire", "id_locataire"));
-	        bd.close();
+	        bd.deconnecter();
 	    }
 	} 
 

@@ -19,34 +19,31 @@ public class CictOracleDataSource extends OracleDataSource {
     private PreparedStatement prepareStatement;
     private ResultSet result;
 
-    public CictOracleDataSource(String nom, String mdp) throws SQLException {
+    public CictOracleDataSource() throws SQLException {
+    	
         this.setURL("jdbc:oracle:thin:@telline.univ-tlse3.fr" + ":1521:etupre");
-        this.setUser(nom);
-        this.setPassword(mdp);
-
-        System.out.println("Vous etes : " + nom);
-		this.connection = this.getConnection();
-		System.out.println("Connexion etablie...");
     }
     
 
 
     /*------------- jbcd -------------*/
     
-    public Connection creerAcces(String nom, String mdp) throws SQLException {
-        this.setURL("jdbc:oracle:thin:@telline.univ-tlse3.fr" + ":1521:etupre");
-        this.setUser(nom);
-        this.setPassword(mdp);
-
-		this.connection = this.getConnection();
-		return this.connection ;
+    
+    public String creerAcces(String nom, String mdp) throws SQLException {
+    	
+		try {
+	        this.setUser(nom);
+	        this.setPassword(mdp);
+			this.connection = this.getConnection();
+			return "Connexion etablie";
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e2.printStackTrace();
+			return ""+e.getLocalizedMessage();
+		}
     }
     
-    @Override
-    public Connection getConnection() {
-		return this.connection;
-	}
-    
+   
     
     public Statement createStatement() throws SQLException {
         this.statement = this.connection.createStatement();
