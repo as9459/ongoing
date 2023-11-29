@@ -2,6 +2,7 @@ package Controleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JLayeredPane;
@@ -28,17 +29,29 @@ public class GestionFenLocataire implements ActionListener{
 				loca.dispose();
 				break;
 			case "Ajouter":
-				SaisirLocataire sloc = new SaisirLocataire();
+				SaisirLocataire sloc = null;
+			try {
+				sloc = new SaisirLocataire();
 				JLayeredPane layeredPane6 = fenb.getLayeredPane();
 				layeredPane6.add(sloc, JLayeredPane.DEFAULT_LAYER);
 				sloc.setVisible(true);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 				
 	            break;
 	    	case "Modifier":
-				SaisirLocataire mloc = new SaisirLocataire();
+	    		SaisirLocataire mloc = null;
+			try {
+				mloc = new SaisirLocataire();
 				JLayeredPane layeredPane5 = fenb.getLayeredPane();
 				layeredPane5.add(mloc, JLayeredPane.DEFAULT_LAYER);
 				mloc.setVisible(true);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 	            break;
 		}
 	}

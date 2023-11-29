@@ -2,6 +2,7 @@ package Controleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JLayeredPane;
@@ -34,17 +35,29 @@ public class GestionFenBatiment implements ActionListener{
     		fene.dispose();
     		break;
     	case "Ajouter":
-			SaisirBatiment sbat = new SaisirBatiment();
-			JLayeredPane layeredPane4 = fen.getLayeredPane();
-			layeredPane4.add(sbat, JLayeredPane.DEFAULT_LAYER);
-			sbat.setVisible(true);
+			SaisirBatiment sbat = null;
+			try {
+				sbat = new SaisirBatiment();
+				JLayeredPane layeredPane4 = fen.getLayeredPane();
+				layeredPane4.add(sbat, JLayeredPane.DEFAULT_LAYER);
+				sbat.setVisible(true);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
             break;
     	case "Modifier":
-			SaisirBatiment mbat = new SaisirBatiment();
-			JLayeredPane layeredPane5 = fen.getLayeredPane();
-			layeredPane5.add(mbat, JLayeredPane.DEFAULT_LAYER);
-			mbat.setVisible(true);
+			SaisirBatiment mbat = null;
+			try {
+				mbat = new SaisirBatiment();
+				JLayeredPane layeredPane5 = fen.getLayeredPane();
+				layeredPane5.add(mbat, JLayeredPane.DEFAULT_LAYER);
+				mbat.setVisible(true);
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
             break;
 		
 		}

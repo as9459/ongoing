@@ -77,8 +77,8 @@ public class SaisirLocataire extends JInternalFrame{
 	 * @throws ParseException 
 	 */
 	public SaisirLocataire() throws ParseException {
-        MaskFormatter dateFormatter = new MaskFormatter("9999-99-99");
-        MaskFormatter telephoneFormatter = new MaskFormatter("99 99 99 99 99");
+        MaskFormatter dateFormatter = new MaskFormatter("####-##-##");
+        MaskFormatter telephoneFormatter = new MaskFormatter("## ## ## ## ##");
         
 		setBorder(new LineBorder(SystemColor.activeCaption, 2));
 		setTitle("Saisie des informations");
@@ -90,9 +90,13 @@ public class SaisirLocataire extends JInternalFrame{
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 13));
 		lblNewLabel.setBounds(125, 26, 236, 13);
 		getContentPane().add(lblNewLabel);
+
+
+
+		
+
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setSelectedIndex(0);
 		tabbedPane.setBounds(10, 49, 439, 495);
 		getContentPane().add(tabbedPane);
 		

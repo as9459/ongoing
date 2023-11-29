@@ -60,7 +60,7 @@ public class FenPaiement extends JInternalFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		
+		this.gestionClic = new GestionFenPaiement(this);
 		JScrollPane scrollPane = new JScrollPane();
 		contentPane.add(scrollPane);
 		
@@ -68,22 +68,25 @@ public class FenPaiement extends JInternalFrame {
 		table.setBounds(5, 5, 684, 373);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
+				{null, null, "", null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null},
 			},
 			new String[] {
-				"Locataire", "Reference facture", "Paiement", "Reference du paiement", "Date"
+				"Locataire", "Reference", "Date", "Reste a pay\u00E9", "Reference du paiement", "Date Paiement", "Pay\u00E9"
 			}
 		));
+		table.getColumnModel().getColumn(1).setPreferredWidth(95);
+		table.getColumnModel().getColumn(4).setPreferredWidth(136);
+		table.getColumnModel().getColumn(5).setPreferredWidth(102);
 		scrollPane.setViewportView(table);
 		
 		panel = new JPanel();
@@ -97,19 +100,21 @@ public class FenPaiement extends JInternalFrame {
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
 		btnNewButton = new JButton("Ajouter");
+		btnNewButton.addActionListener(this.gestionClic);
 		panel_1.add(btnNewButton, BorderLayout.WEST);
 		
 		btnNewButton_1 = new JButton("Retourner");
+		btnNewButton_1.addActionListener(this.gestionClic);
 		panel_1.add(btnNewButton_1, BorderLayout.EAST);
 		
 		splitPane = new JSplitPane();
 		panel_1.add(splitPane, BorderLayout.CENTER);
 		
 		btnNewButton_2 = new JButton("Modifier");
+		btnNewButton_2.addActionListener(this.gestionClic);
 		splitPane.setRightComponent(btnNewButton_2);
 		
 		btnNewButton_3 = new JButton("Suprimer");
-		this.gestionClic = new GestionFenPaiement(this);
 		btnNewButton_1.addActionListener(this.gestionClic);
 		splitPane.setLeftComponent(btnNewButton_3);
 		

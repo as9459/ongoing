@@ -495,56 +495,56 @@ END SetStatutEntree;
 
 
 CREATE OR REPLACE FUNCTION getTableData(p_table_name IN VARCHAR2) RETURN SYS_REFCURSOR AS
-  v_sql_query VARCHAR2(1000);
-  my_cursor SYS_REFCURSOR;
-BEGIN
-  v_sql_query := 'SELECT * FROM ' || p_table_name;
+    v_sql_query VARCHAR2(1000);
+    my_cursor SYS_REFCURSOR;
+    BEGIN
+    v_sql_query := 'SELECT * FROM ' || p_table_name;
 
-  OPEN my_cursor FOR v_sql_query;
+    OPEN my_cursor FOR v_sql_query;
 
-  RETURN my_cursor;
+    RETURN my_cursor;
 END getTableData;
 /
 
 
 
 CREATE OR REPLACE FUNCTION IsLogementEmpty(
-    p_id_batiment IN NUMBER,
-    p_id_logement IN NUMBER,
-    p_date_debut_contrat IN DATE
-) RETURN BOOLEAN IS
-    v_count NUMBER;
-BEGIN
-    -- V�rifie le nombre de contrats actifs pour le logement sp�cifi�
-    SELECT COUNT(*)
-    INTO v_count
-    FROM Contrat_bail
-    WHERE id_batiment = p_id_batiment
-        AND id_logement = p_id_logement
-        AND p_date_debut_contrat BETWEEN date_debut AND NVL(date_fin, SYSDATE + 1);
+        p_id_batiment IN NUMBER,
+        p_id_logement IN NUMBER,
+        p_date_debut_contrat IN DATE
+    ) RETURN BOOLEAN IS
+        v_count NUMBER;
+    BEGIN
+        -- V�rifie le nombre de contrats actifs pour le logement sp�cifi�
+        SELECT COUNT(*)
+        INTO v_count
+        FROM Contrat_bail
+        WHERE id_batiment = p_id_batiment
+            AND id_logement = p_id_logement
+            AND p_date_debut_contrat BETWEEN date_debut AND NVL(date_fin, SYSDATE + 1);
 
-    -- Si le nombre de contrats actifs est �gal � 0, le logement est consid�r� comme vide
-    RETURN v_count = 0;
-EXCEPTION
-    WHEN OTHERS THEN
-        RETURN FALSE; -- G�rer les exceptions selon les besoins
+        -- Si le nombre de contrats actifs est �gal � 0, le logement est consid�r� comme vide
+        RETURN v_count = 0;
+    EXCEPTION
+        WHEN OTHERS THEN
+            RETURN FALSE; -- G�rer les exceptions selon les besoins
 END IsLogementEmpty;
 /
 
 
 
 CREATE OR REPLACE FUNCTION GetLogementEmptys
-RETURN SYS_REFCURSOR IS
-    v_cursor SYS_REFCURSOR;
-BEGIN
-    OPEN v_cursor FOR
-        SELECT id_batiment, id_logement
-        FROM Logement
-        WHERE (id_batiment, id_logement) NOT IN (
+    RETURN SYS_REFCURSOR IS
+        v_cursor SYS_REFCURSOR;
+    BEGIN
+        OPEN v_cursor FOR
             SELECT id_batiment, id_logement
-            FROM Contrat_bail
-            WHERE SYSDATE BETWEEN date_debut AND NVL(date_fin, SYSDATE)
-        );
+            FROM Logement
+            WHERE (id_batiment, id_logement) NOT IN (
+                SELECT id_batiment, id_logement
+                FROM Contrat_bail
+                WHERE SYSDATE BETWEEN date_debut AND NVL(date_fin, SYSDATE)
+            );
 
     RETURN v_cursor;
 END GetLogementEmptys;
@@ -553,75 +553,75 @@ END GetLogementEmptys;
 
 
 create or replace FUNCTION GetLogementUnpaidFacts RETURN SYS_REFCURSOR IS
-    v_cursor SYS_REFCURSOR;
-BEGIN
-    OPEN v_cursor FOR
-        SELECT fl.ID_LOCATAIRE, fl.ID_BATIMENT, fl.ID_LOGEMENT, fl.ID_FACTURE, fl.DATE_FACTURE, fl.REFERENCE_DU_PAIEMENT,fl.PAIEMENT as payer, ((f.montant_HT + (f.montant_HT * (f.TVA / 100)) - f.montant_de_l_aide)-fl.PAIEMENT) as Reste
+        v_cursor SYS_REFCURSOR;
+    BEGIN
+        OPEN v_cursor FOR
+            SELECT fl.ID_LOCATAIRE, fl.ID_BATIMENT, fl.ID_LOGEMENT, fl.ID_FACTURE, fl.DATE_FACTURE,((f.montant_HT + (f.montant_HT * (f.TVA / 100)) - f.montant_de_l_aide)-fl.PAIEMENT) as Reste
 
-        FROM fact_logement fl, facture f
-        WHERE fl.id_facture = f.id_facture AND fl.date_facture = f.date_facture
-        AND fl.paiement < (f.montant_HT + (f.montant_HT * (f.TVA / 100)) - f.montant_de_l_aide);
+            FROM fact_logement fl, facture f
+            WHERE fl.id_facture = f.id_facture AND fl.date_facture = f.date_facture
+            AND fl.paiement < (f.montant_HT + (f.montant_HT * (f.TVA / 100)) - f.montant_de_l_aide);
 
-    RETURN v_cursor;
+        RETURN v_cursor;
 END GetLogementUnpaidFacts;
 /
 
 
 
 create or replace FUNCTION GetBatimentUnpaidFacts RETURN SYS_REFCURSOR IS
-    v_cursor SYS_REFCURSOR;
-BEGIN
-    OPEN v_cursor FOR
-        SELECT fl.ID_BATIMENT, fl.ID_FACTURE, fl.DATE_FACTURE, fl.REFERENCE_DU_PAIEMENT,fl.PAIEMENT as payer, ((f.montant_HT + (f.montant_HT * (f.TVA / 100)) - f.montant_de_l_aide)-fl.PAIEMENT) as Reste
+        v_cursor SYS_REFCURSOR;
+    BEGIN
+        OPEN v_cursor FOR
+            SELECT fl.ID_BATIMENT, fl.ID_FACTURE, fl.DATE_FACTURE, fl.REFERENCE_DU_PAIEMENT,fl.PAIEMENT as payer, ((f.montant_HT + (f.montant_HT * (f.TVA / 100)) - f.montant_de_l_aide)-fl.PAIEMENT) as Reste
 
-        FROM fact_batiment fl, facture f
-        WHERE fl.id_facture = f.id_facture AND fl.date_facture = f.date_facture
-        AND fl.paiement < (f.montant_HT + (f.montant_HT * (f.TVA / 100)) - f.montant_de_l_aide);
+            FROM fact_batiment fl, facture f
+            WHERE fl.id_facture = f.id_facture AND fl.date_facture = f.date_facture
+            AND fl.paiement < (f.montant_HT + (f.montant_HT * (f.TVA / 100)) - f.montant_de_l_aide);
 
-    RETURN v_cursor;
+        RETURN v_cursor;
 END GetBatimentUnpaidFacts;
 /
 
 
 
 create or replace FUNCTION GetLogementsByPaiement(p_paiement_threshold NUMBER) RETURN SYS_REFCURSOR IS
-    v_cursor SYS_REFCURSOR;
-BEGIN
-    OPEN v_cursor FOR
-    SELECT
-    l.*,
-    CASE
-        WHEN TO_NUMBER(TO_CHAR(cb.date_fin, 'YYYYMMDD')) <= TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) THEN 'Libre'
-        ELSE 'Occupe'
-    END AS state
-    FROM
-        Logement l
-    JOIN
-        Contrat_bail cb ON l.id_batiment = cb.id_batiment AND l.id_logement = cb.id_logement
-    WHERE
-        l.id_batiment = p_paiement_threshold;
-    RETURN v_cursor;
+        v_cursor SYS_REFCURSOR;
+    BEGIN
+        OPEN v_cursor FOR
+        SELECT
+        l.*,
+        CASE
+            WHEN TO_NUMBER(TO_CHAR(cb.date_fin, 'YYYYMMDD')) <= TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) THEN 'Libre'
+            ELSE 'Occupe'
+        END AS state
+        FROM
+            Logement l
+        JOIN
+            Contrat_bail cb ON l.id_batiment = cb.id_batiment AND l.id_logement = cb.id_logement
+        WHERE
+            l.id_batiment = p_paiement_threshold;
+        RETURN v_cursor;
 END GetLogementsByPaiement;
 /
 
 
 
 CREATE OR REPLACE FUNCTION GetNumberOfLogementsInBatiment(
-    p_id_batiment IN NUMBER
-) RETURN NUMBER IS
-    v_count NUMBER;
-BEGIN
-    -- Count the number of housing units in the specified building
-    SELECT COUNT(DISTINCT id_logement)
-    INTO v_count
-    FROM Logement
-    WHERE id_batiment = p_id_batiment;
+        p_id_batiment IN NUMBER
+    ) RETURN NUMBER IS
+        v_count NUMBER;
+    BEGIN
+        -- Count the number of housing units in the specified building
+        SELECT COUNT(DISTINCT id_logement)
+        INTO v_count
+        FROM Logement
+        WHERE id_batiment = p_id_batiment;
 
-    -- Return the count
-    RETURN v_count;
-EXCEPTION
-    WHEN OTHERS THEN
-        -- Handle exceptions as needed
+        -- Return the count
+        RETURN v_count;
+    EXCEPTION
+        WHEN OTHERS THEN
+            -- Handle exceptions as needed
         RETURN NULL; -- or another appropriate value
 END GetNumberOfLogementsInBatiment;
 /
@@ -629,26 +629,26 @@ END GetNumberOfLogementsInBatiment;
 
 
 create or replace FUNCTION GetLogementALouer(
-    p_id_batiment IN NUMBER
-) RETURN SYS_REFCURSOR IS
-    v_cursor SYS_REFCURSOR;
-BEGIN
-    OPEN v_cursor FOR
-        SELECT id_batiment, id_logement
-        FROM Logement
-        WHERE id_batiment = p_id_batiment
-        AND (id_batiment, id_logement) NOT IN (
+        p_id_batiment IN NUMBER
+    ) RETURN SYS_REFCURSOR IS
+        v_cursor SYS_REFCURSOR;
+    BEGIN
+        OPEN v_cursor FOR
             SELECT id_batiment, id_logement
-            FROM Contrat_bail
-            WHERE SYSDATE BETWEEN date_debut AND NVL(date_fin, SYSDATE)
-            AND id_batiment = p_id_batiment
-        )
-        OR id_logement IN (
-            SELECT id_logement
             FROM Logement
-            WHERE COLOCATION = 1
-            AND id_batiment = p_id_batiment
-        );
+            WHERE id_batiment = p_id_batiment
+            AND (id_batiment, id_logement) NOT IN (
+                SELECT id_batiment, id_logement
+                FROM Contrat_bail
+                WHERE SYSDATE BETWEEN date_debut AND NVL(date_fin, SYSDATE)
+                AND id_batiment = p_id_batiment
+            )
+            OR id_logement IN (
+                SELECT id_logement
+                FROM Logement
+                WHERE COLOCATION = 1
+                AND id_batiment = p_id_batiment
+            );
 
     RETURN v_cursor;
 END GetLogementALouer;
@@ -657,22 +657,22 @@ END GetLogementALouer;
 
 
 create or replace FUNCTION GetBatementALouer
-RETURN SYS_REFCURSOR IS
-    v_cursor SYS_REFCURSOR;
-BEGIN
-    OPEN v_cursor FOR
-        SELECT DISTINCT id_batiment
-        FROM Logement
-        WHERE (id_batiment, id_logement) NOT IN (
-            SELECT id_batiment, id_logement
-            FROM Contrat_bail
-            WHERE SYSDATE BETWEEN date_debut AND NVL(date_fin, SYSDATE)
-        )
-        OR id_logement IN (
-            SELECT id_logement
+    RETURN SYS_REFCURSOR IS
+        v_cursor SYS_REFCURSOR;
+    BEGIN
+        OPEN v_cursor FOR
+            SELECT DISTINCT id_batiment
             FROM Logement
-            WHERE COLOCATION = 1
-        );
+            WHERE (id_batiment, id_logement) NOT IN (
+                SELECT id_batiment, id_logement
+                FROM Contrat_bail
+                WHERE SYSDATE BETWEEN date_debut AND NVL(date_fin, SYSDATE)
+            )
+            OR id_logement IN (
+                SELECT id_logement
+                FROM Logement
+                WHERE COLOCATION = 1
+            );
 
     RETURN v_cursor;
 END GetBatementALouer;

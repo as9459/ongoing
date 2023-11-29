@@ -117,10 +117,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 		mntm_Paiement.addActionListener(this.gestionClic);
 		this.gestionClic = new GestionFenetrePrincipale(this);
 		mn_Affichage.add(mntm_Paiement);
-		
-		JLabel lbl_demo = new JLabel("New label");
-		lbl_demo.setBounds(82, 33, 171, 22);
-		contentPane.add(lbl_demo);
 	}
 
 	

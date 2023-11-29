@@ -11,7 +11,6 @@ import java.awt.Color;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.MaskFormatter;
 
-import Controleur.GestionFenPaiement;
 import Controleur.GestionSaisirBatiement;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
