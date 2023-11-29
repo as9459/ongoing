@@ -39,6 +39,7 @@ public class GestionFenetrePrincipale implements ActionListener{
 				fen.deconnecter();
 				fen.setEstConnecte(false);
 				fen.activerItems(false);
+				fen.removeFen();
 				break;
 			case "Locataire":
 				FenLocataire loca = new FenLocataire();
@@ -66,32 +67,3 @@ public class GestionFenetrePrincipale implements ActionListener{
 	            break;
 		}
 	}}
-	/*case "Ajoutlogement ":
-		AjoutLogement alog = new AjoutLogement();
-		this.log.getLayeredPane().add(alog);
-		alog.setVisible(true);
-		System.out.println("test2");
-		break;
-	case"Logement":
-		Logement log = new Logement();
-		this.log.getLayeredPane().add(log);
-		log.setVisible(true);
-		System.out.println("test3");
-		break;
-	case"Locataire" :
-		Locataire loc = new Locataire();
-		this.log.getLayeredPane().add(loc);
-		loc.setVisible(true);
-		System.out.println("test4");
-		break;
-	case"Documents":
-		Documents doc = new Documents();
-		this.log.getLayeredPane().add(doc);
-		doc.setVisible(true);
-		System.out.println("test5");
-		break;
-	case"Charges":
-		break;
-	default:
-		break;*/
-	

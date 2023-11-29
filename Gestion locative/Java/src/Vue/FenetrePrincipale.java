@@ -17,6 +17,9 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.awt.Component;
+
+import javax.swing.JLabel;
 
 public class FenetrePrincipale extends JFrame implements ActionListener {
 
@@ -114,49 +117,13 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 		mntm_Paiement.addActionListener(this.gestionClic);
 		this.gestionClic = new GestionFenetrePrincipale(this);
 		mn_Affichage.add(mntm_Paiement);
+		
+		JLabel lbl_demo = new JLabel("New label");
+		lbl_demo.setBounds(82, 33, 171, 22);
+		contentPane.add(lbl_demo);
 	}
-	/*public void actionPerformed(ActionEvent e) {
-		JMenuItem itemm = (JMenuItem) e.getSource();
-		switch (itemm.getText()) {
-			case "Quitter":
-				dispose();
-				break;
-			case "Connecter":
-				Connexion cn = new Connexion();
-				JLayeredPane layeredPane0 = getLayeredPane();
-				layeredPane0.add(cn, JLayeredPane.DEFAULT_LAYER);
-				cn.setVisible(true);
-				break;
-			case "Déconnecter":
-				this.setEstConnecte(true);
-				this.activerItems(false);
-				break;
-			case "Locataire":
-				FenLocataire loca = new FenLocataire();
-				JLayeredPane layeredPane1 = getLayeredPane();
-				layeredPane1.add(loca, JLayeredPane.DEFAULT_LAYER);
-				loca.setVisible(true);
-				break;
-			case "Paiement":
-				FenPaiement pmt = new FenPaiement();
-				JLayeredPane layeredPane2 = getLayeredPane();
-				layeredPane2.add(pmt, JLayeredPane.DEFAULT_LAYER);
-				pmt.setVisible(true);
-				break;
-			case "Logement":
-				FenLogement lgt = new FenLogement();
-				JLayeredPane layeredPane3 = getLayeredPane();
-				layeredPane3.add(lgt, JLayeredPane.DEFAULT_LAYER);
-				lgt.setVisible(true);
-				break;
-			case "Batiment":
-				FenBatiment bat = new FenBatiment();
-				JLayeredPane layeredPane4 = getLayeredPane();
-				layeredPane4.add(bat, JLayeredPane.DEFAULT_LAYER);
-				bat.setVisible(true);
-				break;
-		}
-	} */
+
+	
 	public void activerItems(boolean param){
 		boolean param1,param2;
 		if(param) { param1 = true ;param2 = false; } else {param1 = false ;param2 = true; }
@@ -200,5 +167,13 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
         return this.bd;
     }
 	
-	
+
+    public void removeFen() {
+        JLayeredPane layeredPane = this.getLayeredPane();
+	    Component[] components = layeredPane.getComponentsInLayer(JLayeredPane.DEFAULT_LAYER);
+	    for (Component component : components) {
+            component.setVisible(false);
+            layeredPane.remove(component);
+	    }
+    }
 }
