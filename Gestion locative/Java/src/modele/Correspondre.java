@@ -75,12 +75,12 @@ public class Correspondre {
 
     @Override
     public String toString() {
-        return "Correspondre{" +
+        return "Correspondre[" +
                 "idFacture=" + idFacture +
-                ", dateFacture='" + dateFacture + '\'' +
-                ", idCharges='" + idCharges + '\'' +
+                ", dateFacture='" + dateFacture +
+                ", idCharges='" + idCharges +
                 ", chargesRegularises=" + chargesRegularises +
                 ", chargesDues=" + chargesDues +
-                '}';
+                ']';
     }
 }
