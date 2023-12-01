@@ -1,75 +1,73 @@
 package modele;
-import java.util.Collection;
+
 import java.util.Objects;
 
 public class Charges {
+    private int idCharges;
+    private String dateCharges;
+    private int consommation;
+    private int idTypeCharges;
 
-	private int id_charges;
-	private long date;
-	private int consommation;
-	
+    public Charges(int idCharges, String dateCharges, int consommation, int idTypeCharges) {
+        this.idCharges = idCharges;
+        this.dateCharges = dateCharges;
+        this.consommation = consommation;
+        this.idTypeCharges = idTypeCharges;
+    }
 
-	public Charges(int id_charges, long date, int consommation) {
-		this.id_charges = id_charges;
-		this.date = date;
-		this.consommation = consommation;
-	}
+    public int getIdCharges() {
+        return idCharges;
+    }
 
+    public void setIdCharges(int idCharges) {
+        this.idCharges = idCharges;
+    }
 
-	public int getId_charges() {
-		return id_charges;
-	}
+    public String getDateCharges() {
+        return dateCharges;
+    }
 
+    public void setDateCharges(String dateCharges) {
+        this.dateCharges = dateCharges;
+    }
 
-	public void setId_charges(int id_charges) {
-		this.id_charges = id_charges;
-	}
+    public int getConsommation() {
+        return consommation;
+    }
 
+    public void setConsommation(int consommation) {
+        this.consommation = consommation;
+    }
 
-	public long getDate() {
-		return date;
-	}
+    public int getIdTypeCharges() {
+        return idTypeCharges;
+    }
 
+    public void setIdTypeCharges(int idTypeCharges) {
+        this.idTypeCharges = idTypeCharges;
+    }
 
-	public void setDate(long date) {
-		this.date = date;
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(idCharges, dateCharges, consommation, idTypeCharges);
+    }
 
-
-	public int getConsommation() {
-		return consommation;
-	}
-
-
-	public void setConsommation(int consommation) {
-		this.consommation = consommation;
-	}
-
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Charges charges = (Charges) obj;
+        return idCharges == charges.idCharges &&
+                consommation == charges.consommation &&
+                idTypeCharges == charges.idTypeCharges &&
+                Objects.equals(dateCharges, charges.dateCharges);
+    }
 
 	@Override
 	public String toString() {
-		return "Charges [id_charges=" + id_charges + ", date=" + date + ", consommation=" + consommation + "]";
+		return "Charges [idCharges=" + idCharges + ", dateCharges=" + dateCharges + ", consommation=" + consommation
+				+ ", idTypeCharges=" + idTypeCharges + "]";
 	}
-
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(consommation, date, id_charges);
-	}
-
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Charges other = (Charges) obj;
-		return consommation == other.consommation && date == other.date && id_charges == other.id_charges;
-	}
-	
-	
-	
+    
+    
 }

@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 import javax.swing.JButton;
 
-import JDBC.CictOracleDataSource;
+import jdbc.CictOracleDataSource;
 import Vue.Connexion;
 import Vue.FenBatiment;
 import Vue.FenetrePrincipale;

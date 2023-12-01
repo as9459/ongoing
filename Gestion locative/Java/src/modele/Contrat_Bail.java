@@ -1,128 +1,143 @@
 package modele;
-import java.util.Collection;
+
+import java.util.Date;
 import java.util.Objects;
 
-
 public class Contrat_Bail {
+    private int idBail;
+    private Date dateDebut;
+    private Date dateFin;
+    private double fraisDagence;
+    private double loyer;
+    private double chargesFixes;
+    private int jourPaiement;
+    private boolean solodTC;
+    private int idBatiment;
+    private int idLogement;
 
-	private int id_bail;
-	private long date_debut;
-	private long date_fin;
-	private int frais_agence;
-	private int loyer;
-	private int charges_fixes;
-	private int Jour_paiement;
-	
-	
-	public Contrat_Bail(int id_bail, long date_debut, long date_fin, int frais_agence, int loyer, int charges_fixes,
-			int jour_paiement) {
-		this.id_bail = id_bail;
-		this.date_debut = date_debut;
-		this.date_fin = date_fin;
-		this.frais_agence = frais_agence;
-		this.loyer = loyer;
-		this.charges_fixes = charges_fixes;
-		Jour_paiement = jour_paiement;
-	}
+    public Contrat_Bail(int idBail, Date dateDebut, Date dateFin, double fraisDagence, double loyer, double chargesFixes,
+                        int jourPaiement, boolean solodTC, int idBatiment, int idLogement) {
+        this.idBail = idBail;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.fraisDagence = fraisDagence;
+        this.loyer = loyer;
+        this.chargesFixes = chargesFixes;
+        this.jourPaiement = jourPaiement;
+        this.solodTC = solodTC;
+        this.idBatiment = idBatiment;
+        this.idLogement = idLogement;
+    }
 
+    public int getIdBail() {
+        return idBail;
+    }
 
-	public int getId_bail() {
-		return id_bail;
-	}
+    public void setIdBail(int idBail) {
+        this.idBail = idBail;
+    }
 
+    public Date getDateDebut() {
+        return dateDebut;
+    }
 
-	public void setId_bail(int id_bail) {
-		this.id_bail = id_bail;
-	}
+    public void setDateDebut(Date dateDebut) {
+        this.dateDebut = dateDebut;
+    }
 
+    public Date getDateFin() {
+        return dateFin;
+    }
 
-	public long getDate_debut() {
-		return date_debut;
-	}
+    public void setDateFin(Date dateFin) {
+        this.dateFin = dateFin;
+    }
 
+    public double getFraisDagence() {
+        return fraisDagence;
+    }
 
-	public void setDate_debut(long date_debut) {
-		this.date_debut = date_debut;
-	}
+    public void setFraisDagence(double fraisDagence) {
+        this.fraisDagence = fraisDagence;
+    }
 
+    public double getLoyer() {
+        return loyer;
+    }
 
-	public long getDate_fin() {
-		return date_fin;
-	}
+    public void setLoyer(double loyer) {
+        this.loyer = loyer;
+    }
 
+    public double getChargesFixes() {
+        return chargesFixes;
+    }
 
-	public void setDate_fin(long date_fin) {
-		this.date_fin = date_fin;
-	}
+    public void setChargesFixes(double chargesFixes) {
+        this.chargesFixes = chargesFixes;
+    }
 
+    public int getJourPaiement() {
+        return jourPaiement;
+    }
 
-	public int getFrais_agence() {
-		return frais_agence;
-	}
+    public void setJourPaiement(int jourPaiement) {
+        this.jourPaiement = jourPaiement;
+    }
 
+    public boolean isSolodTC() {
+        return solodTC;
+    }
 
-	public void setFrais_agence(int frais_agence) {
-		this.frais_agence = frais_agence;
-	}
+    public void setSolodTC(boolean solodTC) {
+        this.solodTC = solodTC;
+    }
 
+    public int getIdBatiment() {
+        return idBatiment;
+    }
 
-	public int getLoyer() {
-		return loyer;
-	}
+    public void setIdBatiment(int idBatiment) {
+        this.idBatiment = idBatiment;
+    }
 
+    public int getIdLogement() {
+        return idLogement;
+    }
 
-	public void setLoyer(int loyer) {
-		this.loyer = loyer;
-	}
+    public void setIdLogement(int idLogement) {
+        this.idLogement = idLogement;
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(idBail, dateDebut, dateFin, fraisDagence, loyer, chargesFixes, jourPaiement, solodTC, idBatiment, idLogement);
+    }
 
-	public int getCharges_fixes() {
-		return charges_fixes;
-	}
-
-
-	public void setCharges_fixes(int charges_fixes) {
-		this.charges_fixes = charges_fixes;
-	}
-
-
-	public int getJour_paiement() {
-		return Jour_paiement;
-	}
-
-
-	public void setJour_paiement(int jour_paiement) {
-		Jour_paiement = jour_paiement;
-	}
-
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Contrat_Bail that = (Contrat_Bail) obj;
+        return idBail == that.idBail &&
+                Double.compare(that.fraisDagence, fraisDagence) == 0 &&
+                Double.compare(that.loyer, loyer) == 0 &&
+                Double.compare(that.chargesFixes, chargesFixes) == 0 &&
+                jourPaiement == that.jourPaiement &&
+                solodTC == that.solodTC &&
+                idBatiment == that.idBatiment &&
+                idLogement == that.idLogement &&
+                Objects.equals(dateDebut, that.dateDebut) &&
+                Objects.equals(dateFin, that.dateFin);
+    }
 
 	@Override
 	public String toString() {
-		return "Contrat_Bail [id_bail=" + id_bail + ", date_debut=" + date_debut + ", date_fin=" + date_fin
-				+ ", frais_agence=" + frais_agence + ", loyer=" + loyer + ", charges_fixes=" + charges_fixes
-				+ ", Jour_paiement=" + Jour_paiement + "]";
+		return "Contrat_Bail [idBail=" + idBail + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin
+				+ ", fraisDagence=" + fraisDagence + ", loyer=" + loyer + ", chargesFixes=" + chargesFixes
+				+ ", jourPaiement=" + jourPaiement + ", solodTC=" + solodTC + ", idBatiment=" + idBatiment
+				+ ", idLogement=" + idLogement + "]";
 	}
-
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(Jour_paiement, charges_fixes, date_debut, date_fin, frais_agence, id_bail, loyer);
-	}
-
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Contrat_Bail other = (Contrat_Bail) obj;
-		return Jour_paiement == other.Jour_paiement && charges_fixes == other.charges_fixes
-				&& date_debut == other.date_debut && date_fin == other.date_fin && frais_agence == other.frais_agence
-				&& id_bail == other.id_bail && loyer == other.loyer;
-	}
-	
-	
+    
+    
 }

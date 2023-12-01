@@ -1,67 +1,61 @@
 package modele;
-import java.util.Collection;
+
 import java.util.Objects;
 
 public class Type_charges {
+    private int id_Type_charges;
+    private double prix_unitaire;
+    private String nom;
 
-	private int Id_Type_Charges;
-	private float prix_unitaire;
-	private String nom;
-	
-	public Type_charges(int id_Type_Charges, float prix_unitaire, String nom) {
-		this.Id_Type_Charges = id_Type_Charges;
-		this.prix_unitaire = prix_unitaire;
-		this.nom = nom;
-	}
 
-	public int getId_Type_Charges() {
-		return Id_Type_Charges;
-	}
+    public Type_charges(int id_Type_charges, double prix_unitaire, String nom) {
+        this.id_Type_charges = id_Type_charges;
+        this.prix_unitaire = prix_unitaire;
+        this.nom = nom;
+    }
 
-	public void setId_Type_Charges(int id_Type_Charges) {
-		Id_Type_Charges = id_Type_Charges;
-	}
+    public int getId_Type_charges() {
+        return id_Type_charges;
+    }
 
-	public float getPrix_unitaire() {
-		return prix_unitaire;
-	}
+    public void setId_Type_charges(int id_Type_charges) {
+        this.id_Type_charges = id_Type_charges;
+    }
 
-	public void setPrix_unitaire(float prix_unitaire) {
-		this.prix_unitaire = prix_unitaire;
-	}
+    public double getPrix_unitaire() {
+        return prix_unitaire;
+    }
 
-	public String getNom() {
-		return nom;
-	}
+    public void setPrix_unitaire(double prix_unitaire) {
+        this.prix_unitaire = prix_unitaire;
+    }
 
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
+    public String getNom() {
+        return nom;
+    }
 
-	@Override
-	public String toString() {
-		return "type_charges [Id_Type_Charges=" + Id_Type_Charges + ", prix_unitaire=" + prix_unitaire + ", nom=" + nom
-				+ "]";
-	}
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(Id_Type_Charges, nom, prix_unitaire);
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Type_charges that = (Type_charges) o;
+        return id_Type_charges == that.id_Type_charges &&
+                Double.compare(that.prix_unitaire, prix_unitaire) == 0 &&
+                Objects.equals(nom, that.nom);
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Type_charges other = (Type_charges) obj;
-		return Id_Type_Charges == other.Id_Type_Charges && Objects.equals(nom, other.nom)
-				&& Float.floatToIntBits(prix_unitaire) == Float.floatToIntBits(other.prix_unitaire);
-	}
-	
-	
-	
+    @Override
+    public int hashCode() {
+        return Objects.hash(id_Type_charges, prix_unitaire, nom);
+    }
+
+    @Override
+    public String toString() {
+        return "Type_charges [id_Type_charges=" + id_Type_charges + ", prix_unitaire=" + prix_unitaire +
+                ", nom=" + nom + "]";
+    }
 }

@@ -3,86 +3,82 @@ package modele;
 import java.util.Objects;
 
 public class Garant {
+    private int id_garant;
+    private String nom;
+    private String adresse;
+    private String e_mail;
+    private String telephone;
 
-	private String nom;
-	private String adresse;
-	private int telephone;
-	private String id_garant;
-	private String email;
-	
-	public Garant(String email, String nom, String adresse, int telephone, String id_garant) {
-		super();
-		this.email = email;
-		this.nom = nom;
-		this.adresse = adresse;
-		this.telephone = telephone;
-		this.id_garant = id_garant;
-	}
-	
-	public String getNom() {
-		return nom;
-	}
+    public Garant() {
+    }
 
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
+    public Garant(int id_garant, String nom, String adresse, String e_mail, String telephone) {
+        this.id_garant = id_garant;
+        this.nom = nom;
+        this.adresse = adresse;
+        this.e_mail = e_mail;
+        this.telephone = telephone;
+    }
 
-	public String getAdresse() {
-		return adresse;
-	}
+    public int getId_garant() {
+        return id_garant;
+    }
 
-	public void setAdresse(String adresse) {
-		this.adresse = adresse;
-	}
+    public void setId_garant(int id_garant) {
+        this.id_garant = id_garant;
+    }
 
-	public int getTelephone() {
-		return telephone;
-	}
+    public String getNom() {
+        return nom;
+    }
 
-	public void setTelephone(int telephone) {
-		this.telephone = telephone;
-	}
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
 
-	public String getId_garant() {
-		return id_garant;
-	}
+    public String getAdresse() {
+        return adresse;
+    }
 
-	public void setId_garant(String id_garant) {
-		this.id_garant = id_garant;
-	}
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getE_mail() {
+        return e_mail;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
+    public void setE_mail(String e_mail) {
+        this.e_mail = e_mail;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(adresse, email, id_garant, nom, telephone);
-	}
+    public String getTelephone() {
+        return telephone;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (!(obj instanceof Garant)) {
-			return false;
-		}
-		Garant other = (Garant) obj;
-		return Objects.equals(adresse, other.adresse) && Objects.equals(email, other.email)
-				&& Objects.equals(id_garant, other.id_garant) && Objects.equals(nom, other.nom)
-				&& telephone == other.telephone;
-	}
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Garant garant = (Garant) o;
+        return id_garant == garant.id_garant &&
+                Objects.equals(nom, garant.nom);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id_garant, nom);
+    }
 
 	@Override
 	public String toString() {
-		return "Garant [nom=" + nom + ", adresse=" + adresse + ", telephone=" + telephone + ", id_garant=" + id_garant
-				+ ", email=" + email + "]";
+		return "Garant [id_garant=" + id_garant + ", nom=" + nom + ", adresse=" + adresse + ", e_mail=" + e_mail
+				+ ", telephone=" + telephone + "]";
 	}
-
+    
+    
 }

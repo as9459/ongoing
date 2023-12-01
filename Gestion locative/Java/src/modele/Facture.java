@@ -3,108 +3,119 @@ package modele;
 import java.util.Objects;
 
 public class Facture {
-	
+    private int id_facture;
+    private String date_facture;
+    private String description;
+    private int aide;
+    private double montant_de_l_aide;
+    private double montant_HT;
+    private double TVA;
+    private String type;
+    private String SIREN;
 
-	private String ref;
-	private String desc;
-	private String chargesDues;
-	private float chargesRegularise;
-	private boolean aide;
-	private int montantAide;
-	private float montantHT;
-	private float tva;
-	
-	public Facture(String ref, String desc, String chargesDues, float chargesRegularise, boolean aide, int montantAide,
-			float montantHT, float tva) {
-		super();
-		this.ref = ref;
-		this.desc = desc;
-		this.chargesDues = chargesDues;
-		this.chargesRegularise = chargesRegularise;
-		this.aide = aide;
-		this.montantAide = montantAide;
-		this.montantHT = montantHT;
-		this.tva = tva;
-	}
-	
-	public String getRef() {
-		return ref;
-	}
-	public void setRef(String ref) {
-		this.ref = ref;
-	}
-	public String getDesc() {
-		return desc;
-	}
-	public void setDesc(String desc) {
-		this.desc = desc;
-	}
-	public String getChargesDues() {
-		return chargesDues;
-	}
-	public void setChargesDues(String chargesDues) {
-		this.chargesDues = chargesDues;
-	}
-	public float getChargesRegularise() {
-		return chargesRegularise;
-	}
-	public void setChargesRegularise(float chargesRegularise) {
-		this.chargesRegularise = chargesRegularise;
-	}
-	public boolean isAide() {
-		return aide;
-	}
-	public void setAide(boolean aide) {
-		this.aide = aide;
-	}
-	public int getMontantAide() {
-		return montantAide;
-	}
-	public void setMontantAide(int montantAide) {
-		this.montantAide = montantAide;
-	}
-	public float getMontantHT() {
-		return montantHT;
-	}
-	public void setMontantHT(float montantHT) {
-		this.montantHT = montantHT;
-	}
-	public float getTva() {
-		return tva;
-	}
-	public void setTva(float tva) {
-		this.tva = tva;
-	}
+    public Facture(int id_facture, String date_facture, String description, int aide, double montant_de_l_aide,
+                   double montant_HT, double TVA, String type, String SIREN) {
+        this.id_facture = id_facture;
+        this.date_facture = date_facture;
+        this.description = description;
+        this.aide = aide;
+        this.montant_de_l_aide = montant_de_l_aide;
+        this.montant_HT = montant_HT;
+        this.TVA = TVA;
+        this.type = type;
+        this.SIREN = SIREN;
+    }
 
+    public int getId_facture() {
+        return id_facture;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(aide, chargesDues, chargesRegularise, desc, montantAide, montantHT, ref, tva);
-	}
+    public void setId_facture(int id_facture) {
+        this.id_facture = id_facture;
+    }
 
+    public String getDate_facture() {
+        return date_facture;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (!(obj instanceof Facture)) {
-			return false;
-		}
-		Facture other = (Facture) obj;
-		return aide == other.aide && Objects.equals(chargesDues, other.chargesDues)
-				&& Float.floatToIntBits(chargesRegularise) == Float.floatToIntBits(other.chargesRegularise)
-				&& Objects.equals(desc, other.desc) && montantAide == other.montantAide
-				&& Float.floatToIntBits(montantHT) == Float.floatToIntBits(other.montantHT)
-				&& Objects.equals(ref, other.ref) && Float.floatToIntBits(tva) == Float.floatToIntBits(other.tva);
-	}
+    public void setDate_facture(String date_facture) {
+        this.date_facture = date_facture;
+    }
 
+    public String getDescription() {
+        return description;
+    }
 
-	@Override
-	public String toString() {
-		return "Facture [ref=" + ref + ", desc=" + desc + ", chargesDues=" + chargesDues + ", chargesRegularise="
-				+ chargesRegularise + ", aide=" + aide + ", montantAide=" + montantAide + ", montantHT=" + montantHT
-				+ ", tva=" + tva + "]";
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
+    public int getAide() {
+        return aide;
+    }
+
+    public void setAide(int aide) {
+        this.aide = aide;
+    }
+
+    public double getMontant_de_l_aide() {
+        return montant_de_l_aide;
+    }
+
+    public void setMontant_de_l_aide(double montant_de_l_aide) {
+        this.montant_de_l_aide = montant_de_l_aide;
+    }
+
+    public double getMontant_HT() {
+        return montant_HT;
+    }
+
+    public void setMontant_HT(double montant_HT) {
+        this.montant_HT = montant_HT;
+    }
+
+    public double getTVA() {
+        return TVA;
+    }
+
+    public void setTVA(double TVA) {
+        this.TVA = TVA;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getSIREN() {
+        return SIREN;
+    }
+
+    public void setSIREN(String SIREN) {
+        this.SIREN = SIREN;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id_facture, date_facture, description, aide, montant_de_l_aide, montant_HT, TVA, type, SIREN);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Facture facture = (Facture) obj;
+        return id_facture == facture.id_facture &&
+                aide == facture.aide &&
+                Double.compare(facture.montant_de_l_aide, montant_de_l_aide) == 0 &&
+                Double.compare(facture.montant_HT, montant_HT) == 0 &&
+                Double.compare(facture.TVA, TVA) == 0 &&
+                Objects.equals(date_facture, facture.date_facture) &&
+                Objects.equals(description, facture.description) &&
+                Objects.equals(type, facture.type) &&
+                Objects.equals(SIREN, facture.SIREN);
+    }
 }

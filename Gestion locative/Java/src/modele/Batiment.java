@@ -1,102 +1,97 @@
 package modele;
-import java.util.Collection;
+
 import java.util.Objects;
 
-
 public class Batiment {
+    private int idBatiment;
+    private String adresse;
+    private String codePostal;
+    private String ville;
+    private String regimeJuridique;
+    private String dateConstruction;
 
-	
-	private int id_batiment;
-	private String Adresse;
-	private int code_postal;
-	private String Ville;
-	private String regime_juridique;
-	private long date_construction;
-	
-	public Batiment(int id_batiment, String adresse, int code_postal, String ville, String regime_juridique,
-			long date_construction) {
-		super();
-		this.id_batiment = id_batiment;
-		Adresse = adresse;
-		this.code_postal = code_postal;
-		Ville = ville;
-		this.regime_juridique = regime_juridique;
-		this.date_construction = date_construction;
-	}
+    public Batiment(int idBatiment, String adresse, String codePostal, String ville,
+                    String regimeJuridique, String dateConstruction) {
+        this.idBatiment = idBatiment;
+        this.adresse = adresse;
+        this.codePostal = codePostal;
+        this.ville = ville;
+        this.regimeJuridique = regimeJuridique;
+        this.dateConstruction = dateConstruction;
+    }
 
-	public int getId_batiment() {
-		return id_batiment;
-	}
+    public int getIdBatiment() {
+        return idBatiment;
+    }
 
-	public void setId_batiment(int id_batiment) {
-		this.id_batiment = id_batiment;
-	}
+    public void setIdBatiment(int idBatiment) {
+        this.idBatiment = idBatiment;
+    }
 
-	public String getAdresse() {
-		return Adresse;
-	}
+    public String getAdresse() {
+        return adresse;
+    }
 
-	public void setAdresse(String adresse) {
-		Adresse = adresse;
-	}
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
 
-	public int getCode_postal() {
-		return code_postal;
-	}
+    public String getCodePostal() {
+        return codePostal;
+    }
 
-	public void setCode_postal(int code_postal) {
-		this.code_postal = code_postal;
-	}
+    public void setCodePostal(String codePostal) {
+        this.codePostal = codePostal;
+    }
 
-	public String getVille() {
-		return Ville;
-	}
+    public String getVille() {
+        return ville;
+    }
 
-	public void setVille(String ville) {
-		Ville = ville;
-	}
+    public void setVille(String ville) {
+        this.ville = ville;
+    }
 
-	public String getRegime_juridique() {
-		return regime_juridique;
-	}
+    public String getRegimeJuridique() {
+        return regimeJuridique;
+    }
 
-	public void setRegime_juridique(String regime_juridique) {
-		this.regime_juridique = regime_juridique;
-	}
+    public void setRegimeJuridique(String regimeJuridique) {
+        this.regimeJuridique = regimeJuridique;
+    }
 
-	public long getDate_construction() {
-		return date_construction;
-	}
+    public String getDateConstruction() {
+        return dateConstruction;
+    }
 
-	public void setDate_construction(long date_construction) {
-		this.date_construction = date_construction;
-	}
+    public void setDateConstruction(String dateConstruction) {
+        this.dateConstruction = dateConstruction;
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(Adresse, Ville, code_postal, date_construction, id_batiment, regime_juridique);
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(idBatiment, adresse, codePostal, ville, regimeJuridique, dateConstruction);
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Batiment other = (Batiment) obj;
-		return Objects.equals(Adresse, other.Adresse) && Objects.equals(Ville, other.Ville)
-				&& code_postal == other.code_postal && date_construction == other.date_construction
-				&& id_batiment == other.id_batiment && Objects.equals(regime_juridique, other.regime_juridique);
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Batiment batiment = (Batiment) obj;
+        return idBatiment == batiment.idBatiment &&
+                Objects.equals(adresse, batiment.adresse) &&
+                Objects.equals(codePostal, batiment.codePostal) &&
+                Objects.equals(ville, batiment.ville) &&
+                Objects.equals(regimeJuridique, batiment.regimeJuridique) &&
+                Objects.equals(dateConstruction, batiment.dateConstruction);
+    }
 
 	@Override
 	public String toString() {
-		return "Batiment [id_batiment=" + id_batiment + ", Adresse=" + Adresse + ", code_postal=" + code_postal
-				+ ", Ville=" + Ville + ", regime_juridique=" + regime_juridique + ", date_construction="
-				+ date_construction + "]";
+		return "Batiment [idBatiment=" + idBatiment + ", adresse=" + adresse + ", codePostal=" + codePostal + ", ville="
+				+ ville + ", regimeJuridique=" + regimeJuridique + ", dateConstruction=" + dateConstruction + "]";
 	}
-	
-	
+    
+    
+    
 }

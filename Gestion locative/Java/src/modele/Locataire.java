@@ -2,113 +2,105 @@ package modele;
 import java.util.Objects;
 
 public class Locataire {
-
-	private int id_locataire;
-
+    private int idLocataire;
     private String nom;
-
     private String prenom;
-
-    private int tel;
-    
-    private String dateNaissance;
-    
+    private String telephone;
+    private String dateDeNaissance;
+    private String statut;
     private String email;
 
-
-    public Locataire(int id_locataire, String nom, String prenom, int tel, String statut, String dateNaissance, String email, int id_Statut) {
-        super();
-        this.id_locataire = id_locataire;
+    public Locataire(int idLocataire, String nom, String prenom, String telephone, String dateDeNaissance,
+                     String statut, String email) {
+        this.idLocataire = idLocataire;
         this.nom = nom;
         this.prenom = prenom;
-        this.tel = tel;
-        this.dateNaissance = dateNaissance;
+        this.telephone = telephone;
+        this.dateDeNaissance = dateDeNaissance;
+        this.statut = statut;
         this.email = email;
     }
-    
-    public int getId_locataire() {
-		return id_locataire;
-	}
 
+    public int getIdLocataire() {
+        return idLocataire;
+    }
 
-	public void setId_locataire(int id_locataire) {
-		this.id_locataire = id_locataire;
-	}
+    public void setIdLocataire(int idLocataire) {
+        this.idLocataire = idLocataire;
+    }
 
+    public String getNom() {
+        return nom;
+    }
 
-	public String getNom() {
-		return nom;
-	}
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
 
+    public String getPrenom() {
+        return prenom;
+    }
 
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
 
+    public String getTelephone() {
+        return telephone;
+    }
 
-	public String getPrenom() {
-		return prenom;
-	}
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
 
+    public String getDateDeNaissance() {
+        return dateDeNaissance;
+    }
 
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
-	}
+    public void setDateDeNaissance(String dateDeNaissance) {
+        this.dateDeNaissance = dateDeNaissance;
+    }
 
+    public String getStatut() {
+        return statut;
+    }
 
-	public int getTel() {
-		return tel;
-	}
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
 
+    public String getEmail() {
+        return email;
+    }
 
-	public void setTel(int tel) {
-		this.tel = tel;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getDateNaissance() {
-		return dateNaissance;
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(idLocataire, nom, prenom, telephone, dateDeNaissance, statut, email);
+    }
 
-
-	public void setDateNaissance(String dateNaissance) {
-		this.dateNaissance = dateNaissance;
-	}
-
-
-	public String getEmail() {
-		return email;
-	}
-
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(dateNaissance, email, id_locataire, nom, prenom, tel);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (!(obj instanceof Locataire)) {
-			return false;
-		}
-		Locataire other = (Locataire) obj;
-		return Objects.equals(dateNaissance, other.dateNaissance) && Objects.equals(email, other.email)
-				&& id_locataire == other.id_locataire && Objects.equals(nom, other.nom)
-				&& Objects.equals(prenom, other.prenom) && tel == other.tel;
-	}
-
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Locataire locataire = (Locataire) obj;
+        return idLocataire == locataire.idLocataire &&
+                Objects.equals(nom, locataire.nom) &&
+                Objects.equals(prenom, locataire.prenom) &&
+                Objects.equals(telephone, locataire.telephone) &&
+                Objects.equals(dateDeNaissance, locataire.dateDeNaissance) &&
+                Objects.equals(statut, locataire.statut) &&
+                Objects.equals(email, locataire.email);
+    }
 
 	@Override
 	public String toString() {
-		return "Locataire [id_locataire=" + id_locataire + ", nom=" + nom + ", prenom=" + prenom + ", tel=" + tel
-				 + ", dateNaissance=" + dateNaissance + ", email=" + email + "]";
+		return "Locataire [idLocataire=" + idLocataire + ", nom=" + nom + ", prenom=" + prenom + ", telephone="
+				+ telephone + ", dateDeNaissance=" + dateDeNaissance + ", statut=" + statut + ", email=" + email + "]";
 	}
-
+    
+    
 }

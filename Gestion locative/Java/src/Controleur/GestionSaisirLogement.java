@@ -7,7 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import JDBC.CictOracleDataSource;
+import jdbc.CictOracleDataSource;
 
 /*import modele.Creneau;
 import modele.Groupe;
