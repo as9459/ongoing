@@ -77,13 +77,11 @@ CREATE TABLE Facture(
    id_facture NUMBER(10) ,
    date_facture DATE constraint nn_Facture_date_facture Not null,
    description VARCHAR2(250) ,
-   aide NUMBER(1) DEFAULT 0,
-   montant_de_l_aide NUMBER(10,3) DEFAULT 0.0,
    montant_HT NUMBER(19,4) constraint nn_Facture_montant_HT Not null,
    TVA NUMBER(15,2)  DEFAULT 20.0,
    type VARCHAR2(50)  constraint nn_Facture_type Not null,
    SIREN VARCHAR2(9) ,
-   constraint pk_Facture PRIMARY KEY(id_facture,date_facture),
+   constraint pk_Facture PRIMARY KEY(id_facture),
    constraint fk_Facture_SIREN FOREIGN KEY(SIREN) REFERENCES Entreprise(SIREN)
 );
 
@@ -93,14 +91,14 @@ CREATE TABLE Charges(
    date_charges DATE constraint nn_Charges_Date_charges Not null,
    consommation NUMBER(10) constraint nn_Charges_consommation Not null,
    id_Type_Charges NUMBER(10) constraint nn_Charges_Id_Type Not null,
-   constraint pk_Charges PRIMARY KEY(id_charges, date_charges, id_Type_Charges),
+   constraint pk_Charges PRIMARY KEY(id_charges),
    constraint fk_Charges_Type_Charges FOREIGN KEY(id_Type_Charges ) REFERENCES Type_Charges(Id_Type_Charges)
 );
 
 
 CREATE TABLE Fiche_diagnostic(
-   ref VARCHAR2(50) ,
-   id_batiment NUMBER(3) constraint nn_Fiche_diagnostic_id_bat NOT NULL,
+   ref NUMBER(10) ,
+   id_batiment NUMBER(10) constraint nn_Fiche_diagnostic_id_bat NOT NULL,
    id_logement NUMBER(10) constraint nn_Fiche_diagnostic_id_log NOT NULL,
    amiante NUMBER(1) DEFAULT 0,
    date_Amiante DATE,
@@ -122,9 +120,10 @@ CREATE TABLE Contrat_bail(
    frais_d_agence NUMBER(19,4),
    loyer NUMBER(19,4) constraint nn_Contrat_bail_Loyer Not null,
    charges_fixes NUMBER(19,4) constraint nn_Contrat_bail_charges_fixes Not null,
-   jour_Paiement NUMBER(10)  DEFAULT 1,
+   montant_aide NUMBER(10,3) DEFAULT 0.0,
+   jour_Paiement NUMBER(3)  DEFAULT 1,
    solod_TC NUMBER(1)  DEFAULT 0,
-   id_batiment NUMBER(3) constraint nn_Contrat_bail_id_bat NOT NULL,
+   id_batiment NUMBER(10) constraint nn_Contrat_bail_id_bat NOT NULL,
    id_logement NUMBER(10) constraint nn_Contrat_bail_id_log NOT NULL,
    constraint pk_Contrat_bail PRIMARY KEY(id_bail),
    constraint fk_Contrat_bail_id_bat_log FOREIGN KEY(id_batiment, id_logement) REFERENCES Logement(id_batiment, id_logement)
@@ -143,13 +142,12 @@ CREATE TABLE Signer(
 CREATE TABLE fact_batiment(
    id_facture NUMBER(10),
    id_batiment NUMBER(3),
-   date_facture DATE ,
    reference_du_paiement VARCHAR2(50) ,
    paiement NUMBER(11,2) ,
    type_Paiment VARCHAR2(50) ,
    Date_de_paiement DATE ,
-   constraint pk_fact_batiment PRIMARY KEY(id_facture, id_batiment,date_facture,reference_du_paiement),
-   constraint fk_fact_batiment_id_facture FOREIGN KEY(id_facture,date_facture) REFERENCES Facture(id_facture,date_facture),
+   constraint pk_fact_batiment PRIMARY KEY(id_facture, id_batiment),
+   constraint fk_fact_batiment_id_facture FOREIGN KEY(id_facture) REFERENCES Facture(id_facture),
    constraint fk_fact_batiment_id_batiment FOREIGN KEY(id_batiment) REFERENCES Batiment(id_batiment)
 );
 
@@ -158,10 +156,9 @@ CREATE TABLE bat_charge(
    id_batiment NUMBER(3),
    id_charges NUMBER(10) ,
    date_charges date,
-   id_Type_Charges NUMBER(10),
-   constraint pk_bat_charge PRIMARY KEY(id_batiment, id_charges, date_charges,id_Type_Charges),
+   constraint pk_bat_charge PRIMARY KEY(id_batiment, id_charges),
    constraint fk_bat_charge_id_bat FOREIGN KEY(id_batiment) REFERENCES Batiment(id_batiment),
-   constraint fk_bat_charge_id_charges FOREIGN KEY(id_charges, date_charges, id_Type_Charges) REFERENCES Charges(id_charges, date_charges, id_Type_Charges)
+   constraint fk_bat_charge_id_charges FOREIGN KEY(id_charges) REFERENCES Charges(id_charges)
 );
 
 
@@ -169,15 +166,14 @@ CREATE TABLE fact_logement(
    id_facture NUMBER(10) ,
    id_batiment NUMBER(3),
    id_logement NUMBER(10),
-   date_facture DATE ,
    id_locataire NUMBER(10),
    reference_du_paiement VARCHAR2(50) ,
    paiement NUMBER(11,2) ,
    type_Paiment VARCHAR2(50) ,
    Date_de_paiement DATE ,
-   constraint pk_fact_logement PRIMARY KEY(id_facture,id_batiment, id_logement, date_facture,id_locataire,reference_du_paiement),
+   constraint pk_fact_logement PRIMARY KEY(id_facture,id_batiment, id_logement,id_locataire),
    constraint fk_fact_logement_id_bat_log FOREIGN KEY(id_batiment, id_logement) REFERENCES Logement(id_batiment, id_logement),
-   constraint fk_fact_logement_id_facture FOREIGN KEY(id_facture,date_facture) REFERENCES Facture(id_facture,date_facture),
+   constraint fk_fact_logement_id_facture FOREIGN KEY(id_facture) REFERENCES Facture(id_facture),
    constraint fk_fact_logement_id_locataire FOREIGN KEY(id_locataire) REFERENCES Locataire(id_locataire)
 );
 
@@ -186,25 +182,20 @@ CREATE TABLE log_charge(
    id_batiment NUMBER(3),
    id_logement NUMBER(10),
    id_charges NUMBER(10) ,
-   date_charges date,
-   id_Type_Charges NUMBER(10),
-   constraint pk_log_charge PRIMARY KEY(id_batiment, id_logement, id_charges,date_charges,id_Type_Charges),
+   constraint pk_log_charge PRIMARY KEY(id_batiment, id_logement, id_charges),
    constraint fk_log_charge_id_bat_log FOREIGN KEY(id_batiment, id_logement) REFERENCES Logement(id_batiment, id_logement),
-   constraint fk_log_charge_id_charges FOREIGN KEY(id_charges,date_charges,id_Type_Charges) REFERENCES Charges(id_charges,date_charges,id_Type_Charges)
+   constraint fk_log_charge_id_charges FOREIGN KEY(id_charges) REFERENCES Charges(id_charges)
 );
 
 
 CREATE TABLE correspondre(
    id_facture NUMBER(10) ,
-   date_facture Date,
    id_charges NUMBER(10) ,
-   date_charges Date,
    charges_dues NUMBER(6,2)  ,
    charges_regularises NUMBER(6,2),
-   id_Type_Charges NUMBER(10),
-   constraint pk_correspondre PRIMARY KEY(id_facture, date_facture, id_charges, date_charges, id_Type_Charges),
-   constraint fk_correspondre_id_facture FOREIGN KEY(id_facture,date_facture) REFERENCES Facture(id_facture,date_facture),
-   constraint fk_correspondre_id_charges FOREIGN KEY(id_charges,date_charges,id_Type_Charges) REFERENCES Charges(id_charges,date_charges,id_Type_Charges)
+   constraint pk_correspondre PRIMARY KEY(id_facture, id_charges),
+   constraint fk_correspondre_id_facture FOREIGN KEY(id_facture) REFERENCES Facture(id_facture),
+   constraint fk_correspondre_id_charges FOREIGN KEY(id_charges) REFERENCES Charges(id_charges)
 );
 
 

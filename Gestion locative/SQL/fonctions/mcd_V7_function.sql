@@ -93,18 +93,22 @@ CREATE OR REPLACE PROCEDURE AddLocataire(
         p_frais_d_agence IN NUMBER,
         p_loyer IN NUMBER,
         p_charges_fixes IN NUMBER,
+        p_montant_aide IN NUMBER,
         p_jour_Paiement IN NUMBER DEFAULT 1,
         p_id_batiment IN NUMBER,
         p_id_logement IN NUMBER
     ) AS
     v_id_bail NUMBER;
+    v_id_locataire NUMBER;
     
     BEGIN
     
-    if(IsLocataireExistant(p_nom,p_prenom,p_date_de_naissance) = 0) then 
+    v_id_locataire := IsLocataireExistant(p_nom,p_prenom,p_date_de_naissance);
+    if(0 = v_id_locataire) then 
     
+        v_id_locataire := GetNextId('Locataire','id_locataire');
         InsertLocataire(
-            GetNextId('Locataire','id_locataire'),
+            v_id_locataire,
             p_nom,
             p_prenom,
             p_date_de_naissance,
@@ -126,6 +130,7 @@ CREATE OR REPLACE PROCEDURE AddLocataire(
             p_frais_d_agence,
             p_loyer,
             p_charges_fixes,
+            p_montant_aide,
             p_jour_Paiement,
             0,
             p_id_batiment,
@@ -134,7 +139,7 @@ CREATE OR REPLACE PROCEDURE AddLocataire(
 
         InsertSigner(
             v_id_bail,
-            IsLocataireExistant(p_nom,p_prenom,p_date_de_naissance)
+            v_id_locataire
         );
 
         InsertEDL(
@@ -164,17 +169,19 @@ CREATE OR REPLACE FUNCTION IsGarantExistant(
     v_nb NUMBER;
     
     BEGIN
-        SELECT count(*) into v_nb from locataire
+        SELECT count(*) into v_nb from Garant
         WHERE  lower(nom) =  lower(p_nom)
-        AND lower(prenom) = lower(p_prenom)
-        AND date_de_naissance =  TO_DATE( p_date_de_naissance , 'YYYY-MM-DD');
+        AND lower(adresse) = lower(p_adresse)
+        AND lower(e_mail) = lower(p_e_mail)
+        AND lower(telephone) = lower(p_telephone);
         
         if(v_nb > 0) then
         
-            SELECT id_locataire into v_nb from locataire
+            SELECT id_garant into v_nb from Garant
             WHERE  lower(nom) =  lower(p_nom)
-            AND lower(prenom) = lower(p_prenom)
-            AND date_de_naissance =  TO_DATE( p_date_de_naissance , 'YYYY-MM-DD');
+            AND lower(adresse) = lower(p_adresse)
+            AND lower(e_mail) = lower(p_e_mail)
+            AND lower(telephone) = lower(p_telephone);
             
             RETURN v_nb;
         else
@@ -196,21 +203,24 @@ CREATE OR REPLACE PROCEDURE AddGarant(
         p_e_mail IN VARCHAR2,
         p_telephone IN VARCHAR2
     ) AS
-    v_id_garant NUMBER
+    v_id_garant NUMBER;
     BEGIN
-
-        v_id_garant := GetNextId('Garant','id_garant');
-        InsertGarant(
-            v_id_garant,
-            p_nom ,
-            p_adresse ,
-            p_e_mail ,
-            p_telephone
-        );
+        v_id_garant := IsGarantExistant(p_nom,p_adresse,p_e_mail,p_telephone);
+        
+        if (0 = v_id_garant) then
+            v_id_garant := GetNextId('Garant','id_garant');
+            InsertGarant(
+                v_id_garant,
+                p_nom ,
+                p_adresse ,
+                p_e_mail ,
+                p_telephone
+            );
+        end if;
 
         InsertGarantie(
             p_id_locataire ,
-            p_id_garant 
+            v_id_garant 
         );
         
 
@@ -246,9 +256,7 @@ CREATE OR REPLACE PROCEDURE AddLogemontCharge(
         InsertLogCharge(
             p_id_batiment,
             p_id_logement,
-            p_id_charges,
-            p_date_charges,
-            p_id_Type_Charges
+            p_id_charges
         );
 
         COMMIT;
@@ -269,8 +277,6 @@ CREATE OR REPLACE PROCEDURE AddLogementFacture(
     p_id_logement IN NUMBER,
     p_date_facture IN VARCHAR2,
     p_description IN VARCHAR2,
-    p_aide IN NUMBER DEFAULT 0,
-    p_montant_de_l_aide IN NUMBER DEFAULT 0.0,
     p_montant_HT IN NUMBER,
     p_TVA IN NUMBER DEFAULT 20.0,
     p_type IN VARCHAR2,
@@ -285,8 +291,6 @@ CREATE OR REPLACE PROCEDURE AddLogementFacture(
             p_id_facture,
             p_date_facture,
             p_description,
-            p_aide,
-            p_montant_de_l_aide,
             p_montant_HT,
             p_TVA,
             p_type,
@@ -297,7 +301,6 @@ CREATE OR REPLACE PROCEDURE AddLogementFacture(
             p_id_facture,
             p_id_batiment,
             p_id_logement,
-            p_date_facture,
             GetLocateurIdByLogement(p_id_batiment, p_id_logement),
             p_reference_du_paiement,
             p_paiement ,
@@ -320,7 +323,6 @@ CREATE OR REPLACE PROCEDURE SetLogementFacturePaiement(
     p_id_facture IN NUMBER,
     p_id_batiment IN NUMBER,
     p_id_logement IN NUMBER,
-    p_date_facture IN VARCHAR2,
     p_reference_du_paiement IN VARCHAR2,
     p_paiement IN NUMBER,
     p_type_Paiment IN VARCHAR2,
@@ -335,7 +337,6 @@ CREATE OR REPLACE PROCEDURE SetLogementFacturePaiement(
     WHERE id_facture = p_id_facture
     And id_batiment = p_id_batiment
     And id_logement = p_id_logement
-    And date_facture = TO_DATE( p_date_facture , 'YYYY-MM-DD')
     And id_locataire = GetLocateurIdByLogement(p_id_batiment, p_id_logement);
        
         COMMIT;
@@ -366,9 +367,7 @@ CREATE OR REPLACE PROCEDURE AddBatimentCharge(
 
         InsertBatCharge(
             p_id_batiment,
-            p_id_charges,
-            p_date_charges,
-            p_id_Type_Charges
+            p_id_charges
         );
 
         COMMIT;
@@ -388,8 +387,6 @@ CREATE OR REPLACE PROCEDURE AddBatimentFacture(
     p_id_batiment IN NUMBER,
     p_date_facture IN VARCHAR2,
     p_description IN VARCHAR2,
-    p_aide IN NUMBER DEFAULT 0,
-    p_montant_de_l_aide IN NUMBER DEFAULT 0.0,
     p_montant_HT IN NUMBER,
     p_TVA IN NUMBER DEFAULT 20.0,
     p_type IN VARCHAR2,
@@ -404,8 +401,6 @@ CREATE OR REPLACE PROCEDURE AddBatimentFacture(
             p_id_facture,
             p_date_facture,
             p_description,
-            p_aide,
-            p_montant_de_l_aide,
             p_montant_HT,
             p_TVA,
             p_type,
@@ -415,7 +410,6 @@ CREATE OR REPLACE PROCEDURE AddBatimentFacture(
         InsertFactBatiment(
             p_id_facture,
             p_id_batiment,
-            p_date_facture,
             p_reference_du_paiement,
             p_paiement,
             p_type_Paiment,
@@ -436,7 +430,6 @@ END AddBatimentFacture;
 CREATE OR REPLACE PROCEDURE SetBatimentFacturePaiement(
     p_id_facture IN NUMBER,
     p_id_batiment IN NUMBER,
-    p_date_facture IN VARCHAR2,
     p_reference_du_paiement IN VARCHAR2,
     p_paiement IN NUMBER,
     p_type_Paiment IN VARCHAR2,
@@ -450,8 +443,7 @@ CREATE OR REPLACE PROCEDURE SetBatimentFacturePaiement(
         type_Paiment = p_type_Paiment,
         Date_de_paiement = p_Date_de_paiement
     WHERE id_facture = p_id_facture
-    And id_batiment = p_id_batiment
-    And date_facture = TO_DATE( p_date_facture , 'YYYY-MM-DD');
+    And id_batiment = p_id_batiment;
        
         COMMIT;
         DBMS_OUTPUT.PUT_LINE('paiement fact_batiment inserted successfully.');
@@ -590,11 +582,15 @@ create or replace FUNCTION GetLogementUnpaidFacts RETURN SYS_REFCURSOR IS
         v_cursor SYS_REFCURSOR;
     BEGIN
         OPEN v_cursor FOR
-            SELECT fl.ID_LOCATAIRE, fl.ID_BATIMENT, fl.ID_LOGEMENT, fl.ID_FACTURE, fl.DATE_FACTURE,((f.montant_HT + (f.montant_HT * (f.TVA / 100)) - f.montant_de_l_aide)-fl.PAIEMENT) as Reste
+            SELECT fl.ID_LOCATAIRE, fl.ID_BATIMENT, fl.ID_LOGEMENT, fl.ID_FACTURE, f.DATE_FACTURE,((f.montant_HT + (f.montant_HT * (f.TVA / 100)) - c.montant_aide)-fl.PAIEMENT) as Reste
 
-            FROM fact_logement fl, facture f
-            WHERE fl.id_facture = f.id_facture AND fl.date_facture = f.date_facture
-            AND fl.paiement < (f.montant_HT + (f.montant_HT * (f.TVA / 100)) - f.montant_de_l_aide);
+            FROM fact_logement fl, facture f, contrat_bail c, Signer s
+            WHERE fl.id_facture = f.id_facture 
+            AND fl.paiement < (f.montant_HT + (f.montant_HT * (f.TVA / 100)) - c.montant_aide)
+            AND c.ID_BATIMENT = fl.ID_BATIMENT
+            AND c.ID_LOGEMENT = fl.ID_LOGEMENT
+            AND c.id_bail = s.id_bail
+            AND s.ID_LOCATAIRE = fl.ID_LOCATAIRE;
 
         RETURN v_cursor;
 END GetLogementUnpaidFacts;
@@ -606,11 +602,11 @@ create or replace FUNCTION GetBatimentUnpaidFacts RETURN SYS_REFCURSOR IS
         v_cursor SYS_REFCURSOR;
     BEGIN
         OPEN v_cursor FOR
-            SELECT fl.ID_BATIMENT, fl.ID_FACTURE, fl.DATE_FACTURE, fl.REFERENCE_DU_PAIEMENT,fl.PAIEMENT as payer, ((f.montant_HT + (f.montant_HT * (f.TVA / 100)) - f.montant_de_l_aide)-fl.PAIEMENT) as Reste
+            SELECT fl.ID_BATIMENT, fl.ID_FACTURE, f.DATE_FACTURE, fl.REFERENCE_DU_PAIEMENT,fl.PAIEMENT as payer, ((f.montant_HT + (f.montant_HT * (f.TVA / 100)) )-fl.PAIEMENT) as Reste
 
             FROM fact_batiment fl, facture f
-            WHERE fl.id_facture = f.id_facture AND fl.date_facture = f.date_facture
-            AND fl.paiement < (f.montant_HT + (f.montant_HT * (f.TVA / 100)) - f.montant_de_l_aide);
+            WHERE fl.id_facture = f.id_facture 
+            AND fl.paiement < (f.montant_HT + (f.montant_HT * (f.TVA / 100)));
 
         RETURN v_cursor;
 END GetBatimentUnpaidFacts;
