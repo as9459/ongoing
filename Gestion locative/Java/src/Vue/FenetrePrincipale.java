@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Controleur.GestionFenetrePrincipale;
-import JDBC.CictOracleDataSource;
+import jdbc.CictOracleDataSource;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;

@@ -7,7 +7,7 @@ import javax.swing.JTextPane;
 
 import Controleur.GestionConnexion;
 import Controleur.GestionFenBatiment;
-import JDBC.CictOracleDataSource;
+import jdbc.CictOracleDataSource;
 
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
