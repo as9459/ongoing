@@ -1,4 +1,4 @@
-package jdbc;
+package JDBC;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -19,29 +19,31 @@ public class CictOracleDataSource extends OracleDataSource {
     private PreparedStatement prepareStatement;
     private ResultSet result;
 
-    public CictOracleDataSource(String nom, String mdp) throws SQLException {
+    public CictOracleDataSource() throws SQLException {
+    	
         this.setURL("jdbc:oracle:thin:@telline.univ-tlse3.fr" + ":1521:etupre");
-        this.setUser(nom);
-        this.setPassword(mdp);
-
-        try {
-            System.out.println("Vous etes : " + nom);
-            this.connection = this.getConnection();
-            System.out.println("Connexion etablie...");
-        } catch (SQLException ex) {
-            System.out.println("Connexion impossible");
-            System.out.println(ex.getMessage());
-            throw ex; // Throw the exception to let the caller handle it
-        }
     }
     
 
 
     /*------------- jbcd -------------*/
     
-    public ResultSet getResult () {
-		return this.result;
-	}
+    
+    public String creerAcces(String nom, String mdp) throws SQLException {
+    	
+		try {
+	        this.setUser(nom);
+	        this.setPassword(mdp);
+			this.connection = this.getConnection();
+			return "Connexion etablie";
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e2.printStackTrace();
+			return ""+e.getLocalizedMessage();
+		}
+    }
+    
+   
     
     public Statement createStatement() throws SQLException {
         this.statement = this.connection.createStatement();
@@ -52,6 +54,20 @@ public class CictOracleDataSource extends OracleDataSource {
         this.prepareStatement = this.connection.prepareStatement(query);
         return this.prepareStatement;
     }
+
+    public ResultSet executeQuery(String... query) throws SQLException {
+        if (query.length == 0) {
+            this.result = this.prepareStatement.executeQuery();
+        } else {
+            this.createStatement();
+            this.result = this.statement.executeQuery(query[0]);
+        }
+        return this.result;
+    }
+
+    public ResultSet getResult () {
+		return this.result;
+	}
 
     public void afficheResult(ResultSet... resultSet) throws SQLException {
     	
@@ -106,16 +122,6 @@ public class CictOracleDataSource extends OracleDataSource {
     	}
     }
     
-    public ResultSet executeQuery(String... query) throws SQLException {
-        if (query.length == 0) {
-            this.result = this.prepareStatement.executeQuery();
-        } else {
-            this.createStatement();
-            this.result = this.statement.executeQuery(query[0]);
-        }
-        return this.result;
-    }
-
     public void close() {
         try {
             if (this.result != null) {
@@ -251,6 +257,7 @@ public class CictOracleDataSource extends OracleDataSource {
         }
     }
 
+
     public void callAddGarant(
     		int p_id_locataire,
             int p_id_garant,
@@ -271,6 +278,7 @@ public class CictOracleDataSource extends OracleDataSource {
         }
     }
 
+    
     public void callSetStatutEntree(
     	      int p_id_locataire,
     	      String p_statut_entree
@@ -464,7 +472,7 @@ public class CictOracleDataSource extends OracleDataSource {
     
     /*------------- Batiment -------------*/
 
-    public void AddLogemont(
+    public void AddLogement(
     		  int p_id_batiment,
     	      int p_id_logement,
     	      String p_type,

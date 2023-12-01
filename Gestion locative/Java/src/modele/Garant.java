@@ -73,4 +73,12 @@ public class Garant {
     public int hashCode() {
         return Objects.hash(id_garant, nom);
     }
+
+	@Override
+	public String toString() {
+		return "Garant [id_garant=" + id_garant + ", nom=" + nom + ", adresse=" + adresse + ", e_mail=" + e_mail
+				+ ", telephone=" + telephone + "]";
+	}
+    
+    
 }

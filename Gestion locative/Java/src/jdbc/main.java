@@ -1,4 +1,4 @@
-package jdbc;
+package 	JDBC;
 
 import java.sql.*;
 
@@ -13,7 +13,8 @@ public class main {
 	        String password = "Ps1052";
 
 	        
-	        CictOracleDataSource bd = new CictOracleDataSource(username,password);
+	        CictOracleDataSource bd = new CictOracleDataSource();
+	        bd.creerAcces(username,password);
 	        
 	        
 	        
