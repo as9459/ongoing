@@ -155,6 +155,77 @@ END AddLocataire;
 /
 
 
+CREATE OR REPLACE FUNCTION IsGarantExistant(
+        p_nom IN VARCHAR2,
+        p_adresse IN VARCHAR2,
+        p_e_mail IN VARCHAR2,
+        p_telephone IN VARCHAR2
+    )  RETURN NUMBER AS
+    v_nb NUMBER;
+    
+    BEGIN
+        SELECT count(*) into v_nb from locataire
+        WHERE  lower(nom) =  lower(p_nom)
+        AND lower(prenom) = lower(p_prenom)
+        AND date_de_naissance =  TO_DATE( p_date_de_naissance , 'YYYY-MM-DD');
+        
+        if(v_nb > 0) then
+        
+            SELECT id_locataire into v_nb from locataire
+            WHERE  lower(nom) =  lower(p_nom)
+            AND lower(prenom) = lower(p_prenom)
+            AND date_de_naissance =  TO_DATE( p_date_de_naissance , 'YYYY-MM-DD');
+            
+            RETURN v_nb;
+        else
+            RETURN 0;
+        end if;
+
+    EXCEPTION
+        WHEN OTHERS THEN
+            -- Display error message and rollback the transaction
+            DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+            ROLLBACK;
+END IsGarantExistant;
+/
+
+CREATE OR REPLACE PROCEDURE AddGarant(
+        p_id_locataire IN NUMBER,
+        p_nom IN VARCHAR2,
+        p_adresse IN VARCHAR2,
+        p_e_mail IN VARCHAR2,
+        p_telephone IN VARCHAR2
+    ) AS
+    v_id_garant NUMBER
+    BEGIN
+
+        v_id_garant := GetNextId('Garant','id_garant');
+        InsertGarant(
+            v_id_garant,
+            p_nom ,
+            p_adresse ,
+            p_e_mail ,
+            p_telephone
+        );
+
+        InsertGarantie(
+            p_id_locataire ,
+            p_id_garant 
+        );
+        
+
+        COMMIT;
+
+        DBMS_OUTPUT.PUT_LINE('Locataire inserted successfully.');
+
+    EXCEPTION
+        WHEN OTHERS THEN
+            -- Display error message and rollback the transaction
+            DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+            ROLLBACK;
+END AddGarant;
+/
+
 
 CREATE OR REPLACE PROCEDURE AddLogemontCharge(
         p_id_batiment IN NUMBER,
@@ -391,43 +462,6 @@ CREATE OR REPLACE PROCEDURE SetBatimentFacturePaiement(
 END SetBatimentFacturePaiement;
 /
 
-
-
-CREATE OR REPLACE PROCEDURE AddGarant(
-        p_id_locataire IN NUMBER,
-        p_id_garant IN NUMBER DEFAULT GetNextId('Garant','id_garant'),
-        p_nom IN VARCHAR2,
-        p_adresse IN VARCHAR2,
-        p_e_mail IN VARCHAR2,
-        p_telephone IN VARCHAR2
-    ) AS
-    BEGIN
-
-        InsertGarant(
-            p_id_garant,
-            p_nom ,
-            p_adresse ,
-            p_e_mail ,
-            p_telephone
-        );
-
-        InsertGarantie(
-            p_id_locataire ,
-            p_id_garant 
-        );
-        
-
-        COMMIT;
-
-        DBMS_OUTPUT.PUT_LINE('Locataire inserted successfully.');
-
-    EXCEPTION
-        WHEN OTHERS THEN
-            -- Display error message and rollback the transaction
-            DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
-            ROLLBACK;
-END AddGarant;
-/
 
 
 
