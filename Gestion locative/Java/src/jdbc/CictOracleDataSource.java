@@ -176,10 +176,9 @@ public class CictOracleDataSource extends OracleDataSource {
     	      float p_prix_unitaire,
     	      String p_nom 
     	   )throws SQLException {
-        try (CallableStatement cs = this.connection.prepareCall("{call InsertTypeCharges(?,?,?) }")) {
-            cs.setInt(1, p_id_Type_Charges);
+        try (CallableStatement cs = this.connection.prepareCall("{call AddTypeCharges(?,?) }")) {
+            cs.setString(1, p_nom);
             cs.setFloat(2, p_prix_unitaire);
-            cs.setString(3, p_nom);
             cs.execute();
         }
     }
@@ -230,12 +229,13 @@ public class CictOracleDataSource extends OracleDataSource {
             float p_frais_d_agence,
             float p_loyer,
             float p_charges_fixes,
+            float p_montant_aide,
             int p_jour_Paiement,
             int p_solod_TC,
             int p_id_batiment,
             int p_id_logement
         ) throws SQLException {
-        try (CallableStatement cs = this.connection.prepareCall("{call AddLocataire(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }")) {
+        try (CallableStatement cs = this.connection.prepareCall("{call AddLocataire(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) }")) {
         	cs.setInt(1, p_id_locataire);
         	cs.setString(2,p_nom);
         	cs.setString(3,p_prenom);
@@ -249,10 +249,11 @@ public class CictOracleDataSource extends OracleDataSource {
             cs.setFloat(11,p_frais_d_agence);
             cs.setFloat(12,p_loyer);
             cs.setFloat(13,p_charges_fixes);
-            cs.setInt(14,p_jour_Paiement);
-            cs.setInt(15, p_solod_TC);
-            cs.setInt(16, p_id_batiment);
-            cs.setInt(17, p_id_logement);
+            cs.setFloat(14,p_montant_aide);
+            cs.setInt(15,p_jour_Paiement);
+            cs.setInt(16, p_solod_TC);
+            cs.setInt(17, p_id_batiment);
+            cs.setInt(18, p_id_logement);
             cs.execute();
         }
     }
@@ -260,20 +261,18 @@ public class CictOracleDataSource extends OracleDataSource {
 
     public void callAddGarant(
     		int p_id_locataire,
-            int p_id_garant,
             String p_nom,
             String p_adresse,
             String p_e_mail,
             String p_telephone
         ) throws SQLException {
-        try (CallableStatement cs = this.connection.prepareCall("{call getTableData(?,?,?,?,?,?) }")) {
+        try (CallableStatement cs = this.connection.prepareCall("{call AddGarant(?,?,?,?,?) }")) {
             
             cs.setInt(1, p_id_locataire);
-            cs.setInt(2, p_id_garant);
-            cs.setString(3, p_nom);
-            cs.setString(4, p_adresse);
-            cs.setString(5, p_e_mail);
-            cs.setString(6, p_telephone);
+            cs.setString(2, p_nom);
+            cs.setString(3, p_adresse);
+            cs.setString(4, p_e_mail);
+            cs.setString(5, p_telephone);
             cs.execute();
         }
     }
@@ -322,28 +321,35 @@ public class CictOracleDataSource extends OracleDataSource {
 
     /*------------- Logement -------------*/
 
-
-    public void AddBatiment(
-    	      String p_id_batiment,
-    	      String p_adresse,
-    	      String p_code_postal,
-    	      String p_ville,
-    	      String p_regime_juridique,
-    	      String p_date_construction
-    	   
+    public void AddLogement(
+    		  int p_id_batiment,
+    	      int p_id_logement,
+    	      String p_type,
+    	      int p_etage,
+    	      float p_surface,
+    	      int p_colocation,
+    	      int p_ICC,
+    	      int p_garage,
+    	      int p_jardin,
+    	      int p_balcon
     	   )throws SQLException {
-        try (CallableStatement cs = this.connection.prepareCall("{call InsertBatiment(?,?,?,?,?,?) }")) {
-            cs.setString(1, p_id_batiment);
-            cs.setString(2, p_adresse);
-            cs.setString(3, p_code_postal);
-            cs.setString(4, p_ville);
-            cs.setString(5, p_regime_juridique);
-            cs.setString(6, p_date_construction);
+        try (CallableStatement cs = this.connection.prepareCall("{call InsertLogement(?,?,?,?,?,?,?,?,?,?) }")) {
+            cs.setInt(1, p_id_batiment);
+            cs.setInt(2, p_id_logement);
+            cs.setString(3, p_type);
+            cs.setInt(4, p_etage);
+            cs.setFloat(5, p_surface);
+            cs.setInt(6, p_colocation);
+            cs.setInt(7, p_ICC);
+            cs.setInt(8, p_garage);
+            cs.setInt(9, p_jardin);
+            cs.setInt(10, p_balcon);
             cs.execute();
         }
     }
 
-   
+    
+
     public boolean callIsLogementEmpty(
             int p_id_batiment,
             int p_id_logement,
@@ -472,36 +478,28 @@ public class CictOracleDataSource extends OracleDataSource {
     
     /*------------- Batiment -------------*/
 
-    public void AddLogement(
-    		  int p_id_batiment,
-    	      int p_id_logement,
-    	      String p_type,
-    	      int p_etage,
-    	      float p_surface,
-    	      int p_colocation,
-    	      int p_ICC,
-    	      int p_garage,
-    	      int p_jardin,
-    	      int p_balcon
+    
+    public void AddBatiment(
+    	      String p_id_batiment,
+    	      String p_adresse,
+    	      String p_code_postal,
+    	      String p_ville,
+    	      String p_regime_juridique,
+    	      String p_date_construction
+    	   
     	   )throws SQLException {
-        try (CallableStatement cs = this.connection.prepareCall("{call InsertLogement(?,?,?,?,?,?,?,?,?,?) }")) {
-            cs.setInt(1, p_id_batiment);
-            cs.setInt(2, p_id_logement);
-            cs.setString(3, p_type);
-            cs.setInt(4, p_etage);
-            cs.setFloat(5, p_surface);
-            cs.setInt(6, p_colocation);
-            cs.setInt(7, p_ICC);
-            cs.setInt(8, p_garage);
-            cs.setInt(9, p_jardin);
-            cs.setInt(10, p_balcon);
+        try (CallableStatement cs = this.connection.prepareCall("{call InsertBatiment(?,?,?,?,?,?) }")) {
+            cs.setString(1, p_id_batiment);
+            cs.setString(2, p_adresse);
+            cs.setString(3, p_code_postal);
+            cs.setString(4, p_ville);
+            cs.setString(5, p_regime_juridique);
+            cs.setString(6, p_date_construction);
             cs.execute();
         }
     }
 
-    
-    
-    
+   
     public void callAddBatimentFacture(
     	    int p_id_facture,
     	    int p_id_batiment,

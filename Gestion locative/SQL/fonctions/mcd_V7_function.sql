@@ -196,6 +196,7 @@ CREATE OR REPLACE FUNCTION IsGarantExistant(
 END IsGarantExistant;
 /
 
+
 CREATE OR REPLACE PROCEDURE AddGarant(
         p_id_locataire IN NUMBER,
         p_nom IN VARCHAR2,
@@ -707,3 +708,65 @@ create or replace FUNCTION GetBatementALouer
     RETURN v_cursor;
 END GetBatementALouer;
 /
+
+
+CREATE OR REPLACE PROCEDURE AddTypeCharges(
+      p_nom IN VARCHAR2,
+      p_prix_unitaire IN NUMBER DEFAULT 1
+    ) AS
+    v_id_Type_Charges NUMBER;
+    BEGIN
+        v_id_Type_Charges := GetNextId('Type_Charges','id_Type_Charges');
+        InsertTypeCharges(v_id_Type_Charges,p_prix_unitaire,p_nom);
+        COMMIT;
+        DBMS_OUTPUT.PUT_LINE('statut sorti inserted successfully.');
+    EXCEPTION
+        WHEN OTHERS THEN
+            DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+            ROLLBACK;
+END AddTypeCharges;
+/
+
+
+CREATE OR REPLACE PROCEDURE AddLogement(
+      p_id_batiment IN NUMBER,
+      p_id_logement IN NUMBER,
+      p_type IN VARCHAR2,
+      p_etage IN NUMBER,
+      p_surface IN NUMBER,
+      p_colocation IN NUMBER DEFAULT 0,
+      p_ICC IN NUMBER,
+      p_garage IN NUMBER DEFAULT 0,
+      p_jardin IN NUMBER DEFAULT 0,
+      p_balcon IN NUMBER DEFAULT 0
+   ) AS
+   v_id_logement NUMBER;
+   BEGIN
+       if(p_id_batiment = 0) then
+          v_id_logement := GetNextId('Logement','id_logement');
+        else
+          v_id_logement := p_id_logement;
+       end if;
+   
+   
+        InsertLogement(
+          p_id_batiment,
+          v_id_logement,
+          p_type,
+          p_etage,
+          p_surface,
+          p_colocation,
+          p_ICC,
+          p_garage,
+          p_jardin,
+          p_balcon
+        );
+      COMMIT;
+      DBMS_OUTPUT.PUT_LINE('Logement inserted successfully.');
+   EXCEPTION
+      WHEN OTHERS THEN
+         DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+         ROLLBACK;
+END InsertLogement;
+/
+
