@@ -60,7 +60,7 @@ public class GestionFenetrePrincipale implements ActionListener{
 				lgt.setVisible(true);
 				break;
 			case "Batiment":
-				FenBatiment bat = new FenBatiment();
+				FenBatiment bat = new FenBatiment(this.fen);
 				JLayeredPane layeredPane4 = fen.getLayeredPane();
 				layeredPane4.add(bat, JLayeredPane.DEFAULT_LAYER);
 				bat.setVisible(true);

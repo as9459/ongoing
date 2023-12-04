@@ -27,8 +27,9 @@ public class FenBatiment extends JInternalFrame {
 	private JSplitPane splitPane;
 	private JButton btnNewButton_2;
 	private JButton btnNewButton_3;
-	
+
 	private GestionFenBatiment gestionClic;
+	private FenetrePrincipale parent;
 	/**
 	 * Launch the application.
 	 */
@@ -36,7 +37,7 @@ public class FenBatiment extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FenBatiment frame = new FenBatiment();
+					FenBatiment frame = new FenBatiment(new FenetrePrincipale());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,7 +49,8 @@ public class FenBatiment extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FenBatiment() {
+	public FenBatiment(FenetrePrincipale parent) {
+		this.parent = parent;
 		setTitle("Fenètre Batiment");
 		setDefaultCloseOperation(JInternalFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 710, 303);
@@ -56,26 +58,14 @@ public class FenBatiment extends JInternalFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		this.gestionClic = new GestionFenBatiment(this);
+        this.gestionClic = new GestionFenBatiment(this, this.parent);
 		JScrollPane scrollPane = new JScrollPane();
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
 		table.setBounds(5, 5, 684, 373);
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-			},
+				this.gestionClic.updateTable(),
 			new String[] {
 				"Adresse", "Code Postal", "Ville", "Regime Juridique", "Date Construction", "Logement", "Documents"
 			}

@@ -7,6 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+
+import javax.sql.rowset.CachedRowSet;
+import javax.sql.rowset.RowSetProvider;
+
 import java.sql.ResultSetMetaData;
 
 import oracle.jdbc.OracleTypes;
@@ -165,8 +169,13 @@ public class CictOracleDataSource extends OracleDataSource {
             cs.registerOutParameter(1, java.sql.Types.REF_CURSOR);
             cs.setString(2, tableName);
             cs.execute();
-            this.afficheResult((ResultSet) cs.getObject(1));
-            return (ResultSet) cs.getObject(1);
+            ResultSet originalResultSet = (ResultSet) cs.getObject(1);
+
+            // Copy the data into a new ResultSet to avoid premature closure
+            CachedRowSet rowSet = RowSetProvider.newFactory().createCachedRowSet();
+            rowSet.populate(originalResultSet);
+
+            return rowSet;
         }
     }
 
@@ -373,13 +382,12 @@ public class CictOracleDataSource extends OracleDataSource {
         }
     }
     
-    public ResultSet callGetLogementsByPaiement(int p_id_paiement ) throws SQLException {
-        try (CallableStatement cs = this.connection.prepareCall("{ ? = call GetLogementsByPaiement(?) }")) {
-            cs.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+    public int callGetNbLogByBatiment(int p_id_paiement ) throws SQLException {
+        try (CallableStatement cs = this.connection.prepareCall("{ ? = call GetNbLogBatiment(?) }")) {
+            cs.registerOutParameter(1, java.sql.Types.NUMERIC);
             cs.setInt(2, p_id_paiement);
             cs.execute();
-            this.afficheResult((ResultSet) cs.getObject(1));
-            return (ResultSet) cs.getObject(1);
+            return cs.getInt(1);
         }
     }
     
