@@ -7,7 +7,7 @@ create or replace FUNCTION GetLocateurIdByLogement(
     p_id_logement IN NUMBER
     ) RETURN NUMBER AS
     v_id_locataire NUMBER;
-    v_current_date DATE := SYSDATE; -- Current date
+    v_current_date DATE := SYSDATE; 
     BEGIN
     SELECT s.id_locataire
     INTO v_id_locataire
@@ -223,7 +223,7 @@ END AddGarant;
 CREATE OR REPLACE PROCEDURE AddLogemontCharge(
         p_id_batiment IN NUMBER,
         p_id_logement IN NUMBER,
-        p_date_charges IN VARCHAR2,
+        p_date_charges IN VARCHAR2 DEFAULT SYSDATE,
         p_indexCompteur IN NUMBER,
         p_id_Type_Charges IN NUMBER,
         p_id_charges IN NUMBER DEFAULT GetNextId('Charges','id_charges')
@@ -257,7 +257,7 @@ END AddLogemontCharge;
 CREATE OR REPLACE PROCEDURE AddLogementFacture(
     p_id_batiment IN NUMBER,
     p_id_logement IN NUMBER,
-    p_date_facture IN VARCHAR2,
+    p_date_facture IN VARCHAR2 DEFAULT SYSDATE,
     p_description IN VARCHAR2,
     p_montant_HT IN NUMBER,
     p_TVA IN NUMBER DEFAULT 20.0,
@@ -266,7 +266,7 @@ CREATE OR REPLACE PROCEDURE AddLogementFacture(
     p_reference_du_paiement IN VARCHAR2 DEFAULT 'NoN',
     p_paiement IN NUMBER DEFAULT 0,
     p_type_Paiment IN VARCHAR2 DEFAULT 'NoN',
-    p_Date_de_paiement IN VARCHAR2 DEFAULT 'null',
+    p_Date_de_paiement IN VARCHAR2 DEFAULT null,
     p_id_facture IN NUMBER DEFAULT GetNextId('Facture','id_facture')
     ) AS
     BEGIN
@@ -309,18 +309,34 @@ CREATE OR REPLACE PROCEDURE SetLogementFacturePaiement(
     p_reference_du_paiement IN VARCHAR2 DEFAULT null,
     p_paiement IN NUMBER DEFAULT null,
     p_type_Paiment IN VARCHAR2 DEFAULT null,
-    p_Date_de_paiement IN VARCHAR2 DEFAULT null
-    ) AS
-    BEGIN
+    p_Date_de_paiement IN VARCHAR2 DEFAULT SYSDATE,
+      p_id_locataire IN NUMBER DEFAULT null
+   ) AS
+   v_id_locataire  NUMBER ;
+   BEGIN
+   
+    if(p_id_locataire is null) then
+        v_id_locataire := GetLocateurIdByLogement(p_id_batiment, p_id_logement);
+    else
+        v_id_locataire := p_id_locataire;
+    end if;
     UPDATE fact_logement
     SET reference_du_paiement = p_reference_du_paiement, 
         paiement = p_paiement,
-        type_Paiment = p_type_Paiment,
-        Date_de_paiement = TO_DATE( p_Date_de_paiement , 'YYYY-MM-DD')
+        type_Paiment = p_type_Paiment
     WHERE id_facture = p_id_facture
     And id_batiment = p_id_batiment
     And id_logement = p_id_logement
-    And id_locataire = GetLocateurIdByLogement(p_id_batiment, p_id_logement);
+    And id_locataire = v_id_locataire;
+    
+    if(p_Date_de_paiement is not null) then
+        UPDATE fact_logement
+        SET Date_de_paiement = TO_DATE( p_Date_de_paiement , 'YYYY-MM-DD')
+        WHERE id_facture = p_id_facture
+        And id_batiment = p_id_batiment
+        And id_logement = p_id_logement
+        And id_locataire = v_id_locataire;
+    end if;
        
         COMMIT;
         DBMS_OUTPUT.PUT_LINE('paiement fact_logement inserted successfully.');
@@ -335,17 +351,17 @@ END SetLogementFacturePaiement;
 
 CREATE OR REPLACE PROCEDURE AddBatimentCharge(
         p_id_batiment IN NUMBER,
-        p_id_charges IN NUMBER DEFAULT GetNextId('Charges','id_charges'),
-        p_date_charges IN VARCHAR2,
+        p_date_charges IN VARCHAR2 DEFAULT SYSDATE,
         p_indexCompteur IN NUMBER,
-        p_id_Type_Charges IN NUMBER
+        p_id_Type_Charges IN NUMBER,
+        p_id_charges IN NUMBER DEFAULT GetNextId('Charges','id_charges')
         ) AS
         BEGIN
         InsertCharges(
-            p_id_charges,
             p_date_charges,
             p_indexCompteur,
-            p_id_Type_Charges
+            p_id_Type_Charges,
+            p_id_charges
         );
 
         InsertBatCharge(
@@ -366,9 +382,8 @@ END AddBatimentCharge;
 
 
 CREATE OR REPLACE PROCEDURE AddBatimentFacture(
-    p_id_facture IN NUMBER  DEFAULT GetNextId('Facture','id_facture'),
     p_id_batiment IN NUMBER,
-    p_date_facture IN VARCHAR2,
+    p_date_facture IN VARCHAR2 DEFAULT SYSDATE,
     p_description IN VARCHAR2,
     p_montant_HT IN NUMBER,
     p_TVA IN NUMBER DEFAULT 20.0,
@@ -377,17 +392,18 @@ CREATE OR REPLACE PROCEDURE AddBatimentFacture(
     p_reference_du_paiement IN VARCHAR2 DEFAULT 'NoN',
     p_paiement IN NUMBER DEFAULT 0,
     p_type_Paiment IN VARCHAR2 DEFAULT 'NoN',
-    p_Date_de_paiement IN VARCHAR2 DEFAULT 'null'
+    p_Date_de_paiement IN VARCHAR2 DEFAULT null,
+    p_id_facture IN NUMBER  DEFAULT GetNextId('Facture','id_facture')
     ) AS
     BEGIN
         InsertFacture(
-            p_id_facture,
             p_date_facture,
             p_description,
             p_montant_HT,
             p_TVA,
             p_type,
-            p_SIREN
+            p_SIREN,
+            p_id_facture
         );
 
         InsertFactBatiment(
@@ -416,17 +432,23 @@ CREATE OR REPLACE PROCEDURE SetBatimentFacturePaiement(
     p_reference_du_paiement IN VARCHAR2,
     p_paiement IN NUMBER,
     p_type_Paiment IN VARCHAR2,
-    p_Date_de_paiement IN VARCHAR2
+    p_Date_de_paiement IN VARCHAR2 DEFAULT SYSDATE 
     ) AS
     BEGIN
     
     UPDATE fact_batiment
     SET reference_du_paiement = p_reference_du_paiement, 
         paiement = p_paiement,
-        type_Paiment = p_type_Paiment,
-        Date_de_paiement = TO_DATE( p_Date_de_paiement , 'YYYY-MM-DD')
+        type_Paiment = p_type_Paiment
     WHERE id_facture = p_id_facture
     And id_batiment = p_id_batiment;
+    
+    if(p_Date_de_paiement is not null) then
+        UPDATE fact_batiment
+        SET Date_de_paiement = TO_DATE( p_Date_de_paiement , 'YYYY-MM-DD')
+        WHERE id_facture = p_id_facture
+        And id_batiment = p_id_batiment;
+    end if;
        
         COMMIT;
         DBMS_OUTPUT.PUT_LINE('paiement fact_batiment inserted successfully.');
@@ -445,7 +467,7 @@ CREATE OR REPLACE PROCEDURE SetStatutSorti(
       p_statut_sortie IN VARCHAR2 
     ) AS
     v_id_bail NUMBER;
-    v_current_date DATE := SYSDATE; -- Current date
+    v_current_date DATE := SYSDATE; 
     BEGIN
     
     SELECT s.id_bail
@@ -477,7 +499,7 @@ CREATE OR REPLACE PROCEDURE SetStatutEntree(
       p_statut_entree IN VARCHAR2
     ) AS
     v_id_bail NUMBER;
-    v_current_date DATE := SYSDATE; -- Current date
+    v_current_date DATE := SYSDATE; 
     BEGIN
     
     SELECT s.id_bail
@@ -565,7 +587,7 @@ create or replace FUNCTION GetLogementUnpaidFacts RETURN SYS_REFCURSOR IS
         v_cursor SYS_REFCURSOR;
     BEGIN
         OPEN v_cursor FOR
-            SELECT fl.ID_LOCATAIRE, fl.ID_BATIMENT, fl.ID_LOGEMENT, fl.ID_FACTURE, f.DATE_FACTURE,((f.montant_HT + (f.montant_HT * (f.TVA / 100)) - c.montant_aide)-fl.PAIEMENT) as Reste
+            SELECT fl.ID_LOCATAIRE, fl.ID_BATIMENT, fl.ID_LOGEMENT, fl.ID_FACTURE, f.DATE_FACTURE,fl.PAIEMENT as payer,((f.montant_HT + (f.montant_HT * (f.TVA / 100)) - c.montant_aide)-fl.PAIEMENT) as Reste
 
             FROM fact_logement fl, facture f, contrat_bail c, Signer s
             WHERE fl.id_facture = f.id_facture 
@@ -597,7 +619,7 @@ END GetBatimentUnpaidFacts;
 
 
 
-create or replace FUNCTION GetLogementsByPaiement(p_paiement_threshold NUMBER) RETURN SYS_REFCURSOR IS
+create or replace FUNCTION GetLogementsByBatiment(p_id_paiement NUMBER) RETURN SYS_REFCURSOR IS
         v_cursor SYS_REFCURSOR;
     BEGIN
         OPEN v_cursor FOR
@@ -612,14 +634,14 @@ create or replace FUNCTION GetLogementsByPaiement(p_paiement_threshold NUMBER) R
         JOIN
             Contrat_bail cb ON l.id_batiment = cb.id_batiment AND l.id_logement = cb.id_logement
         WHERE
-            l.id_batiment = p_paiement_threshold;
+            l.id_batiment = p_id_paiement;
         RETURN v_cursor;
-END GetLogementsByPaiement;
+END GetLogementsByBatiment;
 /
 
 
 
-CREATE OR REPLACE FUNCTION GetNumberOfLogementsInBatiment(
+CREATE OR REPLACE FUNCTION GetNbLogBatiment(
         p_id_batiment IN NUMBER
     ) RETURN NUMBER IS
         v_count NUMBER;
@@ -636,7 +658,7 @@ CREATE OR REPLACE FUNCTION GetNumberOfLogementsInBatiment(
         WHEN OTHERS THEN
             -- Handle exceptions as needed
         RETURN NULL; -- or another appropriate value
-END GetNumberOfLogementsInBatiment;
+END GetNbLogBatiment;
 /
 
 
@@ -691,64 +713,4 @@ create or replace FUNCTION GetBatementALouer
 END GetBatementALouer;
 /
 
-
-CREATE OR REPLACE PROCEDURE AddTypeCharges(
-      p_nom IN VARCHAR2,
-      p_prix_unitaire IN NUMBER DEFAULT 1
-    ) AS
-    v_id_Type_Charges NUMBER;
-    BEGIN
-        v_id_Type_Charges := GetNextId('Type_Charges','id_Type_Charges');
-        InsertTypeCharges(v_id_Type_Charges,p_prix_unitaire,p_nom);
-        COMMIT;
-        DBMS_OUTPUT.PUT_LINE('statut sorti inserted successfully.');
-    EXCEPTION
-        WHEN OTHERS THEN
-            DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
-            ROLLBACK;
-END AddTypeCharges;
-/
-
-
-CREATE OR REPLACE PROCEDURE AddLogement(
-      p_id_batiment IN NUMBER,
-      p_id_logement IN NUMBER,
-      p_type IN VARCHAR2,
-      p_etage IN NUMBER,
-      p_surface IN NUMBER,
-      p_colocation IN NUMBER DEFAULT 0,
-      p_ICC IN NUMBER,
-      p_garage IN NUMBER DEFAULT 0,
-      p_jardin IN NUMBER DEFAULT 0,
-      p_balcon IN NUMBER DEFAULT 0
-   ) AS
-   v_id_logement NUMBER;
-   BEGIN
-       if(p_id_batiment = 0) then
-          v_id_logement := GetNextId('Logement','id_logement');
-        else
-          v_id_logement := p_id_logement;
-       end if;
-   
-   
-        InsertLogement(
-          p_id_batiment,
-          v_id_logement,
-          p_type,
-          p_etage,
-          p_surface,
-          p_colocation,
-          p_ICC,
-          p_garage,
-          p_jardin,
-          p_balcon
-        );
-      COMMIT;
-      DBMS_OUTPUT.PUT_LINE('Logement inserted successfully.');
-   EXCEPTION
-      WHEN OTHERS THEN
-         DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
-         ROLLBACK;
-END InsertLogement;
-/
 

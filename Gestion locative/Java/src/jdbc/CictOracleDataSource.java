@@ -172,11 +172,10 @@ public class CictOracleDataSource extends OracleDataSource {
 
 
     public void AddTypeCharges(
-    	      int p_id_Type_Charges,
-    	      float p_prix_unitaire,
-    	      String p_nom 
+  	      	  String p_nom ,
+    	      float p_prix_unitaire
     	   )throws SQLException {
-        try (CallableStatement cs = this.connection.prepareCall("{call AddTypeCharges(?,?) }")) {
+        try (CallableStatement cs = this.connection.prepareCall("{call InsertTypeCharges(?,?) }")) {
             cs.setString(1, p_nom);
             cs.setFloat(2, p_prix_unitaire);
             cs.execute();
@@ -335,15 +334,15 @@ public class CictOracleDataSource extends OracleDataSource {
     	   )throws SQLException {
         try (CallableStatement cs = this.connection.prepareCall("{call InsertLogement(?,?,?,?,?,?,?,?,?,?) }")) {
             cs.setInt(1, p_id_batiment);
-            cs.setInt(2, p_id_logement);
-            cs.setString(3, p_type);
-            cs.setInt(4, p_etage);
-            cs.setFloat(5, p_surface);
+            cs.setString(2, p_type);
+            cs.setInt(3, p_etage);
+            cs.setFloat(4, p_surface);
+            cs.setInt(5, p_ICC);
             cs.setInt(6, p_colocation);
-            cs.setInt(7, p_ICC);
-            cs.setInt(8, p_garage);
-            cs.setInt(9, p_jardin);
-            cs.setInt(10, p_balcon);
+            cs.setInt(7, p_garage);
+            cs.setInt(8, p_jardin);
+            cs.setInt(9, p_balcon);
+            cs.setInt(10, p_id_logement);
             cs.execute();
         }
     }
@@ -489,12 +488,13 @@ public class CictOracleDataSource extends OracleDataSource {
     	   
     	   )throws SQLException {
         try (CallableStatement cs = this.connection.prepareCall("{call InsertBatiment(?,?,?,?,?,?) }")) {
-            cs.setString(1, p_id_batiment);
-            cs.setString(2, p_adresse);
-            cs.setString(3, p_code_postal);
-            cs.setString(4, p_ville);
-            cs.setString(5, p_regime_juridique);
-            cs.setString(6, p_date_construction);
+            
+            cs.setString(1, p_adresse);
+            cs.setString(2, p_code_postal);
+            cs.setString(3, p_ville);
+            cs.setString(4, p_regime_juridique);
+            cs.setString(5, p_date_construction);
+            cs.setString(6, p_id_batiment);
             cs.execute();
         }
     }
