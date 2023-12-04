@@ -4,13 +4,13 @@ import java.util.Objects;
 
 public class Correspondre {
 
-    private Long idFacture;
+    private int idFacture;
     private String dateFacture;
     private String idCharges;
     private Double chargesRegularises;
     private Double chargesDues;
     	
-    public Correspondre(Long idFacture, String dateFacture, String idCharges, Double chargesRegularises, Double chargesDues) {
+    public Correspondre(int idFacture, String dateFacture, String idCharges, Double chargesRegularises, Double chargesDues) {
         this.idFacture = idFacture;
         this.dateFacture = dateFacture;
         this.idCharges = idCharges;
@@ -18,11 +18,11 @@ public class Correspondre {
         this.chargesDues = chargesDues;
     }
 
-    public Long getIdFacture() {
+    public int getIdFacture() {
         return idFacture;
     }
 
-    public void setIdFacture(Long idFacture) {
+    public void setIdFacture(int idFacture) {
         this.idFacture = idFacture;
     }
 

@@ -10,19 +10,21 @@ public class Contrat_Bail {
     private double fraisDagence;
     private double loyer;
     private double chargesFixes;
+    private double montant_aide;
     private int jourPaiement;
     private boolean solodTC;
     private int idBatiment;
     private int idLogement;
 
-    public Contrat_Bail(int idBail, Date dateDebut, Date dateFin, double fraisDagence, double loyer, double chargesFixes,
-                        int jourPaiement, boolean solodTC, int idBatiment, int idLogement) {
+    public Contrat_Bail(int idBail, Date dateDebut, Date dateFin, double fraisDagence, double loyer, double chargesFixes, 
+    					double montant_aide, int jourPaiement, boolean solodTC, int idBatiment, int idLogement) {
         this.idBail = idBail;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.fraisDagence = fraisDagence;
         this.loyer = loyer;
         this.chargesFixes = chargesFixes;
+        this.montant_aide = montant_aide;
         this.jourPaiement = jourPaiement;
         this.solodTC = solodTC;
         this.idBatiment = idBatiment;
@@ -76,6 +78,14 @@ public class Contrat_Bail {
     public void setChargesFixes(double chargesFixes) {
         this.chargesFixes = chargesFixes;
     }
+    
+    public double getMontant_aide() {
+        return chargesFixes;
+    }
+
+    public void setMontant_aide(double montant_aide) {
+        this.montant_aide = montant_aide;
+    }
 
     public int getJourPaiement() {
         return jourPaiement;
@@ -111,7 +121,7 @@ public class Contrat_Bail {
 
     @Override
     public int hashCode() {
-        return Objects.hash(idBail, dateDebut, dateFin, fraisDagence, loyer, chargesFixes, jourPaiement, solodTC, idBatiment, idLogement);
+        return Objects.hash(idBail, dateDebut, dateFin, fraisDagence, loyer, chargesFixes, montant_aide, jourPaiement, solodTC, idBatiment, idLogement);
     }
 
     @Override
@@ -123,6 +133,7 @@ public class Contrat_Bail {
                 Double.compare(that.fraisDagence, fraisDagence) == 0 &&
                 Double.compare(that.loyer, loyer) == 0 &&
                 Double.compare(that.chargesFixes, chargesFixes) == 0 &&
+                Double.compare(that.montant_aide, montant_aide) == 0 &&
                 jourPaiement == that.jourPaiement &&
                 solodTC == that.solodTC &&
                 idBatiment == that.idBatiment &&
@@ -135,7 +146,7 @@ public class Contrat_Bail {
 	public String toString() {
 		return "Contrat_Bail [idBail=" + idBail + ", dateDebut=" + dateDebut + ", dateFin=" + dateFin
 				+ ", fraisDagence=" + fraisDagence + ", loyer=" + loyer + ", chargesFixes=" + chargesFixes
-				+ ", jourPaiement=" + jourPaiement + ", solodTC=" + solodTC + ", idBatiment=" + idBatiment
+				+ ", Montant Aide=" + montant_aide + ", jourPaiement=" + jourPaiement + ", solodTC=" + solodTC + ", idBatiment=" + idBatiment
 				+ ", idLogement=" + idLogement + "]";
 	}
     

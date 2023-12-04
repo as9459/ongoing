@@ -7,19 +7,17 @@ public class Facture {
     private String date_facture;
     private String description;
     private int aide;
-    private double montant_de_l_aide;
     private double montant_HT;
     private double TVA;
     private String type;
     private String SIREN;
 
-    public Facture(int id_facture, String date_facture, String description, int aide, double montant_de_l_aide,
+    public Facture(int id_facture, String date_facture, String description, int aide,
                    double montant_HT, double TVA, String type, String SIREN) {
         this.id_facture = id_facture;
         this.date_facture = date_facture;
         this.description = description;
         this.aide = aide;
-        this.montant_de_l_aide = montant_de_l_aide;
         this.montant_HT = montant_HT;
         this.TVA = TVA;
         this.type = type;
@@ -58,14 +56,6 @@ public class Facture {
         this.aide = aide;
     }
 
-    public double getMontant_de_l_aide() {
-        return montant_de_l_aide;
-    }
-
-    public void setMontant_de_l_aide(double montant_de_l_aide) {
-        this.montant_de_l_aide = montant_de_l_aide;
-    }
-
     public double getMontant_HT() {
         return montant_HT;
     }
@@ -100,7 +90,7 @@ public class Facture {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_facture, date_facture, description, aide, montant_de_l_aide, montant_HT, TVA, type, SIREN);
+        return Objects.hash(id_facture, date_facture, description, aide, montant_HT, TVA, type, SIREN);
     }
 
     @Override
@@ -110,7 +100,6 @@ public class Facture {
         Facture facture = (Facture) obj;
         return id_facture == facture.id_facture &&
                 aide == facture.aide &&
-                Double.compare(facture.montant_de_l_aide, montant_de_l_aide) == 0 &&
                 Double.compare(facture.montant_HT, montant_HT) == 0 &&
                 Double.compare(facture.TVA, TVA) == 0 &&
                 Objects.equals(date_facture, facture.date_facture) &&
