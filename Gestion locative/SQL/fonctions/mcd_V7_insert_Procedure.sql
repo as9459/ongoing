@@ -215,11 +215,18 @@ CREATE OR REPLACE PROCEDURE InsertFactLogement(
       p_paiement IN NUMBER DEFAULT null,
       p_type_Paiment IN VARCHAR2 DEFAULT null,
       p_Date_de_paiement IN VARCHAR2 DEFAULT null,
-      p_id_locataire IN NUMBER DEFAULT GetLocateurIdByLogement(p_id_batiment, p_id_logement)
+      p_id_locataire IN NUMBER DEFAULT null
    ) AS
+   v_id_locataire  NUMBER ;
    BEGIN
+   
+    if(p_id_locataire is null) then
+        v_id_locataire := GetLocateurIdByLogement(p_id_batiment, p_id_logement);
+    else
+        v_id_locataire := p_id_locataire;
+    end if;
       INSERT INTO fact_logement (id_facture, id_batiment, id_logement, id_locataire)
-      VALUES (p_id_facture, p_id_batiment, p_id_logement, p_id_locataire);
+      VALUES (p_id_facture, p_id_batiment, p_id_logement, v_id_locataire);
       
     if(p_reference_du_paiement is not null) then
         UPDATE fact_logement
@@ -227,15 +234,15 @@ CREATE OR REPLACE PROCEDURE InsertFactLogement(
         WHERE id_facture = p_id_facture
         And id_batiment = p_id_batiment
         And id_logement = p_id_logement
-        And id_locataire = p_id_locataire;
+        And id_locataire = v_id_locataire;
     end if;
     if(p_paiement is not null) then
         UPDATE fact_logement
-        SET paiement = p_paiemen
+        SET paiement = p_paiement
         WHERE id_facture = p_id_facture
         And id_batiment = p_id_batiment
         And id_logement = p_id_logement
-        And id_locataire = p_id_locataire;
+        And id_locataire = v_id_locataire;
     end if;
     if(p_type_Paiment is not null) then
         UPDATE fact_logement
@@ -243,7 +250,7 @@ CREATE OR REPLACE PROCEDURE InsertFactLogement(
         WHERE id_facture = p_id_facture
         And id_batiment = p_id_batiment
         And id_logement = p_id_logement
-        And id_locataire = p_id_locataire;
+        And id_locataire = v_id_locataire;
     end if;
     if(p_Date_de_paiement is not null) then
         UPDATE fact_logement
@@ -251,7 +258,7 @@ CREATE OR REPLACE PROCEDURE InsertFactLogement(
         WHERE id_facture = p_id_facture
         And id_batiment = p_id_batiment
         And id_logement = p_id_logement
-        And id_locataire = p_id_locataire;
+        And id_locataire = v_id_locataire;
     end if;
     
       COMMIT;
@@ -328,7 +335,7 @@ CREATE OR REPLACE PROCEDURE InsertFactBatiment(
     end if;
     if(p_paiement is not null) then
         UPDATE fact_batiment
-        SET paiement = p_paiemen
+        SET paiement = p_paiement
         WHERE id_facture = p_id_facture
         And id_batiment = p_id_batiment;
     end if;
@@ -482,7 +489,7 @@ END InsertCharges;
 
 CREATE OR REPLACE PROCEDURE InsertTypeCharges(
       p_nom IN VARCHAR2,
-      p_prix_unitaire IN NUMBER,
+      p_prix_unitaire IN NUMBER DEFAULT 1,
       p_id_Type_Charges IN NUMBER  DEFAULT GetNextId('Type_Charges','id_Type_Charges')
    ) AS
    BEGIN
