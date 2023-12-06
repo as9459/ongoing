@@ -342,8 +342,8 @@ public class CictOracleDataSource extends OracleDataSource {
         }
     }
 
-    public ResultSet callGetLocatairesActuels() throws SQLException {
-        try (CallableStatement cs = this.connection.prepareCall("{ ? = call GetLocatairesActuels() }")) {
+    public ResultSet GetAllLogements () throws SQLException {
+        try (CallableStatement cs = this.connection.prepareCall("{ ? = call GetAllLogements () }")) {
             cs.registerOutParameter(1, java.sql.Types.REF_CURSOR);
             cs.execute();
             ResultSet originalResultSet = (ResultSet) cs.getObject(1);

@@ -746,6 +746,26 @@ END GetLogementsByBatiment;
 /
 
 
+CREATE OR REPLACE FUNCTION GetAllLogements RETURN SYS_REFCURSOR IS
+    v_cursor SYS_REFCURSOR;
+BEGIN
+    OPEN v_cursor FOR
+        SELECT
+            l.*,
+            CASE
+                WHEN TO_NUMBER(TO_CHAR(cb.date_fin, 'YYYYMMDD')) <= TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) THEN 'Libre'
+                ELSE 'Occupe'
+            END AS state
+        FROM
+            Logement l
+        JOIN
+            Contrat_bail cb ON l.id_batiment = cb.id_batiment AND l.id_logement = cb.id_logement;
+    
+    RETURN v_cursor;
+END GetAllLogements;
+/
+
+
 
 CREATE OR REPLACE FUNCTION GetNbLogBatiment(
         p_id_batiment IN NUMBER
