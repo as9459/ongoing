@@ -50,17 +50,17 @@ public class FenBatiment extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public FenBatiment(FenetrePrincipale parent) {
-		this.parent = parent;
+		this.parent = parent;  
 		setTitle("Fenètre Batiment");
 		setDefaultCloseOperation(JInternalFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 710, 303);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
-        this.gestionClic = new GestionFenBatiment(this, this.parent);
-		JScrollPane scrollPane = new JScrollPane();
-		contentPane.add(scrollPane);
+		contentPane.setLayout(new BorderLayout(0, 0));					/******/
+        this.gestionClic = new GestionFenBatiment(this, this.parent);	/******/		
+        JScrollPane scrollPane = new JScrollPane();						/******/
+		contentPane.add(scrollPane);									/******/
 		
 		table = new JTable();
 		table.setBounds(5, 5, 684, 373);

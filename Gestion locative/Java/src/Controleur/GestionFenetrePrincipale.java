@@ -42,7 +42,7 @@ public class GestionFenetrePrincipale implements ActionListener{
 				fen.removeFen();
 				break;
 			case "Locataire":
-				FenLocataire loca = new FenLocataire();
+				FenLocataire loca = new FenLocataire(this.fen);
 				JLayeredPane layeredPane1 = fen.getLayeredPane();
 				layeredPane1.add(loca, JLayeredPane.DEFAULT_LAYER);
 				loca.setVisible(true);
@@ -54,7 +54,7 @@ public class GestionFenetrePrincipale implements ActionListener{
 				pmt.setVisible(true);
 				break;
 			case "Logement":
-				FenLogement lgt = new FenLogement();
+				FenLogement lgt = new FenLogement(this.fen);
 				JLayeredPane layeredPane3 = fen.getLayeredPane();
 				layeredPane3.add(lgt, JLayeredPane.DEFAULT_LAYER);
 				lgt.setVisible(true);

@@ -35,6 +35,7 @@ public class FenLocataire extends JInternalFrame {
 	private JButton btnNewButton_3;
 
 	private GestionFenLocataire gestionClic;
+	private FenetrePrincipale parent;
 	/**
 	 * Launch the application.
 	 */
@@ -42,7 +43,7 @@ public class FenLocataire extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FenLocataire frame = new FenLocataire();
+					FenLocataire frame = new FenLocataire(new FenetrePrincipale());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,7 +55,8 @@ public class FenLocataire extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FenLocataire() {
+	public FenLocataire(FenetrePrincipale parent) {
+		this.parent = parent;
 		setTitle("Fenètre Locataire");
 		setDefaultCloseOperation(JInternalFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 710, 303);
@@ -62,26 +64,14 @@ public class FenLocataire extends JInternalFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		this.gestionClic = new GestionFenLocataire(this);
+		this.gestionClic = new GestionFenLocataire(this, this.parent);
 		JScrollPane scrollPane = new JScrollPane();
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
 		table.setBounds(5, 5, 684, 373);
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-			},
+				this.gestionClic.updateTable(),
 			new String[] {
 				"Nom", "Prenom", "Téléphone", "Date de Naissance", "E-Mail", "Logement", "Documents"
 			}
