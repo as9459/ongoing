@@ -400,6 +400,16 @@ public class CictOracleDataSource extends OracleDataSource {
         }
     }
     
+    public String callGetLogementIdByLocateur(
+            int p_id_locataire
+            ) throws SQLException {
+        try (CallableStatement cs = this.connection.prepareCall("{ ? = call GetLogementIdByLocateur(?) }")) {
+            cs.registerOutParameter(1, Types.VARCHAR);
+            cs.setInt(2, p_id_locataire);
+            cs.execute();
+            return cs.getString(1);
+        }
+    }
 
     
     public void callAddLogementFacture(
