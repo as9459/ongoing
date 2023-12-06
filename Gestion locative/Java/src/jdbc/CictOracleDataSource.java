@@ -324,7 +324,7 @@ public class CictOracleDataSource extends OracleDataSource {
     }
 
 
-    public String callGetLogementIdByLocateur(
+    public String callGetLogementIdByLocateur1(
     	    int p_id_locataire
     	    ) throws SQLException {
         try (CallableStatement cs = this.connection.prepareCall("{ ? = call GetLogementIdByLocateur(?) }")) {
@@ -608,6 +608,19 @@ public class CictOracleDataSource extends OracleDataSource {
         }
     }
 
+    public ResultSet GetAllLogements () throws SQLException {
+        try (CallableStatement cs = this.connection.prepareCall("{ ? = call GetAllLogements () }")) {
+            cs.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+            cs.execute();
+            ResultSet originalResultSet = (ResultSet) cs.getObject(1);
+
+            // Copy the data into a new ResultSet to avoid premature closure
+            CachedRowSet rowSet = RowSetProvider.newFactory().createCachedRowSet();
+            rowSet.populate(originalResultSet);
+
+            return rowSet;
+        }
+    }
 
 
 

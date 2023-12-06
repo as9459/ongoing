@@ -59,19 +59,20 @@ public class GestionFenLogement implements ActionListener{
 	    List<Object[]> dataList = new ArrayList<>();
 
 	    try {
-	        result = this.mere.getConnectionBD().callGetTableData("LOGEMENT");
+	        result = this.mere.getConnectionBD().GetAllLogements();
 
 	        while (result.next()) {
 	            Object[] row = new Object[10]; // Change the size as needed
-	            row[0] = result.getString(2);
-	            row[1] = result.getString(3);
-	            row[2] = result.getString(4);
-	            row[3] = result.getString(5);
-	            row[4] = result.getString(6);
-	            row[5] = result.getString(7);
-	            row[6] = result.getString(8);
-	            row[7] = result.getString(9);
-	            row[8] = this.mere.getConnectionBD().callGetNbLogByBatiment(result.getInt(1));
+	            row[0] = result.getInt("ID_LOGEMENT");
+	            row[1] = result.getString("ETAGE");
+	            row[2] = result.getString("TYPE");
+	            row[3] = result.getString("SURFACE");
+	            row[4] = result.getString("ICC");
+	            row[5] = result.getString("GARAGE");
+	            row[6] = result.getString("JARDIN");
+	            row[7] = result.getString("BALCON");
+	            row[8] = result.getString("state");
+	            /*row[8] = this.mere.getConnectionBD().callGetNbLogByBatiment(result.getString(1));*/
 	            row[9] = null;
 	            dataList.add(row);
 	        }
