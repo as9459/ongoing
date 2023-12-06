@@ -69,7 +69,7 @@ public class GestionFenLocataire implements ActionListener{
 	    List<Object[]> dataList = new ArrayList<>();
 
 	    try {
-	        result = this.mere.getConnectionBD().callGetLocatairesActuels();
+	        result = this.mere.getConnectionBD().callGetTableData("LOCATAIRE");
 
 	        while (result.next()) {
 	            Object[] row = new Object[7]; // Change the size as needed
