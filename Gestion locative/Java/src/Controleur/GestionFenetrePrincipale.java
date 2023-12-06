@@ -42,7 +42,7 @@ public class GestionFenetrePrincipale implements ActionListener{
 				fen.removeFen();
 				break;
 			case "Locataire":
-				FenLocataire loca = new FenLocataire();
+				FenLocataire loca = new FenLocataire(this.fen);
 				JLayeredPane layeredPane1 = fen.getLayeredPane();
 				layeredPane1.add(loca, JLayeredPane.DEFAULT_LAYER);
 				loca.setVisible(true);
