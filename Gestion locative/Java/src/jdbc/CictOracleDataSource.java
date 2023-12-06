@@ -638,7 +638,7 @@ public class CictOracleDataSource extends OracleDataSource {
         }
     }
 
-    /*public ResultSet GetAllLogements() throws SQLException {
+    public ResultSet GetAllLogements0 () throws SQLException {
         try (CallableStatement cs = this.connection.prepareCall("{ ? = call GetAllLogements () }")) {
             cs.registerOutParameter(1, java.sql.Types.REF_CURSOR);
             cs.execute();
@@ -650,7 +650,7 @@ public class CictOracleDataSource extends OracleDataSource {
 
             return rowSet;
         }
-    }*/
+    }
 
 
 
