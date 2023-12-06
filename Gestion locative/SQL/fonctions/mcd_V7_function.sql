@@ -1,5 +1,73 @@
 
+CREATE OR REPLACE FUNCTION split_string(
+    p_string    IN VARCHAR2,
+    p_delimiter IN VARCHAR2,
+    p_position  IN NUMBER
+) RETURN VARCHAR2
+AS
+    l_start_pos  NUMBER := 1;
+    l_end_pos    NUMBER;
+    l_part_count NUMBER := 0;
+BEGIN
+    -- Loop through the string to find the position of the delimiter
+    FOR i IN 1..LENGTH(p_string)
+    LOOP
+        IF SUBSTR(p_string, i, 1) = p_delimiter THEN
+            l_part_count := l_part_count + 1;
+            IF l_part_count = p_position THEN
+                l_end_pos := i - 1;
+                EXIT;
+            END IF;
+            l_start_pos := i + 1;
+        END IF;
+    END LOOP;
 
+    -- Handle the last part if needed
+    IF l_part_count < p_position THEN
+        l_end_pos := LENGTH(p_string);
+    END IF;
+
+    -- Return the part of the string
+    RETURN SUBSTR(p_string, l_start_pos, l_end_pos - l_start_pos + 1);
+END split_string;
+/
+
+CREATE OR REPLACE FUNCTION split_int(
+    p_string    IN VARCHAR2,
+    p_delimiter IN VARCHAR2,
+    p_position  IN NUMBER
+) RETURN NUMBER
+AS
+    l_start_pos  NUMBER := 1;
+    l_end_pos    NUMBER;
+    l_part_count NUMBER := 0;
+    l_part       VARCHAR2(255);
+BEGIN
+    -- Loop through the string to find the position of the delimiter
+    FOR i IN 1..LENGTH(p_string)
+    LOOP
+        IF SUBSTR(p_string, i, 1) = p_delimiter THEN
+            l_part_count := l_part_count + 1;
+            IF l_part_count = p_position THEN
+                l_end_pos := i - 1;
+                EXIT;
+            END IF;
+            l_start_pos := i + 1;
+        END IF;
+    END LOOP;
+
+    -- Handle the last part if needed
+    IF l_part_count < p_position THEN
+        l_end_pos := LENGTH(p_string);
+    END IF;
+
+    -- Extract the part of the string
+    l_part := SUBSTR(p_string, l_start_pos, l_end_pos - l_start_pos + 1);
+
+    -- Convert the part to a number and return
+    RETURN TO_NUMBER(l_part);
+END split_int;
+/
 
 
 create or replace FUNCTION GetLocateurIdByLogement(
@@ -27,6 +95,28 @@ create or replace FUNCTION GetLocateurIdByLogement(
 END GetLocateurIdByLogement;
 /
 
+CREATE OR REPLACE FUNCTION GetLogementIdByLocateur(
+    p_id_locataire IN NUMBER
+) RETURN VARCHAR2 AS
+    v_id_BatLog VARCHAR2(50); -- Adjust the length as per your requirement
+    v_current_date DATE := SYSDATE; 
+BEGIN
+    SELECT TO_CHAR(cb.id_batiment) || '-' || TO_CHAR(cb.id_logement) 
+    INTO v_id_BatLog
+    FROM Signer s
+    JOIN Contrat_bail cb ON s.id_bail = cb.id_bail
+    WHERE s.id_locataire = p_id_locataire
+    AND v_current_date BETWEEN cb.date_debut AND NVL(cb.date_fin, v_current_date);
+
+    RETURN v_id_BatLog;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RETURN NULL;
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+        RETURN NULL;
+END GetLogementIdByLocateur;
+/
 
 
 CREATE OR REPLACE FUNCTION IsLocataireExistant(
@@ -61,8 +151,6 @@ CREATE OR REPLACE FUNCTION IsLocataireExistant(
             ROLLBACK;
 END IsLocataireExistant;
 /
-
-
 
 CREATE OR REPLACE PROCEDURE AddLocataire(
         p_nom IN VARCHAR2,
@@ -219,6 +307,24 @@ CREATE OR REPLACE PROCEDURE AddGarant(
 END AddGarant;
 /
 
+CREATE OR REPLACE FUNCTION GetLocatairesActuels RETURN SYS_REFCURSOR AS
+    v_cursor SYS_REFCURSOR;
+    v_current_date DATE := SYSDATE; 
+BEGIN
+    OPEN v_cursor FOR
+        SELECT l.*, GetLogementIdByLocateur(l.ID_LOCATAIRE) as logement
+        FROM Signer s
+        JOIN Contrat_bail cb ON s.id_bail = cb.id_bail
+        JOIN locataire l ON s.id_locataire = l.id_locataire
+        WHERE v_current_date BETWEEN cb.date_debut AND NVL(cb.date_fin, v_current_date);
+
+    RETURN v_cursor;
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+        RETURN NULL;
+END GetLocatairesActuels;
+/
 
 CREATE OR REPLACE PROCEDURE AddLogemontCharge(
         p_id_batiment IN NUMBER,
@@ -587,7 +693,7 @@ create or replace FUNCTION GetLogementUnpaidFacts RETURN SYS_REFCURSOR IS
         v_cursor SYS_REFCURSOR;
     BEGIN
         OPEN v_cursor FOR
-            SELECT fl.ID_LOCATAIRE, fl.ID_BATIMENT, fl.ID_LOGEMENT, fl.ID_FACTURE, f.DATE_FACTURE,fl.PAIEMENT as payer,((f.montant_HT + (f.montant_HT * (f.TVA / 100)) - c.montant_aide)-fl.PAIEMENT) as Reste
+            SELECT fl.ID_LOCATAIRE, (fl.ID_BATIMENT|| '-' ||fl.ID_LOGEMENT|| '-' ||fl.ID_FACTURE) as ref, f.DATE_FACTURE,fl.PAIEMENT as payer,((f.montant_HT + (f.montant_HT * (f.TVA / 100)) - c.montant_aide)-fl.PAIEMENT) as Reste
 
             FROM fact_logement fl, facture f, contrat_bail c, Signer s
             WHERE fl.id_facture = f.id_facture 
@@ -637,6 +743,26 @@ create or replace FUNCTION GetLogementsByBatiment(p_id_paiement NUMBER) RETURN S
             l.id_batiment = p_id_paiement;
         RETURN v_cursor;
 END GetLogementsByBatiment;
+/
+
+
+CREATE OR REPLACE FUNCTION GetAllLogements RETURN SYS_REFCURSOR IS
+    v_cursor SYS_REFCURSOR;
+BEGIN
+    OPEN v_cursor FOR
+        SELECT
+            l.*,
+            CASE
+                WHEN TO_NUMBER(TO_CHAR(cb.date_fin, 'YYYYMMDD')) <= TO_NUMBER(TO_CHAR(SYSDATE, 'YYYYMMDD')) THEN 'Libre'
+                ELSE 'Occupe'
+            END AS state
+        FROM
+            Logement l
+        JOIN
+            Contrat_bail cb ON l.id_batiment = cb.id_batiment AND l.id_logement = cb.id_logement;
+    
+    RETURN v_cursor;
+END GetAllLogements;
 /
 
 

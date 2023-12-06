@@ -217,6 +217,10 @@ public class CictOracleDataSource extends OracleDataSource {
         }
     }
 
+
+    
+
+    
     //InsertFicheDiagnostic
     //InsertCorrespondre
     
@@ -324,14 +328,40 @@ public class CictOracleDataSource extends OracleDataSource {
     }
 
 
+<<<<<<< HEAD
     public String callGetLogementIdByLocateur1(
     	    int p_id_locataire
     	    ) throws SQLException {
         try (CallableStatement cs = this.connection.prepareCall("{ ? = call GetLogementIdByLocateur(?) }")) {
             cs.registerOutParameter(1, Types.VARCHAR);
             cs.setInt(2, p_id_locataire);
+=======
+    public ResultSet callGetLocatairesActuels() throws SQLException {
+        try (CallableStatement cs = this.connection.prepareCall("{ ? = call GetLocatairesActuels() }")) {
+            cs.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+>>>>>>> f4965ac083047c6b13b709093219a29aee14b06b
             cs.execute();
-            return cs.getString(1);
+            ResultSet originalResultSet = (ResultSet) cs.getObject(1);
+
+            // Copy the data into a new ResultSet to avoid premature closure
+            CachedRowSet rowSet = RowSetProvider.newFactory().createCachedRowSet();
+            rowSet.populate(originalResultSet);
+
+            return rowSet;
+        }
+    }
+
+    public ResultSet GetAllLogements () throws SQLException {
+        try (CallableStatement cs = this.connection.prepareCall("{ ? = call GetAllLogements () }")) {
+            cs.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+            cs.execute();
+            ResultSet originalResultSet = (ResultSet) cs.getObject(1);
+
+            // Copy the data into a new ResultSet to avoid premature closure
+            CachedRowSet rowSet = RowSetProvider.newFactory().createCachedRowSet();
+            rowSet.populate(originalResultSet);
+
+            return rowSet;
         }
     }
 
@@ -608,7 +638,7 @@ public class CictOracleDataSource extends OracleDataSource {
         }
     }
 
-    public ResultSet GetAllLogements () throws SQLException {
+    public ResultSet GetAllLogements0 () throws SQLException {
         try (CallableStatement cs = this.connection.prepareCall("{ ? = call GetAllLogements () }")) {
             cs.registerOutParameter(1, java.sql.Types.REF_CURSOR);
             cs.execute();
