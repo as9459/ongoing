@@ -33,6 +33,8 @@ public class FenLogement extends JInternalFrame {
 	private JButton btnNewButton_3;
 	
 	private GestionFenLogement gestionClic;
+	private FenetrePrincipale parent;
+
 
 	/**
 	 * Launch the application.
@@ -41,7 +43,7 @@ public class FenLogement extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FenLogement frame = new FenLogement();
+					FenLogement frame = new FenLogement(new FenetrePrincipale());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,7 +55,8 @@ public class FenLogement extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FenLogement() {
+	public FenLogement(FenetrePrincipale parent) {
+		this.parent = parent;
 		setTitle("Fenètre Logement");
 		setDefaultCloseOperation(JInternalFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 775, 303);
@@ -61,28 +64,14 @@ public class FenLogement extends JInternalFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		
-		this.gestionClic = new GestionFenLogement(this);
-		
+		this.gestionClic = new GestionFenLogement(this, this.parent);
 		JScrollPane scrollPane = new JScrollPane();
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
 		table.setBounds(5, 5, 684, 373);
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null},
-			},
+				this.gestionClic.updateTable(),
 			new String[] {
 				"Logement", "Etage", "Type", "Surface", "ICC", "Garage", "Jardin", "Balcon", "State", "Documents"
 			}
