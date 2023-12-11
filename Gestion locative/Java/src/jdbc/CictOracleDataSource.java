@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.rowset.CachedRowSet;
 import javax.sql.rowset.RowSetProvider;
@@ -341,26 +343,24 @@ public class CictOracleDataSource extends OracleDataSource {
     public void AddLogement(
     		  int p_id_batiment,
     	      int p_id_logement,
-    	      String p_type,
     	      int p_etage,
+    	      String p_type,
     	      float p_surface,
-    	      int p_colocation,
-    	      int p_ICC,
+    	      float p_ICC,
     	      int p_garage,
     	      int p_jardin,
     	      int p_balcon
     	   )throws SQLException {
-        try (CallableStatement cs = this.connection.prepareCall("{call InsertLogement(?,?,?,?,?,?,?,?,?,?) }")) {
+        try (CallableStatement cs = this.connection.prepareCall("{call InsertLogement(?,?,?,?,?,?,?,?,?) }")) {
             cs.setInt(1, p_id_batiment);
             cs.setString(2, p_type);
             cs.setInt(3, p_etage);
             cs.setFloat(4, p_surface);
-            cs.setInt(5, p_ICC);
-            cs.setInt(6, p_colocation);
-            cs.setInt(7, p_garage);
-            cs.setInt(8, p_jardin);
-            cs.setInt(9, p_balcon);
-            cs.setInt(10, p_id_logement);
+            cs.setFloat(5, p_ICC);
+            cs.setInt(6, p_garage);
+            cs.setInt(7, p_jardin);
+            cs.setInt(8, p_balcon);
+            cs.setInt(9, p_id_logement);
             cs.execute();
         }
     }
@@ -621,6 +621,21 @@ public class CictOracleDataSource extends OracleDataSource {
             return rowSet;
         }
     }
+    
+   /* public String[] getColomnValues(String nomColonne) throws SQLException {
+    	String query = "SELECT "+nomColonne+" FROM BATIMENT";
+    	PreparedStatement preparedStatement = this.connection.prepareStatement(query);
+    	
+    	ResultSet resultSet = preparedStatement.executeQuery();
+        List<String> values = new ArrayList<>();
+
+        while (resultSet.next()) {
+            String value = resultSet.getString(nomColonne);
+            values.add(value);
+        }
+
+        return values.toArray(new String[0]);
+    }*/
 
 
 
