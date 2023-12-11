@@ -14,6 +14,7 @@ import javax.swing.border.TitledBorder;
 
 import Controleur.GestionFenPaiement;
 import Controleur.GestionSaisirLogement;
+
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import java.awt.SystemColor;
