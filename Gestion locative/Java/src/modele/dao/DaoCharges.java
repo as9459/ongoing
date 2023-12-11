@@ -23,8 +23,8 @@ public class DaoCharges implements Dao<Charges> {
     }
 
     @Override
-    public Charges findById(int id) {
-        if (id >= 1) {
+    public Charges findById(String... id) {
+        if (id.length >= 1) {
             List<Charges> charges = DaoTest.selectCharges(id);
             if (!charges.isEmpty()) {
                 return charges.get(0);
@@ -38,10 +38,5 @@ public class DaoCharges implements Dao<Charges> {
         return DaoTest.selectCharges(0);
     }
 
-	@Override
-	public Charges findById(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
 

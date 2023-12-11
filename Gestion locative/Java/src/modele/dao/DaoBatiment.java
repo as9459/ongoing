@@ -23,24 +23,17 @@ public class DaoBatiment implements Dao<Batiment> {
     }
 
     @Override
-    public Batiment findById(int id) {
-        if (id >= 1) {
-            List<Batiment> batiments = DaoTest.selectBatiment(id);
-            if (!batiments.isEmpty()) {
-                return batiments.get(0);
-            }
-        }
-        return null;
+    public List<Batiment> findAll() {
+        return DaoTest.selectBatiment();
     }
 
     @Override
-    public List<Batiment> findAll() {
-        return DaoTest.selectBatiment(0);
+    public Batiment findById(String... id) {
+    	if (id.length >= 1) {
+    		if (DaoTest.selectBatiment(id).size() == 1) {
+            	return DaoTest.selectBatiment(id).get(0);
+            }
+    	}
+    	return null;
     }
-
-	@Override
-	public Batiment findById(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

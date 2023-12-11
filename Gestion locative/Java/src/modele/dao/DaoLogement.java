@@ -22,9 +22,9 @@ public class DaoLogement implements Dao<Logement> {
     }
 
     @Override
-    public Logement findById(int id) {
+    public Logement findById(String... id) {
         // Assuming Logement has an ID field
-        if (id >= 1) {
+        if (id.length >= 1) {
             List<Logement> logements = DaoTest.selectLogement(id);
             if (!logements.isEmpty()) {
                 return logements.get(0);
@@ -35,12 +35,7 @@ public class DaoLogement implements Dao<Logement> {
 
     @Override
     public List<Logement> findAll() {
-        return DaoTest.selectLogement(0);
+        return DaoTest.selectLogement();
     }
 
-	@Override
-	public Logement findById(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

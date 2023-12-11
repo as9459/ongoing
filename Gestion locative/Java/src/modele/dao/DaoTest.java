@@ -29,8 +29,8 @@ public class DaoTest {
     
     //------------------------- Batiment ----------------------------------------------
     
-    public static List<Batiment> selectBatiment(int id) {
-        List<Batiment> liste = DaoTest.BATIMENT.stream().filter(b -> b.getIdBatiment() == id)
+    public static List<Batiment> selectBatiment(String... id) {
+        List<Batiment> liste = DaoTest.BATIMENT.stream().filter(b -> Integer.toString(b.getIdBatiment()).equals(id[0])) 
                 .collect(Collectors.toList());
         return liste;
     }
@@ -40,7 +40,7 @@ public class DaoTest {
     }
 
     public static void updateBatiment(Batiment b) {
-        List<Batiment> liste = DaoTest.selectBatiment(b.getIdBatiment());
+        List<Batiment> liste = DaoTest.selectBatiment(Integer.toString(b.getIdBatiment()));
         Batiment d = liste.get(0);
         // Update fields of Batiment
     }
@@ -161,8 +161,8 @@ public class DaoTest {
     
     //------------------------- Fac_Batiment ----------------------------------------------
 
-    public static List<Fac_Batiment> selectFacBatiment(int id) {
-        List<Fac_Batiment> liste = DaoTest.FACBATIMENT.stream().filter(facBat -> facBat.getId_batiment() == id)
+    public static List<Fac_Batiment> selectFacBatiment(String... id) {
+        List<Fac_Batiment> liste = DaoTest.FACBATIMENT.stream().filter(facBat -> Integer.toString(facBat.getId_batiment()).equals(id[0]))
                 .collect(Collectors.toList());
         return liste;
     }
@@ -172,7 +172,7 @@ public class DaoTest {
     }
 
     public static void updateFacBatiment(Fac_Batiment facBat) {
-        List<Fac_Batiment> liste = DaoTest.selectFacBatiment(facBat.getId_batiment());
+        List<Fac_Batiment> liste = DaoTest.selectFacBatiment(Integer.toString(facBat.getId_batiment()));
         Fac_Batiment f = liste.get(0);
         // Update fields of Fac_Batiment
     }
@@ -183,8 +183,8 @@ public class DaoTest {
 
     // -------------------------- Fac_Logement --------------------------------------------
 
-    public static List<Fac_Logement> selectFacLogement(int id) {
-        List<Fac_Logement> liste = DaoTest.FACLOGEMENT.stream().filter(facLog -> facLog.getId_logement() == id)
+    public static List<Fac_Logement> selectFacLogement(String... id) {
+        List<Fac_Logement> liste = DaoTest.FACLOGEMENT.stream().filter(facLog -> Integer.toString(facLog.getId_logement()).equals(id[0]))
                 .collect(Collectors.toList());
         return liste;
     }
@@ -194,7 +194,7 @@ public class DaoTest {
     }
 
     public static void updateFacLogement(Fac_Logement facLog) {
-        List<Fac_Logement> liste = DaoTest.selectFacLogement(facLog.getId_logement());
+        List<Fac_Logement> liste = DaoTest.selectFacLogement(Integer.toString(facLog.getId_logement()));
         Fac_Logement f = liste.get(0);
         // Update fields of Fac_Logement
     }
@@ -248,8 +248,8 @@ public class DaoTest {
 
     // -------------------------- Locataire --------------------------------------------
 
-    public static List<Locataire> selectLocataire(int id) {
-        List<Locataire> liste = DaoTest.LOCATAIRE.stream().filter(l -> l.getIdLocataire() == id)
+    public static List<Locataire> selectLocataire(String... id) {
+        List<Locataire> liste = DaoTest.LOCATAIRE.stream().filter(l -> Integer.toString(l.getIdLocataire()).equals(id[0]))
                 .collect(Collectors.toList());
         return liste;
     }
@@ -259,7 +259,7 @@ public class DaoTest {
     }
 
     public static void updateLocataire(Locataire locataire) {
-        List<Locataire> liste = DaoTest.selectLocataire(locataire.getIdLocataire());
+        List<Locataire> liste = DaoTest.selectLocataire(Integer.toString(locataire.getIdLocataire()));
         Locataire l = liste.get(0);
         // Update fields of Locataire
     }
@@ -270,8 +270,8 @@ public class DaoTest {
     
   //------------------------- Logement ----------------------------------------------
 
-    public static List<Logement> selectLogement(int id) {
-        List<Logement> liste = DaoTest.LOGEMENT.stream().filter(l -> l.getId_logement() == id)
+    public static List<Logement> selectLogement(String... id) {
+        List<Logement> liste = DaoTest.LOGEMENT.stream().filter(l -> Integer.toString(l.getId_logement()).equals(id[0]))
                 .collect(Collectors.toList());
         return liste;
     }
@@ -281,7 +281,7 @@ public class DaoTest {
     }
 
     public static void updateLogement(Logement logement) {
-        List<Logement> liste = DaoTest.selectLogement(logement.getId_logement());
+        List<Logement> liste = DaoTest.selectLogement(Integer.toString(logement.getId_logement()));
         Logement l = liste.get(0);
         // Update fields of Logement
     }

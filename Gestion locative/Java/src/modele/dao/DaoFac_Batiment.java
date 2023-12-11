@@ -22,9 +22,9 @@ public class DaoFac_Batiment implements Dao<Fac_Batiment> {
     }
 
     @Override
-    public Fac_Batiment findById(int id) {
+    public Fac_Batiment findById(String... id) {
         // Assuming Fac_Batiment has an ID field
-        if (id >= 1) {
+        if (id.length >= 1) {
             List<Fac_Batiment> facBatiments = DaoTest.selectFacBatiment(id);
             if (!facBatiments.isEmpty()) {
                 return facBatiments.get(0);
@@ -35,12 +35,7 @@ public class DaoFac_Batiment implements Dao<Fac_Batiment> {
 
     @Override
     public List<Fac_Batiment> findAll() {
-        return DaoTest.selectFacBatiment(0);
+        return DaoTest.selectFacBatiment();
     }
 
-	@Override
-	public Fac_Batiment findById(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

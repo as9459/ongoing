@@ -10,23 +10,54 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLayeredPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import Vue.FenetrePrincipale;
 import Vue.SaisirBatiment;
+import Controleur.GestionFenBatiment;
+import modele.Batiment;
+import modele.dao.DaoBatiment;
 import Vue.FenBatiment;
 
 public class GestionFenBatiment implements ActionListener{
 	private FenBatiment fene;
-	private FenetrePrincipale mere ;
+	private FenetrePrincipale mere;
+	private DaoBatiment daoBatiment;
+	private DefaultTableModel modeleTable;
 
 	public GestionFenBatiment(FenBatiment fen, FenetrePrincipale mare) {
 		this.fene = fen;
+		this.daoBatiment = new DaoBatiment();
 		this.mere = mare ;
+		///if (this.fene.getTableBatiment().getModel() != null) {
+	      //this.modeleTable = (DefaultTableModel) this.fene.getTableBatiment().getModel();
+		//}
 	}
+	
+	/*
+	public Batiment lireLigneTable(int index) {
+		Batiment bat = new Batiment((int) this.modeleTable.getValueAt(index, 0),
+								 (String) this.modeleTable.getValueAt(index, 1),
+								 (String) this.modeleTable.getValueAt(index, 2),
+								 (String) this.modeleTable.getValueAt(index, 3), 
+								 (String) String.valueOf(this.modeleTable.getValueAt(index, 4)),
+								 (String) String.valueOf(this.modeleTable.getValueAt(index, 5)));
+		
+								 //(Groupe) new DaoGroupe().findById((String) this.modeleTable.getValueAt(index,5)));
+		return bat;
+	}*/
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
         JButton bouton =(JButton) e.getSource();
+       
+        if (fene != null) {
+            JTable myTable = fene.getTableBatiment();
+            int selectedRow = myTable.getSelectedRow();
+        
+        
     	switch(bouton.getText()) {
   
     	case "Retourner":
@@ -57,10 +88,56 @@ public class GestionFenBatiment implements ActionListener{
 				e1.printStackTrace();
 			}
             break;
-		
-		}
-    
+    	case "Supprimer":
+			// TODO
+    		System.out.println("Vous voulez supprimer le " + (selectedRow+1) +"er/eme ligne");
+    	
+
+                if (selectedRow != -1) {
+                    DefaultTableModel model = (DefaultTableModel) myTable.getModel();
+
+                    // Assuming your table has columns named "Column1", "Column2", etc.
+                    Object valueColumn1 = model.getValueAt(selectedRow, 0); // Adjust column index as needed
+                    Object valueColumn2 = model.getValueAt(selectedRow, 1);
+                    Object valueColumn3 = model.getValueAt(selectedRow, 2); // Adjust column index as needed
+                    Object valueColumn4 = model.getValueAt(selectedRow, 3);
+                    Object valueColumn5 = model.getValueAt(selectedRow, 4); // Adjust column index as needed
+                    Object valueColumn6 = model.getValueAt(selectedRow, 5);
+                    // Add more lines for additional columns
+
+                    // Now you have the values from the selected row
+                    System.out.println("Value of Column1: " + valueColumn1);
+                    System.out.println("Value of Column2: " + valueColumn2);
+                    // Print or use the values as needed
+                } else {
+                    System.out.println("No row selected");
+                }
+            
+    		
+    		
+    		
+    		/*if (rowSelected != -1) {
+				DefaultTableModel model = (DefaultTableModel) myTable.getModel();
+
+				Batiment ba1 = this.lireLigneTable(rowSelected);
+				Batiment ba2 = daoBatiment.findById(Integer.toString(ba1.getIdBatiment()),
+												  ba1.getAdresse(), 
+												  ba1.getCodePostal(),
+												  ba1.getVille(),
+												  String.valueOf(ba1.getRegimeJuridique()),
+												  String.valueOf(ba1.getDateConstruction()));
+												  //(String) this.fene.getTableBatiment().getValueAt(rowSelected, 5));
+				daoBatiment.delete(ba2);
+				((DefaultTableModel)this.fene.getTableBatiment().getModel()).removeRow(rowSelected);
+			} */
+			break;
+			
+		default:
+			break;
+    	}
+        }
 	}
+    	
 
 	
 	public Object[][] updateTable() {

@@ -2,7 +2,7 @@ package Vue;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
+import javax.swing.table.TableColumn;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -14,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import Controleur.GestionFenBatiment;
+import Controleur.GestionTabBatiment;
 
 public class FenBatiment extends JInternalFrame {
 
@@ -28,6 +29,9 @@ public class FenBatiment extends JInternalFrame {
 	private JButton btnNewButton_2;
 	private JButton btnNewButton_3;
 
+	
+	
+	private GestionTabBatiment gestionTable;
 	private GestionFenBatiment gestionClic;
 	private FenetrePrincipale parent;
 	/**
@@ -67,10 +71,22 @@ public class FenBatiment extends JInternalFrame {
 		table.setModel(new DefaultTableModel(
 				this.gestionClic.updateTable(),
 			new String[] {
-				"Adresse", "Code Postal", "Ville", "Regime Juridique", "Date Construction", "Logement", "Documents"
+				"IdLogement","Adresse", "Code Postal", "Ville", "Regime Juridique", "Date Construction", "Logement", "Documents"
 			}
 		));
 		scrollPane.setViewportView(table);
+		
+		// cacher la collone IdLogement
+        TableColumn idLogementColumn = table.getColumnModel().getColumn(0); // Assuming IdLogement is the first column
+        idLogementColumn.setMinWidth(0);
+        idLogementColumn.setMaxWidth(0);
+        idLogementColumn.setWidth(0);
+        idLogementColumn.setPreferredWidth(0);
+        idLogementColumn.setResizable(false);
+		
+		
+		gestionTable = new GestionTabBatiment(this);
+		this.table.getSelectionModel().addListSelectionListener(this.gestionTable);
 		
 		panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
@@ -97,11 +113,16 @@ public class FenBatiment extends JInternalFrame {
 		splitPane.setRightComponent(btnNewButton_2);
 		btnNewButton_2.addActionListener(this.gestionClic);
 		
-		btnNewButton_3 = new JButton("Suprimer");
-		
+		btnNewButton_3 = new JButton("Supprimer");
 		splitPane.setLeftComponent(btnNewButton_3);
+		btnNewButton_3.addActionListener(this.gestionClic);
 		
 		
+		
+	}
+	
+	public JTable getTableBatiment() {
+		return this.table;
 	}
 
 }
