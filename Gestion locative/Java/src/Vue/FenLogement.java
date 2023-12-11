@@ -73,7 +73,7 @@ public class FenLogement extends JInternalFrame {
 		table.setModel(new DefaultTableModel(
 				this.gestionClic.updateTable(),
 			new String[] {
-				"Logement", "Etage", "Type", "Surface", "ICC", "Garage", "Jardin", "Balcon", "State", "Documents"
+				"ID Logement", "Etage", "Type", "Surface", "ICC", "Garage", "Jardin", "Balcon", "State", "Documents"
 			}
 		));
 		scrollPane.setViewportView(table);
@@ -103,11 +103,15 @@ public class FenLogement extends JInternalFrame {
 		splitPane.setRightComponent(btnNewButton_2);
 		btnNewButton_2.addActionListener(this.gestionClic);
 		
-		btnNewButton_3 = new JButton("Suprimer");
-		btnNewButton_3.addActionListener(this.gestionClic);
+		btnNewButton_3 = new JButton("Supprimer");
 		splitPane.setLeftComponent(btnNewButton_3);
+		btnNewButton_3.addActionListener(this.gestionClic);
 		
-		
+	}
+
+	public JTable getTableLogement() {
+		// TODO Auto-generated method stub
+		return table;
 	}
 
 }

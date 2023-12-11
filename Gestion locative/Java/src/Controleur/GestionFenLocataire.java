@@ -10,6 +10,8 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLayeredPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import Vue.FenBatiment;
 import Vue.FenLocataire;
@@ -28,6 +30,11 @@ public class GestionFenLocataire implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
         JButton bouton =(JButton) e.getSource();
+        
+        if (fene != null) {
+            JTable myTable = fene.getTableLocataire();
+            int selectedRow = myTable.getSelectedRow();
+            
     	switch(bouton.getText()) {
   
     	case "Retourner":
@@ -58,6 +65,26 @@ public class GestionFenLocataire implements ActionListener{
 				e1.printStackTrace();
 			}
             break;
+    	case "Supprimer":
+			// TODO
+    		System.out.println("Vous voulez supprimer le " + (selectedRow+1) +"er/eme ligne");
+    	
+
+                if (selectedRow != -1) {
+                    DefaultTableModel model = (DefaultTableModel) myTable.getModel();
+
+                    
+                    Object idloc = model.getValueAt(selectedRow, 0); // recup Id Batiment
+                    Object nom = model.getValueAt(selectedRow, 1);
+                    //test
+                    System.out.println("Id Locataire: " + idloc);
+                    System.out.println("nom: " + nom);
+                    
+                } else {
+                    System.out.println("Aucun ligne est selectionner");
+                }
+          break;
+    	}
 		
 		}
     
@@ -72,14 +99,15 @@ public class GestionFenLocataire implements ActionListener{
 	        result = this.mere.getConnectionBD().callGetTableData("LOCATAIRE");
 
 	        while (result.next()) {
-	            Object[] row = new Object[7]; // Change the size as needed
-	            row[0] = result.getString(2);
-	            row[1] = result.getString(3);
-	            row[2] = result.getString(4);
-	            row[3] = result.getString(5);
-	            row[4] = result.getString(6);
-	            row[5] = this.mere.getConnectionBD().callGetLogementIdByLocateur(result.getInt(1));;
-	            row[6] = null;
+	            Object[] row = new Object[8]; // Change the size as needed
+	            row[0] = result.getString(1);
+	            row[1] = result.getString(2);
+	            row[2] = result.getString(3);
+	            row[3] = result.getString(4);
+	            row[4] = result.getString(5);
+	            row[5] = result.getString(6);
+	            row[6] = this.mere.getConnectionBD().callGetLogementIdByLocateur(result.getInt(1));;
+	            row[7] = null;
 	            dataList.add(row);
 	        }
 	    } catch (SQLException e) {

@@ -2,8 +2,6 @@ package Controleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JTable;
@@ -19,12 +17,12 @@ import Vue.SaisirLogement;
 
 public class GestionSaisirLogement implements ActionListener{
 
-	private SaisirLogement s1;
+	private SaisirLogement sl;
 	/*private DefaultTableModel modeleTable;
 	private DaoGroupe daoGroupe;*/
 	
-	public GestionSaisirLogement(SaisirLogement s1) { /*(SaisirBatiment sc, JTable tableC)*/
-		this.s1 = s1;
+	public GestionSaisirLogement(SaisirLogement sl) { /*(SaisirBatiment sc, JTable tableC)*/
+		this.sl = sl;
 		/*this.modeleTable = (DefaultTableModel) tableC.getModel();
 		this.daoGroupe = new DaoGroupe();		*/
 	}
@@ -34,7 +32,6 @@ public class GestionSaisirLogement implements ActionListener{
 		JButton b = (JButton) e.getSource();
 		switch (b.getText()) {
 			case "Insérer":
-				
 				
 				// TODO
 				/*Groupe groupe = daoGroupe.findById(this.sc.getTextFieldIdGrpC().getText());
@@ -54,35 +51,11 @@ public class GestionSaisirLogement implements ActionListener{
 						cr.getTypec(),
 						cr.getGrpC().getGrpc()
 				});;*/
-				
-				int nbBatiment = s1.getTextFieldNbBatement();
-                int nbLogement = s1.getTextFieldNbLogement();
-                int etage = s1.getTextFieldEtage();
-                String typeLogement = s1.getTextFieldTypeLogement();
-                float surface = s1.getTextFieldSurface();
-                float icc = s1.getTextFieldICC();
-                int garage = s1.getTextFieldGarage();
-                int jardin = s1.getTextFieldJardin();
-                int balcon = s1.getTextFieldBalcon();
-                
-			CictOracleDataSource cictOracleDataSource;
-			try {
-				cictOracleDataSource = new CictOracleDataSource();
-                cictOracleDataSource.AddLogement(0, nbLogement,etage, typeLogement, surface,icc, garage, jardin, balcon);
-                
-                
-
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}                								 
-                								 
-				
-				this.s1.dispose();
-				
+				this.sl.dispose();
+				//CictOracleDataSource.AddLogement(0, 0, sl.getTextFieldTypeLogement(), sl.getTextFieldLoyer(), sl.getTextFieldEtage(), sl.getTextFieldICC(), sl.getTextFieldGarage(), sl.getTextFieldJardin());
 				break;
 			case "Annuler":
-				this.s1.dispose();
+				this.sl.dispose();
 				break;
 			default:
 				break;

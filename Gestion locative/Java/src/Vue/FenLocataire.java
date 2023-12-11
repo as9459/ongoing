@@ -7,6 +7,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 import Controleur.GestionFenLocataire;
 import Controleur.GestionFenLogement;
@@ -73,10 +74,19 @@ public class FenLocataire extends JInternalFrame {
 		table.setModel(new DefaultTableModel(
 				this.gestionClic.updateTable(),
 			new String[] {
-				"Nom", "Prenom", "Téléphone", "Date de Naissance", "E-Mail", "Logement", "Documents"
+				"IDLocataire","Nom", "Prenom", "Téléphone", "Date de Naissance", "E-Mail", "Logement", "Documents"
 			}
 		));
 		scrollPane.setViewportView(table);
+		
+		// cacher la collone IdLocataire
+        TableColumn idLocatairetColumn = table.getColumnModel().getColumn(0); // Assuming IdLogement is the first column
+        idLocatairetColumn.setMinWidth(0);
+        idLocatairetColumn.setMaxWidth(0);
+        idLocatairetColumn.setWidth(0);
+        idLocatairetColumn.setPreferredWidth(0);
+        idLocatairetColumn.setResizable(false);
+		
 		
 		panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
@@ -103,11 +113,14 @@ public class FenLocataire extends JInternalFrame {
 		btnNewButton_2.addActionListener(this.gestionClic);
 		splitPane.setRightComponent(btnNewButton_2);
 		
-		btnNewButton_3 = new JButton("Suprimer");
-		btnNewButton_3.addActionListener(this.gestionClic);
+		btnNewButton_3 = new JButton("Supprimer");
 		splitPane.setLeftComponent(btnNewButton_3);
+		btnNewButton_3.addActionListener(this.gestionClic);
 		
-		
+	}
+	
+	public JTable getTableLocataire() {
+		return this.table;
 	}
 
 }
