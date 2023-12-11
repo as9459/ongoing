@@ -98,12 +98,13 @@ public class GestionFenBatiment implements ActionListener{
 
                     
                     Object idbat = model.getValueAt(selectedRow, 0); // recup Id Batiment
+                    Object addresse = model.getValueAt(selectedRow, 1);
                     
                     //test
                     System.out.println("Id batiment: " + idbat);
-                    
+                    System.out.println("Adresse: " + addresse);
                 } else {
-                    System.out.println("No row selected");
+                    System.out.println("Aucun ligne est selectionner");
                 }
             
     		

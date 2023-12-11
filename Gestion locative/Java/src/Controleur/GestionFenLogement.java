@@ -10,6 +10,8 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLayeredPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import Vue.FenLogement;
 import Vue.FenetrePrincipale;
@@ -31,6 +33,11 @@ public class GestionFenLogement implements ActionListener{
 		
 		FenetrePrincipale fenlog = (FenetrePrincipale) log.getTopLevelAncestor();
 		JButton botonn = (JButton) e.getSource();
+		
+		 if (log != null) {
+	            JTable myTable = log.getTableLogement();
+	            int selectedRow = myTable.getSelectedRow();
+		
 		switch (botonn.getText()) {
 			case "Retourner":
 				log.dispose();
@@ -50,6 +57,25 @@ public class GestionFenLogement implements ActionListener{
 				layeredPane5.add(mlog, JLayeredPane.DEFAULT_LAYER);
 				mlog.setVisible(true);
 	            break;
+	    	case "Supprimer":
+				// TODO
+	    		System.out.println("Vous voulez supprimer le " + (selectedRow+1) +"er/eme ligne");
+	    	
+
+	                if (selectedRow != -1) {
+	                    DefaultTableModel model = (DefaultTableModel) myTable.getModel();
+
+	                    
+	                    Object idlog = model.getValueAt(selectedRow, 0); // recup Id Batiment
+	                    Object etage = model.getValueAt(selectedRow, 1);
+	                    //test
+	                    System.out.println("Id Logement: " + idlog);
+	                    System.out.println("Etage: " + etage);
+	                } else {
+	                    System.out.println("Aucun ligne est selectionner");
+	                }
+	          break;
+		}
 		}
 	}
 	

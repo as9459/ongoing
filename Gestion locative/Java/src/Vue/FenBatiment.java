@@ -71,12 +71,12 @@ public class FenBatiment extends JInternalFrame {
 		table.setModel(new DefaultTableModel(
 				this.gestionClic.updateTable(),
 			new String[] {
-				"IdLogement","Adresse", "Code Postal", "Ville", "Regime Juridique", "Date Construction", "Logement", "Documents"
+				"IdBatiment","Adresse", "Code Postal", "Ville", "Regime Juridique", "Date Construction", "Logement", "Documents"
 			}
 		));
 		scrollPane.setViewportView(table);
 		
-		// cacher la collone IdLogement
+		// cacher la collone IdBatiment
         TableColumn idLogementColumn = table.getColumnModel().getColumn(0); // Assuming IdLogement is the first column
         idLogementColumn.setMinWidth(0);
         idLogementColumn.setMaxWidth(0);
