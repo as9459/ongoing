@@ -96,13 +96,12 @@ public class GestionFenBatiment implements ActionListener{
                 if (selectedRow != -1) {
                     DefaultTableModel model = (DefaultTableModel) myTable.getModel();
 
-                    // Assuming your table has columns named "Column1", "Column2", etc.
+                    
                     Object idbat = model.getValueAt(selectedRow, 0); // recup Id Batiment
-                    // Add more lines for additional columns
-
-                    // Now you have the values from the selected row
+                    
+                    //test
                     System.out.println("Id batiment: " + idbat);
-                    // Print or use the values as needed
+                    
                 } else {
                     System.out.println("No row selected");
                 }
