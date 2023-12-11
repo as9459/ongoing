@@ -97,17 +97,11 @@ public class GestionFenBatiment implements ActionListener{
                     DefaultTableModel model = (DefaultTableModel) myTable.getModel();
 
                     // Assuming your table has columns named "Column1", "Column2", etc.
-                    Object valueColumn1 = model.getValueAt(selectedRow, 0); // Adjust column index as needed
-                    Object valueColumn2 = model.getValueAt(selectedRow, 1);
-                    Object valueColumn3 = model.getValueAt(selectedRow, 2); // Adjust column index as needed
-                    Object valueColumn4 = model.getValueAt(selectedRow, 3);
-                    Object valueColumn5 = model.getValueAt(selectedRow, 4); // Adjust column index as needed
-                    Object valueColumn6 = model.getValueAt(selectedRow, 5);
+                    Object idbat = model.getValueAt(selectedRow, 0); // recup Id Batiment
                     // Add more lines for additional columns
 
                     // Now you have the values from the selected row
-                    System.out.println("Value of Column1: " + valueColumn1);
-                    System.out.println("Value of Column2: " + valueColumn2);
+                    System.out.println("Value of Column1: " + idbat);
                     // Print or use the values as needed
                 } else {
                     System.out.println("No row selected");
@@ -148,14 +142,15 @@ public class GestionFenBatiment implements ActionListener{
 	        result = this.mere.getConnectionBD().callGetTableData("BATIMENT");
 
 	        while (result.next()) {
-	            Object[] row = new Object[7]; // Change the size as needed
-	            row[0] = result.getString(2);
-	            row[1] = result.getString(3);
-	            row[2] = result.getString(4);
-	            row[3] = result.getString(5);
-	            row[4] = result.getString(6);
-	            row[5] = this.mere.getConnectionBD().callGetNbLogByBatiment(result.getInt(1));
-	            row[6] = null;
+	            Object[] row = new Object[8]; // Change the size as needed
+	            row[0] = result.getString(1);
+	            row[1] = result.getString(2);
+	            row[2] = result.getString(3);
+	            row[3] = result.getString(4);
+	            row[4] = result.getString(5);
+	            row[5] = result.getString(6);
+	            row[6] = this.mere.getConnectionBD().callGetNbLogByBatiment(result.getInt(1));
+	            row[7] = null;
 	            dataList.add(row);
 	        }
 	    } catch (SQLException e) {
