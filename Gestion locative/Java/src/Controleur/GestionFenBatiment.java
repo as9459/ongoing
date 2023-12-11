@@ -106,8 +106,12 @@ public class GestionFenBatiment implements ActionListener{
                     // Add more lines for additional columns
 
                     // Now you have the values from the selected row
+<<<<<<< HEAD
                     System.out.println("Value of Column1: " + valueColumn1);
                     System.out.println("Value of Column2: " + valueColumn2);
+=======
+                    System.out.println("Value of Column1: " + idbat);
+>>>>>>> parent of dafcd97 (bruh)
                     // Print or use the values as needed
                 } else {
                     System.out.println("No row selected");
