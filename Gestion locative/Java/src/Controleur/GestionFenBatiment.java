@@ -101,7 +101,7 @@ public class GestionFenBatiment implements ActionListener{
                     // Add more lines for additional columns
 
                     // Now you have the values from the selected row
-                    System.out.println("Value of Column1: " + idbat);
+                    System.out.println("Id batiment: " + idbat);
                     // Print or use the values as needed
                 } else {
                     System.out.println("No row selected");
