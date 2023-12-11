@@ -48,7 +48,7 @@ public class GestionFenetrePrincipale implements ActionListener{
 				loca.setVisible(true);
 				break;
 			case "Paiement":
-				FenPaiement pmt = new FenPaiement();
+				FenPaiement pmt = new FenPaiement(this.fen);
 				JLayeredPane layeredPane2 = fen.getLayeredPane();
 				layeredPane2.add(pmt, JLayeredPane.DEFAULT_LAYER);
 				pmt.setVisible(true);

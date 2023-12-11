@@ -31,7 +31,9 @@ public class FenPaiement extends JInternalFrame {
 	private JSplitPane splitPane;
 	private JButton btnNewButton_2;
 	private JButton btnNewButton_3;
+	
 	private GestionFenPaiement gestionClic;
+	private FenetrePrincipale parent;
 
 	/**
 	 * Launch the application.
@@ -40,7 +42,7 @@ public class FenPaiement extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FenPaiement frame = new FenPaiement();
+					FenPaiement frame = new FenPaiement(new FenetrePrincipale());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,7 +54,8 @@ public class FenPaiement extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FenPaiement() {
+	public FenPaiement(FenetrePrincipale parent) {
+		this.parent= parent;
 		setTitle("Fenètre Paiement");
 		setDefaultCloseOperation(JInternalFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 757, 303);
@@ -60,28 +63,16 @@ public class FenPaiement extends JInternalFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		this.gestionClic = new GestionFenPaiement(this);
+		this.gestionClic = new GestionFenPaiement(this, this.parent);
 		JScrollPane scrollPane = new JScrollPane();
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
 		table.setBounds(5, 5, 684, 373);
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, "", null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-			},
+				this.gestionClic.updateTable(),
 			new String[] {
-				"Locataire", "Reference", "Date", "Reste a pay\u00E9", "Reference du paiement", "Date Paiement", "Pay\u00E9"
+				"Facture", "Batiment", "Logement", "Locataire", "Reference du paiement", "Paiement", "Type paiement", "Date paiement"
 			}
 		));
 		table.getColumnModel().getColumn(1).setPreferredWidth(95);
