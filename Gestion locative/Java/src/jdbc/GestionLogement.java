@@ -18,24 +18,21 @@ import oracle.jdbc.pool.OracleDataSource;
 
 public class GestionLogement extends CictOracleDataSource {
 
-    private Connection connection;
-    private Statement statement;
-    private PreparedStatement prepareStatement;
-    private ResultSet result;
 
-    public GestionLogement() throws SQLException {
+    public GestionLogement(Connection connection) throws SQLException {
 		super();
+        this.connection = connection;
 	}
     
 
     
 
-    public boolean callIsLogementEmpty(
+    public boolean isEmpty(
             int p_id_batiment,
             int p_id_logement,
             String p_date_debut_contrat
         ) throws SQLException {
-        try (CallableStatement cs = super.connection.prepareCall("{ ? = call IsLogementEmpty(?,?,?) }")) {
+        try (CallableStatement cs = this.connection.prepareCall("{ ? = call IsLogementEmpty(?,?,?) }")) {
             cs.registerOutParameter(1, Types.BOOLEAN);
             cs.setInt(2, p_id_batiment);
             cs.setInt(3, p_id_logement);
@@ -45,7 +42,8 @@ public class GestionLogement extends CictOracleDataSource {
         }
     }
     
-    public String callGetLogementIdByLocateur(
+    
+    public String getIdByLocateur(
             int p_id_locataire
             ) throws SQLException {
         try (CallableStatement cs = this.connection.prepareCall("{ ? = call GetLogementIdByLocateur(?) }")) {
@@ -57,8 +55,44 @@ public class GestionLogement extends CictOracleDataSource {
     }
 
     
+    
+    public int getNbByBatiment(int p_id_paiement ) throws SQLException {
+        try (CallableStatement cs = this.connection.prepareCall("{ ? = call GetNbLogBatiment(?) }")) {
+            cs.registerOutParameter(1, java.sql.Types.NUMERIC);
+            cs.setInt(2, p_id_paiement);
+            cs.execute();
+            return cs.getInt(1);
+        }
+    }
 
-    public void AddLogement(
+    
+    public ResultSet getAllLogements () throws SQLException {
+        try (CallableStatement cs = this.connection.prepareCall("{ ? = call GetAllLogements () }")) {
+            cs.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+            cs.execute();
+            ResultSet originalResultSet = (ResultSet) cs.getObject(1);
+
+            // Copy the data into a new ResultSet to avoid premature closure
+            CachedRowSet rowSet = RowSetProvider.newFactory().createCachedRowSet();
+            rowSet.populate(originalResultSet);
+
+            return rowSet;
+        }
+    }
+
+    
+    public ResultSet getEmptys() throws SQLException {
+        try (CallableStatement cs = this.connection.prepareCall("{ ? = call GetLogementEmptys() }")) {
+            cs.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+            cs.execute();
+            this.afficheResult((ResultSet) cs.getObject(1));
+            return (ResultSet) cs.getObject(1);
+        }
+    }
+    
+    
+
+    public void add(
     		  int p_id_batiment,
     	      int p_id_logement,
     	      String p_type,
@@ -85,27 +119,8 @@ public class GestionLogement extends CictOracleDataSource {
         }
     }
 
-
-    public ResultSet callGetLogementEmptys() throws SQLException {
-        try (CallableStatement cs = this.connection.prepareCall("{ ? = call GetLogementEmptys() }")) {
-            cs.registerOutParameter(1, java.sql.Types.REF_CURSOR);
-            cs.execute();
-            this.afficheResult((ResultSet) cs.getObject(1));
-            return (ResultSet) cs.getObject(1);
-        }
-    }
     
-    public int callGetNbLogByBatiment(int p_id_paiement ) throws SQLException {
-        try (CallableStatement cs = this.connection.prepareCall("{ ? = call GetNbLogBatiment(?) }")) {
-            cs.registerOutParameter(1, java.sql.Types.NUMERIC);
-            cs.setInt(2, p_id_paiement);
-            cs.execute();
-            return cs.getInt(1);
-        }
-    }
-
-    
-    public void callAddLogementFacture(
+    public void addFacture(
     	    int p_id_facture,
     	    int p_id_batiment,
     	    int p_id_logement,
@@ -143,7 +158,7 @@ public class GestionLogement extends CictOracleDataSource {
     }
 
     
-    public void AddLogemontCharge(
+    public void addCharge(
     		int p_id_batiment,
             int p_id_logement,
     		int p_id_charges,
@@ -162,7 +177,7 @@ public class GestionLogement extends CictOracleDataSource {
     }
     
     
-    public ResultSet callGetLogementUnpaidFacts() throws SQLException {
+    public ResultSet getUnpaidFacts() throws SQLException {
         try (CallableStatement cs = this.connection.prepareCall("{ ? = call GetLogementUnpaidFacts() }")) {
             cs.registerOutParameter(1, java.sql.Types.REF_CURSOR);
             cs.execute();
@@ -172,7 +187,7 @@ public class GestionLogement extends CictOracleDataSource {
     }
 
     
-    public void callSetLogementFacturePaiement(
+    public void setFacturePaiement(
     	    int p_id_facture,
     	    int p_id_batiment,
     	    int p_id_logement,

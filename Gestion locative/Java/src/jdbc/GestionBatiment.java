@@ -18,18 +18,15 @@ import oracle.jdbc.pool.OracleDataSource;
 
 public class GestionBatiment extends CictOracleDataSource {
 
-    private Connection connection;
-    private Statement statement;
-    private PreparedStatement prepareStatement;
-    private ResultSet result;
 
-    public GestionBatiment() throws SQLException {
+
+    public GestionBatiment(Connection connection2) throws SQLException {
 		super();
+        this.connection = connection;
 	}
     
-   
     
-    public void AddBatiment(
+    public void add(
     	      String p_id_batiment,
     	      String p_adresse,
     	      String p_code_postal,
@@ -51,7 +48,7 @@ public class GestionBatiment extends CictOracleDataSource {
     }
 
    
-    public void callAddBatimentFacture(
+    public void addFacture(
     	    int p_id_facture,
     	    int p_id_batiment,
     	    String p_date_facture,
@@ -86,7 +83,8 @@ public class GestionBatiment extends CictOracleDataSource {
         }
     }
 
-    public void callAddBatimentCharge(
+    
+    public void addCharge(
     		int p_id_batiment,
     		int p_id_charges,
     		String p_date_charges,
@@ -102,7 +100,8 @@ public class GestionBatiment extends CictOracleDataSource {
         }
     }
 
-    public ResultSet callGetBatimentUnpaidFacts() throws SQLException {
+    
+    public ResultSet getUnpaidFacts() throws SQLException {
         try (CallableStatement cs = this.connection.prepareCall("{ ? = call GetBatimentUnpaidFacts() }")) {
             cs.registerOutParameter(1, java.sql.Types.REF_CURSOR);
             cs.execute();
@@ -111,7 +110,8 @@ public class GestionBatiment extends CictOracleDataSource {
         }
     }
 
-    public void callSetBatimentFacturePaiement(
+    
+    public void setFacturePaiement(
     	    int p_id_facture,
     	    int p_id_batiment,
     	    String p_date_facture,
@@ -132,20 +132,7 @@ public class GestionBatiment extends CictOracleDataSource {
         }
     }
 
-    public ResultSet GetAllLogements () throws SQLException {
-        try (CallableStatement cs = this.connection.prepareCall("{ ? = call GetAllLogements () }")) {
-            cs.registerOutParameter(1, java.sql.Types.REF_CURSOR);
-            cs.execute();
-            ResultSet originalResultSet = (ResultSet) cs.getObject(1);
-
-            // Copy the data into a new ResultSet to avoid premature closure
-            CachedRowSet rowSet = RowSetProvider.newFactory().createCachedRowSet();
-            rowSet.populate(originalResultSet);
-
-            return rowSet;
-        }
-    }
-
+    
 
 
 

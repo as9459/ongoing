@@ -18,18 +18,28 @@ import oracle.jdbc.pool.OracleDataSource;
 
 public class GestionLocataire extends CictOracleDataSource {
 
-    private Connection connection;
-    private Statement statement;
-    private PreparedStatement prepareStatement;
-    private ResultSet result;
 
-    public GestionLocataire() throws SQLException {
+    public GestionLocataire(Connection connection2) throws SQLException {
 		super();
+        this.connection = connection;
 	}
     
 
+    public int getIdByLogement(
+    	    int p_id_batiment,
+    	    int p_id_logement
+    	    ) throws SQLException {
+        try (CallableStatement cs = this.connection.prepareCall("{ ? = call GetLocateurIdByLogement(?,?) }")) {
+            cs.registerOutParameter(1, Types.INTEGER);
+            cs.setInt(2, p_id_batiment);
+            cs.setInt(3, p_id_logement);
+            cs.execute();
+            return cs.getInt(1);
+        }
+    }
 
-    public void callAddLocataire(
+
+    public void add(
             int p_id_locataire,
             String p_nom,
             String p_prenom,
@@ -73,7 +83,7 @@ public class GestionLocataire extends CictOracleDataSource {
     }
 
 
-    public void callAddGarant(
+    public void addGarant(
     		int p_id_locataire,
             String p_nom,
             String p_adresse,
@@ -92,7 +102,7 @@ public class GestionLocataire extends CictOracleDataSource {
     }
 
     
-    public void callSetStatutEntree(
+    public void setStatutEntree(
     	      int p_id_locataire,
     	      String p_statut_entree
         ) throws SQLException {
@@ -103,7 +113,8 @@ public class GestionLocataire extends CictOracleDataSource {
         }
     }
 
-    public void callSetStatutSorti(
+    
+    public void setStatutSorti(
     	      int p_id_locataire,
     	      int p_id_EDL,
     	      String p_statut_sortie
@@ -112,20 +123,6 @@ public class GestionLocataire extends CictOracleDataSource {
             cs.setInt(1, p_id_locataire);
             cs.setString(3, p_statut_sortie);
             cs.execute();
-        }
-    }
-
-
-    public int callGetLocateurIdByLogement(
-    	    int p_id_batiment,
-    	    int p_id_logement
-    	    ) throws SQLException {
-        try (CallableStatement cs = this.connection.prepareCall("{ ? = call GetLocateurIdByLogement(?,?) }")) {
-            cs.registerOutParameter(1, Types.INTEGER);
-            cs.setInt(2, p_id_batiment);
-            cs.setInt(3, p_id_logement);
-            cs.execute();
-            return cs.getInt(1);
         }
     }
 

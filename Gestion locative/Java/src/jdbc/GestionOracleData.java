@@ -18,27 +18,58 @@ import oracle.jdbc.pool.OracleDataSource;
 
 public class GestionOracleData extends CictOracleDataSource {
 
-	private Connection connection;
-    private Statement statement;
-    private PreparedStatement prepareStatement;
-    private ResultSet result;
+
     private GestionBatiment gestionBatiment;
     private GestionLocataire gestionLocataire;
     private GestionLogement gestionLogement;
 
     public GestionOracleData() throws SQLException {
 		super();
-        this.gestionBatiment = new GestionBatiment() ;
-        this.gestionLocataire = new GestionLocataire();
-        this.gestionLogement = new GestionLogement();
-        
     }
 
     
 
+
+    public GestionLogement logement() {
+        if (gestionLogement == null) {
+            try {
+                gestionLogement = new GestionLogement(this.getConnection());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return gestionLogement;
+    }
+
+    
+    public GestionBatiment batiment( ) {
+        if (gestionBatiment == null) {
+            try {
+                gestionBatiment = new GestionBatiment(this.getConnection());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return gestionBatiment;
+    }
+
+    
+    public GestionLocataire locataire( ) {
+        if (gestionLocataire == null) {
+            try {
+            	gestionLocataire = new GestionLocataire(this.getConnection());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return gestionLocataire;
+    }
+
+
+
     /*------------- general -------------*/
 
-    public int callGetNextId(
+    public int getNextId(
     		String p_table_name,
     		String p_colom_id
         ) throws SQLException {
@@ -51,7 +82,8 @@ public class GestionOracleData extends CictOracleDataSource {
         }
     }
     
-    public ResultSet callGetTableData(String tableName, String... col) throws SQLException {
+    
+    public ResultSet getTableData(String tableName, String... col) throws SQLException {
         try (CallableStatement cs = this.connection.prepareCall("{ ? = call getTableData(?, ?) }")) {
             cs.registerOutParameter(1, java.sql.Types.REF_CURSOR);
             cs.setString(2, tableName);
@@ -73,18 +105,19 @@ public class GestionOracleData extends CictOracleDataSource {
 
 
 
-    public void AddTypeCharges(
+    public void addTypeCharges(
   	      	  String p_nom ,
     	      float p_prix_unitaire
     	   )throws SQLException {
-        try (CallableStatement cs = this.connection.prepareCall("{call InsertTypeCharges(?,?) }")) {
+        try (CallableStatement cs = super.connection.prepareCall("{call InsertTypeCharges(?,?) }")) {
             cs.setString(1, p_nom);
             cs.setFloat(2, p_prix_unitaire);
             cs.execute();
         }
     }
 
-    public void AddEntreprise(
+    
+    public void addEntreprise(
     	      String p_SIREN,
     	      String p_nom,
     	      String p_serves,
@@ -113,19 +146,4 @@ public class GestionOracleData extends CictOracleDataSource {
     //InsertFicheDiagnostic
     //InsertCorrespondre
     
-
-
-
-
-    public GestionBatiment Batiment( ) {
-    	return this.gestionBatiment;
-    }
-
-    public GestionLocataire Locataire( ) {
-    	return this.gestionLocataire;
-    }
-
-    public GestionLogement Logement( ) {
-    	return this.gestionLogement;
-    }
 }
