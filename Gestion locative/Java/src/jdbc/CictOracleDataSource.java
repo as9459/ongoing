@@ -608,7 +608,7 @@ public class CictOracleDataSource extends OracleDataSource {
             return (ResultSet) cs.getObject(1);
         }
     }
-    /*
+    
     public boolean deleteBatimentById(int idBatiment) {
         // Step 1: Identify and delete or update related records in LOGEMENT table
         handleRelatedLogementRecords(idBatiment);
@@ -646,7 +646,7 @@ public class CictOracleDataSource extends OracleDataSource {
             e.printStackTrace(); // Log or handle the exception as needed
         }
     } 
-    */
+    
     
 
     
