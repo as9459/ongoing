@@ -21,10 +21,22 @@ public class GestionLocataire extends CictOracleDataSource {
 
     public GestionLocataire(Connection connection2) throws SQLException {
 		super();
-        this.connection = connection;
+        this.connection = connection2;
 	}
     
+    public ResultSet getLocatairesActuels() throws SQLException {
+        try (CallableStatement cs = this.connection.prepareCall("{ ? = call GetLocatairesActuels() }")) {
+            cs.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+            cs.execute();
+            ResultSet originalResultSet = (ResultSet) cs.getObject(1);
 
+            // Copy the data into a new ResultSet to avoid premature closure
+            CachedRowSet rowSet = RowSetProvider.newFactory().createCachedRowSet();
+            rowSet.populate(originalResultSet);
+
+            return rowSet;
+        }
+    }
     public int getIdByLogement(
     	    int p_id_batiment,
     	    int p_id_logement
