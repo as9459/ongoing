@@ -146,6 +146,11 @@ public class CictOracleDataSource extends OracleDataSource {
             ex.printStackTrace();
         }
     }
+
+    
+    
+<<<<<<< HEAD
+=======
     
 
     /*------------- general -------------*/
@@ -644,19 +649,31 @@ public class CictOracleDataSource extends OracleDataSource {
         }
     } 
     
-	public ResultSet GetAllLogements () throws SQLException {
-	        try (CallableStatement cs = this.connection.prepareCall("{ ? = call GetAllLogements () }")) {
-	            cs.registerOutParameter(1, java.sql.Types.REF_CURSOR);
-	            cs.execute();
-	            ResultSet originalResultSet = (ResultSet) cs.getObject(1);
-	
-	            // Copy the data into a new ResultSet to avoid premature closure
-	            CachedRowSet rowSet = RowSetProvider.newFactory().createCachedRowSet();
-	            rowSet.populate(originalResultSet);
-	
-	            return rowSet;
-	        }
-	}
     
+
+    
+    public ResultSet GetAllLogements () throws SQLException {
+        try (CallableStatement cs = this.connection.prepareCall("{ ? = call GetAllLogements () }")) {
+            cs.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+            cs.execute();
+            ResultSet originalResultSet = (ResultSet) cs.getObject(1);
+
+            // Copy the data into a new ResultSet to avoid premature closure
+            CachedRowSet rowSet = RowSetProvider.newFactory().createCachedRowSet();
+            rowSet.populate(originalResultSet);
+
+            return rowSet;
+        }
+    }
+    
+   
+
+
+
+
+
+
+
+>>>>>>> 4edfc20b52c92d3c5f6cbf84dcffc26e84453553
 
 }
