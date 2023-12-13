@@ -87,7 +87,6 @@ public class FenLocataire extends JInternalFrame {
         idLocatairetColumn.setPreferredWidth(0);
         idLocatairetColumn.setResizable(false);
 		
-		
 		panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
 		
@@ -116,6 +115,7 @@ public class FenLocataire extends JInternalFrame {
 		btnNewButton_3 = new JButton("Supprimer");
 		splitPane.setLeftComponent(btnNewButton_3);
 		btnNewButton_3.addActionListener(this.gestionClic);
+		
 		
 	}
 	

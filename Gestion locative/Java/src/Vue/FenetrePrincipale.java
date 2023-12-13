@@ -9,7 +9,6 @@ import javax.swing.border.EmptyBorder;
 
 import Controleur.GestionFenetrePrincipale;
 import jdbc.CictOracleDataSource;
-import jdbc.GestionOracleData;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -25,7 +24,7 @@ import javax.swing.JLabel;
 public class FenetrePrincipale extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	private GestionOracleData bd;
+	private CictOracleDataSource bd;
 	private JPanel contentPane;
 	protected boolean estConnecte;
 	private JMenuItem mntm_Déconnecter;
@@ -123,6 +122,11 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 		this.gestionClic = new GestionFenetrePrincipale(this);
 		menu_AdProp.add(mntmLogement);
 		
+		JMenuItem mntmFacture = new JMenuItem("Factures");
+		mntmLogement.addActionListener(this.gestionClic);
+		this.gestionClic = new GestionFenetrePrincipale(this);
+		menu_AdProp.add(mntmFacture);
+		
 	}
 
 	
@@ -153,7 +157,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 		this.estConnecte = estConnecte;
 	}
 	
-	public void setAcces(GestionOracleData con) {
+	public void setAcces(CictOracleDataSource con) {
 		this.bd = con;
 	}
 	
