@@ -14,7 +14,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import Controleur.GestionFenBatiment;
-import Controleur.GestionTabBatiment;
 
 public class FenBatiment extends JInternalFrame {
 
@@ -31,7 +30,6 @@ public class FenBatiment extends JInternalFrame {
 
 	
 	
-	private GestionTabBatiment gestionTable;
 	private GestionFenBatiment gestionClic;
 	private FenetrePrincipale parent;
 	/**
@@ -85,8 +83,6 @@ public class FenBatiment extends JInternalFrame {
         idLogementColumn.setResizable(false);
 		
 		
-		gestionTable = new GestionTabBatiment(this);
-		this.table.getSelectionModel().addListSelectionListener(this.gestionTable);
 		
 		panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
