@@ -29,7 +29,8 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 	protected boolean estConnecte;
 	private JMenuItem mntm_Déconnecter;
 	private JMenuItem mntm_Connecter;
-	private JMenu mn_Affichage;
+	private JMenu menu_AdLoc;
+	private JMenu menu_AdProp;
 	
 	private GestionFenetrePrincipale gestionClic;
 	
@@ -68,55 +69,59 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 		menuBar.setBounds(0, 0, 1000, 22);
 		contentPane.add(menuBar);
 		
-		JMenu menu1 = new JMenu("Fichier");
-		menuBar.add(menu1);
+		JMenu menu_Fch = new JMenu("Fichier");
+		menuBar.add(menu_Fch);
 		
 		JMenuItem item1 = new JMenuItem("Quitter");
 		this.gestionClic = new GestionFenetrePrincipale(this);
 		item1.addActionListener(this.gestionClic);
-		menu1.add(item1);
+		menu_Fch.add(item1);
 		
-		JMenu menu2 = new JMenu("Connecter");
-		menuBar.add(menu2);
+		JMenu menu_Cnt = new JMenu("Connecter");
+		menuBar.add(menu_Cnt);
 		
 		mntm_Connecter = new JMenuItem("Connecter");
 		mntm_Connecter.addActionListener(this.gestionClic);
 		this.gestionClic = new GestionFenetrePrincipale(this);
-		menu2.add(mntm_Connecter);
+		menu_Cnt.add(mntm_Connecter);
 		
 		mntm_Déconnecter = new JMenuItem("Déconnecter");
 		mntm_Déconnecter.addActionListener(this.gestionClic);
 		this.gestionClic = new GestionFenetrePrincipale(this);
 		mntm_Déconnecter.setEnabled(false);
-		menu2.add(mntm_Déconnecter);
+		menu_Cnt.add(mntm_Déconnecter);
 		
-		mn_Affichage = new JMenu("Affichage");
-		mn_Affichage.setEnabled(false);
-		menuBar.add(mn_Affichage);
+		menu_AdLoc = new JMenu("Administration locataires");
+		menu_AdLoc.setEnabled(false);
+		menuBar.add(menu_AdLoc);
 		
 		JMenuItem mntm_Locataire = new JMenuItem("Locataire");
 		mntm_Locataire.addActionListener(this.gestionClic);
 		this.gestionClic = new GestionFenetrePrincipale(this);
+		menu_AdLoc.add(mntm_Locataire);
 		
-		JMenu mntm_Batiment = new JMenu("Batiment");
-		mn_Affichage.add(mntm_Batiment);
-		
-		JMenuItem item4 = new JMenuItem("Logement");
-		item4.addActionListener(this.gestionClic);
-		this.gestionClic = new GestionFenetrePrincipale(this);
-		
-		JMenuItem item7 = new JMenuItem("Batiment");
-		item7.addActionListener(this.gestionClic);
-		this.gestionClic = new GestionFenetrePrincipale(this);
-		mntm_Batiment.add(item7);
-		mntm_Batiment.add(item4);
-		mn_Affichage.add(mntm_Locataire);
+
 		
 		JMenuItem mntm_Paiement = new JMenuItem("Paiement");
 		mntm_Paiement.setBackground(new Color(240, 240, 240));
 		mntm_Paiement.addActionListener(this.gestionClic);
 		this.gestionClic = new GestionFenetrePrincipale(this);
-		mn_Affichage.add(mntm_Paiement);
+		menu_AdLoc.add(mntm_Paiement);
+		
+		menu_AdProp = new JMenu("Administration propriétés");
+		menu_AdProp.setEnabled(false);
+		menuBar.add(menu_AdProp);
+		
+		JMenuItem mntmBatiment = new JMenuItem("Batiment");
+		mntmBatiment.addActionListener(this.gestionClic);
+		this.gestionClic = new GestionFenetrePrincipale(this);
+		menu_AdProp.add(mntmBatiment);
+		
+		JMenuItem mntmLogement = new JMenuItem("Logement");
+		mntmLogement.addActionListener(this.gestionClic);
+		this.gestionClic = new GestionFenetrePrincipale(this);
+		menu_AdProp.add(mntmLogement);
+		
 	}
 
 	
@@ -124,10 +129,11 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 		boolean param1,param2;
 		if(param) { param1 = true ;param2 = false; } else {param1 = false ;param2 = true; }
 			mntm_Déconnecter.setEnabled(param1);
-			mn_Affichage.setEnabled(param1);
+			menu_AdLoc.setEnabled(param1);
+			menu_AdProp.setEnabled(param1);
 			
 			mntm_Connecter.setEnabled(param2);
-			
+				
 	}
 
 	@Override
@@ -136,10 +142,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 		
 	}
 	
-
-	/**
-	 * Create the méthodes.
-	 */
 
 
 	public boolean isEstConnecte() {
