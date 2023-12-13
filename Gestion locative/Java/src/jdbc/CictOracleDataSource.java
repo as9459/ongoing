@@ -608,7 +608,48 @@ public class CictOracleDataSource extends OracleDataSource {
             return (ResultSet) cs.getObject(1);
         }
     }
+    /*
+    public boolean deleteBatimentById(int idBatiment) {
+        // Step 1: Identify and delete or update related records in LOGEMENT table
+        handleRelatedLogementRecords(idBatiment);
 
+        // Step 2: Delete the BATIMENT record
+        String batimentSql = "DELETE FROM BATIMENT WHERE ID_BATIMENT = ?";
+
+        try (PreparedStatement batimentStatement = this.prepareStatement(batimentSql)) {
+            // Set the ID_BATIMENT parameter for BATIMENT deletion
+            batimentStatement.setInt(1, idBatiment);
+
+            // Execute the BATIMENT delete statement
+            int batimentRowsAffected = batimentStatement.executeUpdate();
+
+            // Check if any BATIMENT rows were affected
+            return batimentRowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Method to handle related records in LOGEMENT table
+    private void handleRelatedLogementRecords(int idBatiment) {
+        // Step 3: Delete records from LOGEMENT table where ID_BATIMENT = idBatiment
+        String logementSql = "DELETE FROM LOGEMENT WHERE ID_BATIMENT = ?";
+
+        try (PreparedStatement logementStatement = this.prepareStatement(logementSql)) {
+            // Set the ID_BATIMENT parameter for LOGEMENT deletion
+            logementStatement.setInt(1, idBatiment);
+
+            // Execute the LOGEMENT delete statement
+            logementStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(); // Log or handle the exception as needed
+        }
+    } 
+    */
+    
+
+    
     public ResultSet GetAllLogements () throws SQLException {
         try (CallableStatement cs = this.connection.prepareCall("{ ? = call GetAllLogements () }")) {
             cs.registerOutParameter(1, java.sql.Types.REF_CURSOR);
