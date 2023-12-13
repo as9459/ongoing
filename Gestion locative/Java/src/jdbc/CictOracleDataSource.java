@@ -20,14 +20,14 @@ import oracle.jdbc.pool.OracleDataSource;
 
 public class CictOracleDataSource extends OracleDataSource {
 
-    protected Connection connection;
-    protected Statement statement;
-    protected PreparedStatement prepareStatement;
-    protected ResultSet result;
+    private Connection connection;
+    private Statement statement;
+    private PreparedStatement prepareStatement;
+    private ResultSet result;
 
     public CictOracleDataSource() throws SQLException {
+    	
         this.setURL("jdbc:oracle:thin:@telline.univ-tlse3.fr" + ":1521:etupre");
-        
     }
     
 
@@ -149,8 +149,6 @@ public class CictOracleDataSource extends OracleDataSource {
 
     
     
-<<<<<<< HEAD
-=======
     
 
     /*------------- general -------------*/
@@ -674,6 +672,5 @@ public class CictOracleDataSource extends OracleDataSource {
 
 
 
->>>>>>> 4edfc20b52c92d3c5f6cbf84dcffc26e84453553
 
 }

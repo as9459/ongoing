@@ -144,10 +144,9 @@ public class GestionFenBatiment implements ActionListener{
 	            row[3] = result.getString(4);
 	            row[4] = result.getString(5);
 	            row[5] = result.getString(6);
-	            row[6] = this.mere.getConnectionBD().Logement().callGetNbLogByBatiment(result.getInt(1));
+	            row[6] = this.mere.getConnectionBD().callGetNbLogByBatiment(result.getInt(1));
 	            row[7] = null;
 	            dataList.add(row);
-	            
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
