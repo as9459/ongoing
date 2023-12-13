@@ -23,12 +23,10 @@ import Vue.FenBatiment;
 public class GestionFenBatiment implements ActionListener{
 	private FenBatiment fene;
 	private FenetrePrincipale mere;
-	private DaoBatiment daoBatiment;
 	private DefaultTableModel modeleTable;
 
 	public GestionFenBatiment(FenBatiment fen, FenetrePrincipale mare) {
 		this.fene = fen;
-		this.daoBatiment = new DaoBatiment();
 		this.mere = mare ;
 		///if (this.fene.getTableBatiment().getModel() != null) {
 	      //this.modeleTable = (DefaultTableModel) this.fene.getTableBatiment().getModel();
@@ -90,7 +88,7 @@ public class GestionFenBatiment implements ActionListener{
             break;
     	case "Supprimer":
 			// TODO
-    		/*System.out.println("Vous voulez supprimer le " + (selectedRow+1) +"er/eme ligne");
+    		System.out.println("Vous voulez supprimer le " + (selectedRow+1) +"er/eme ligne");
     	
 
                 if (selectedRow != -1) {
@@ -104,7 +102,7 @@ public class GestionFenBatiment implements ActionListener{
                     //test
                     System.out.println("Id batiment: " + idbat);
                     System.out.println("Adresse: " + addresse);
-                    
+                    /*
                     // Delete the row from the database
                     int idBatimentToDelete = Integer.parseInt(idbat.toString());
                     if (this.mere.getConnectionBD().deleteBatimentById(idBatimentToDelete)) {
@@ -114,13 +112,10 @@ public class GestionFenBatiment implements ActionListener{
                     } else {
                         System.out.println("Error erreur suppression ligne");
                     }
-                    
+                    */
                 } else {
                     System.out.println("Aucun ligne est selectionner");
                 }
-            */
-            System.out.println("Error erreur suppression ligne");
-			break;
 			
 		default:
 			break;

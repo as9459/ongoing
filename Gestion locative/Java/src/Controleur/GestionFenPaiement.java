@@ -74,7 +74,7 @@ public class GestionFenPaiement implements ActionListener{
 	    List<Object[]> dataList = new ArrayList<>();
 
 	    try {
-	        result = this.mere.getConnectionBD().callGetTableData("FACT_LOGEMENT");
+	        result = this.mere.getConnectionBD().getTableData("FACT_LOGEMENT");
 
 	        while (result.next()) {
 	            Object[] row = new Object[8]; // Change the size as needed

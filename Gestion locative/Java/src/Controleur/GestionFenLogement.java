@@ -85,7 +85,7 @@ public class GestionFenLogement implements ActionListener{
 	    List<Object[]> dataList = new ArrayList<>();
 
 	    try {
-	        result = this.mere.getConnectionBD().GetAllLogements();
+	        result = this.mere.getConnectionBD().getTableData("LOGEMENT");
 
 	        while (result.next()) {
 	            Object[] row = new Object[10]; // Change the size as needed
