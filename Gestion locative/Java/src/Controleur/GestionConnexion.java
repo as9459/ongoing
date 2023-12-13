@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import javax.swing.JButton;
 
 import jdbc.CictOracleDataSource;
+import jdbc.GestionOracleData;
 import Vue.Connexion;
 import Vue.FenBatiment;
 import Vue.FenetrePrincipale;
@@ -27,13 +28,13 @@ public class GestionConnexion implements ActionListener {
 				break;
 			case "Connecter":
 				FenetrePrincipale mere = (FenetrePrincipale) fen.getTopLevelAncestor();
-				CictOracleDataSource bd = null;
+				GestionOracleData bd = null;
 				String msg="";
 				fen.setMsgAcces(msg);
 				
 				
 				try {
-					bd = new CictOracleDataSource();
+					bd = new GestionOracleData();
 					msg = bd.creerAcces(fen.getValeurChLogin(), fen.getValeurPassword());
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block

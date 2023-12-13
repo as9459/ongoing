@@ -1,5 +1,8 @@
-/test/
+/jdbc/
 /Controleur/
 /Vue/
-/jdbc/
+<<<<<<< HEAD
 /modele/
+=======
+/jdbc/
+>>>>>>> 4edfc20b52c92d3c5f6cbf84dcffc26e84453553
