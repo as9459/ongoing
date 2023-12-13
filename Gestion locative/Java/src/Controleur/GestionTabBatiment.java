@@ -1,4 +1,4 @@
-package Controleur;
+/*package Controleur;
 
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -41,4 +41,4 @@ public class GestionTabBatiment implements ListSelectionListener{
 			//Batiment cr = daoBatiment.findById(primaryKey);
 		}
 	}
-}
+}*/

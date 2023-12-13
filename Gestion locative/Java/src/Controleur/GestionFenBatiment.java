@@ -100,30 +100,25 @@ public class GestionFenBatiment implements ActionListener{
                     Object idbat = model.getValueAt(selectedRow, 0); // recup Id Batiment
                     Object addresse = model.getValueAt(selectedRow, 1);
                     
+                    
                     //test
                     System.out.println("Id batiment: " + idbat);
                     System.out.println("Adresse: " + addresse);
+                    
+                    // Delete the row from the database
+                    int idBatimentToDelete = Integer.parseInt(idbat.toString());
+                    if (this.mere.getConnectionBD().deleteBatimentById(idBatimentToDelete)) {
+                        // If deletion is successful, remove the row from the table
+                        model.removeRow(selectedRow);
+                        System.out.println("Succes suppression du ligne");
+                    } else {
+                        System.out.println("Error erreur suppression ligne");
+                    }
+                    
                 } else {
                     System.out.println("Aucun ligne est selectionner");
                 }
             
-    		
-    		
-    		
-    		/*if (rowSelected != -1) {
-				DefaultTableModel model = (DefaultTableModel) myTable.getModel();
-
-				Batiment ba1 = this.lireLigneTable(rowSelected);
-				Batiment ba2 = daoBatiment.findById(Integer.toString(ba1.getIdBatiment()),
-												  ba1.getAdresse(), 
-												  ba1.getCodePostal(),
-												  ba1.getVille(),
-												  String.valueOf(ba1.getRegimeJuridique()),
-												  String.valueOf(ba1.getDateConstruction()));
-												  //(String) this.fene.getTableBatiment().getValueAt(rowSelected, 5));
-				daoBatiment.delete(ba2);
-				((DefaultTableModel)this.fene.getTableBatiment().getModel()).removeRow(rowSelected);
-			} */
 			break;
 			
 		default:
@@ -167,5 +162,6 @@ public class GestionFenBatiment implements ActionListener{
 
 	    return ob;
 	}
+	
 
 }
