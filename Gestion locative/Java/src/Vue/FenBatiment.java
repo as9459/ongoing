@@ -30,11 +30,6 @@ public class FenBatiment extends JInternalFrame {
 
 	
 	
-<<<<<<< HEAD
-
-=======
-	//private GestionTabBatiment gestionTable;
->>>>>>> 0a8048b9419f28c69871d56c99c5b45bc0e6fea4
 	private GestionFenBatiment gestionClic;
 	private FenetrePrincipale parent;
 	/**
@@ -88,11 +83,7 @@ public class FenBatiment extends JInternalFrame {
         idLogementColumn.setResizable(false);
 		
 		
-<<<<<<< HEAD
-=======
-		/*gestionTable = new GestionTabBatiment(this);
-		this.table.getSelectionModel().addListSelectionListener(this.gestionTable);*/
->>>>>>> 0a8048b9419f28c69871d56c99c5b45bc0e6fea4
+
 		
 		panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
