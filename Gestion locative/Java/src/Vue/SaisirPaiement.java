@@ -24,6 +24,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JLayeredPane;
 
 @SuppressWarnings("serial")
 public class SaisirPaiement extends JInternalFrame{
@@ -159,6 +160,10 @@ public class SaisirPaiement extends JInternalFrame{
 		lblModeDePaiement.setFont(new Font("Tahoma", Font.BOLD, 10));
 		lblModeDePaiement.setBounds(28, 262, 113, 13);
 		panel.add(lblModeDePaiement);
+		
+		JLayeredPane layeredPane = new JLayeredPane();
+		layeredPane.setBounds(89, 157, 1, 1);
+		panel.add(layeredPane);
 		
 		JLabel lblNewLabel = new JLabel("Saisir les informations du paiement");
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 13));
