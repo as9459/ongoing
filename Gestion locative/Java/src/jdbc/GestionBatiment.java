@@ -22,7 +22,7 @@ public class GestionBatiment extends CictOracleDataSource {
 
     public GestionBatiment(Connection connection2) throws SQLException {
 		super();
-        this.connection = connection;
+        this.connection = connection2;
 	}
     
     
