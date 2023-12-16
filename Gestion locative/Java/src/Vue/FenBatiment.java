@@ -60,10 +60,10 @@ public class FenBatiment extends JInternalFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));					/******/
-        this.gestionClic = new GestionFenBatiment(this, this.parent);	/******/		
-        JScrollPane scrollPane = new JScrollPane();						/******/
-		contentPane.add(scrollPane);									/******/
+		contentPane.setLayout(new BorderLayout(0, 0));					
+        this.gestionClic = new GestionFenBatiment(this, this.parent);			
+        JScrollPane scrollPane = new JScrollPane();						
+		contentPane.add(scrollPane);									
 		
 		table = new JTable();
 		table.setBounds(5, 5, 684, 373);
@@ -76,12 +76,12 @@ public class FenBatiment extends JInternalFrame {
 		scrollPane.setViewportView(table);
 		
 		// cacher la collone IdBatiment
-        TableColumn idLogementColumn = table.getColumnModel().getColumn(0); // Assuming IdLogement is the first column
+        /*TableColumn idLogementColumn = table.getColumnModel().getColumn(0); // Assuming IdLogement is the first column
         idLogementColumn.setMinWidth(0);
         idLogementColumn.setMaxWidth(0);
         idLogementColumn.setWidth(0);
         idLogementColumn.setPreferredWidth(0);
-        idLogementColumn.setResizable(false);
+        idLogementColumn.setResizable(false);*/
 		
 		
 		/*gestionTable = new GestionTabBatiment(this);

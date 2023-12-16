@@ -23,12 +23,12 @@ import Vue.FenBatiment;
 public class GestionFenBatiment implements ActionListener{
 	private FenBatiment fene;
 	private FenetrePrincipale mere;
-	private DefaultTableModel modeleTable;
+	//private DefaultTableModel modeleTable;
 
 	public GestionFenBatiment(FenBatiment fen, FenetrePrincipale mare) {
 		this.fene = fen;
 		this.mere = mare ;
-		this.modeleTable = (DefaultTableModel) this.fene.getTableBatiment().getModel();
+		//this.modeleTable = (DefaultTableModel) this.fene.getTableBatiment().getModel();
 	}
 	
 	/*
