@@ -24,16 +24,12 @@ import Vue.FenFacture;
 public class GestionFenFacture implements ActionListener{
 	private FenFacture fac;
 	private FenetrePrincipale mere;
-	/*private DaoBatiment daoBatiment;
-	private DefaultTableModel modeleTable;*/
+	//private DefaultTableModel modeleTable;
 
-	public GestionFenFacture(FenFacture fen, FenetrePrincipale mere) {
-		this.fac = fen;
-		/*this.daoBatiment = new DaoBatiment();*/
-		this.mere = mere ;
-		///if (this.fac.getTableBatiment().getModel() != null) {
-	      //this.modeleTable = (DefaultTableModel) this.fac.getTableBatiment().getModel();
-		//}
+	public GestionFenFacture(FenFacture fac, FenetrePrincipale mare) {
+		this.fac = fac;
+		this.mere = mare ;
+		//this.modeleTable = (DefaultTableModel) this.fac.getTableFacture().getModel();
 	}
 	
 	/*
@@ -55,7 +51,7 @@ public class GestionFenFacture implements ActionListener{
         JButton bouton =(JButton) e.getSource();
        
         if (fac != null) {
-            JTable myTable = fac.getTableBatiment();
+            JTable myTable = fac.getTableFacture();
             int selectedRow = myTable.getSelectedRow();
         
         
@@ -65,12 +61,12 @@ public class GestionFenFacture implements ActionListener{
     		fac.dispose();
     		break;
     	case "Ajouter":
-			SaisirFacture sfact = null;
+			SaisirFacture sfac = null;
 			try {
-				sfact = new SaisirFacture();
+				sfac = new SaisirFacture();
 				JLayeredPane layeredPane4 = this.mere.getLayeredPane();
-				layeredPane4.add(sfact, JLayeredPane.DEFAULT_LAYER);
-				sfact.setVisible(true);
+				layeredPane4.add(sfac, JLayeredPane.DEFAULT_LAYER);
+				sfac.setVisible(true);
 			} catch (ParseException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -105,6 +101,16 @@ public class GestionFenFacture implements ActionListener{
                     //test
                     System.out.println("Id batiment: " + idbat);
                     System.out.println("Adresse: " + addresse);
+                    /*
+                    // Delete the row from the database
+                    int idBatimentToDelete = Integer.parseInt(idbat.toString());
+                    if (this.mere.getConnectionBD().deleteBatimentById(idBatimentToDelete)) {
+                        // If deletion is successful, remove the row from the table
+                        model.removeRow(selectedRow);
+                        System.out.println("Succes suppression du ligne");
+                    } else {
+                        System.out.println("Error erreur suppression ligne");
+                    }*/
                     
                 } else {
                     System.out.println("Aucun ligne est selectionner");
@@ -129,14 +135,14 @@ public class GestionFenFacture implements ActionListener{
 
 	        while (result.next()) {
 	            Object[] row = new Object[8]; // Change the size as needed
-	            row[0] = result.getInt(1);
-	            row[1] = result.getInt(2);
+	            row[0] = result.getString(1);
+	            row[1] = result.getString(2);
 	            row[2] = result.getString(3);
-	            row[3] = result.getFloat(4);
+	            row[3] = result.getString(4);
 	            row[4] = result.getString(5);
-	            row[5] = result.getDate(6);
-	           // row[6] = this.mere.getConnectionBD().callGetNbLogByBatiment(result.getInt(1));
-	           // row[7] = null;
+	            row[5] = result.getString(6);
+	            //row[6] = this.mere.getConnectionBD().callGetNbLogByBatiment(result.getInt(1));
+	            //row[7] = null;
 	            dataList.add(row);
 	        }
 	    } catch (SQLException e) {

@@ -525,24 +525,17 @@ END SetStatutEntree;
 
 
 
-CREATE OR REPLACE FUNCTION getTableData(p_table_name IN VARCHAR2, p_columns IN VARCHAR2 DEFAULT NULL) RETURN SYS_REFCURSOR AS
+CREATE OR REPLACE FUNCTION getTableData(p_table_name IN VARCHAR2) RETURN SYS_REFCURSOR AS
     v_sql_query VARCHAR2(1000);
     my_cursor SYS_REFCURSOR;
-BEGIN
-    IF p_columns IS NULL THEN
-        -- If columns are not specified, retrieve all columns
-        v_sql_query := 'SELECT * FROM ' || p_table_name;
-    ELSE
-        -- If columns are specified, construct a dynamic query with specified columns
-        v_sql_query := 'SELECT ' || p_columns || ' FROM ' || p_table_name;
-    END IF;
+    BEGIN
+    v_sql_query := 'SELECT * FROM ' || p_table_name;
 
     OPEN my_cursor FOR v_sql_query;
 
     RETURN my_cursor;
 END getTableData;
 /
-
 
 
 

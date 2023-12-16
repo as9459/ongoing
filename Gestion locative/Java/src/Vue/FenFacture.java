@@ -27,10 +27,7 @@ public class FenFacture extends JInternalFrame {
 	private JSplitPane splitPane;
 	private JButton btnNewButton_2;
 	private JButton btnNewButton_3;
-
 	
-	
-	//private GestionTabBatiment gestionTable;
 	private GestionFenFacture gestionClic;
 	private FenetrePrincipale parent;
 	/**
@@ -120,7 +117,7 @@ public class FenFacture extends JInternalFrame {
 		
 	}
 	
-	public JTable getTableBatiment() {
+	public JTable getTableFacture() {
 		return this.table;
 	}
 

@@ -13,7 +13,7 @@ import javax.swing.JLayeredPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import Vue.FenBatiment;
+import Vue.FenFacture;
 import Vue.FenLocataire;
 import Vue.FenetrePrincipale;
 import Vue.SaisirLocataire;
@@ -96,7 +96,7 @@ public class GestionFenLocataire implements ActionListener{
 	    List<Object[]> dataList = new ArrayList<>();
 
 	    try {
-	        result = this.mere.getConnectionBD().locataire().getLocatairesActuels();
+	        result = this.mere.getConnectionBD().callGetTableData("LOCATAIRE");
 
 	        while (result.next()) {
 	            Object[] row = new Object[8]; // Change the size as needed
@@ -106,7 +106,7 @@ public class GestionFenLocataire implements ActionListener{
 	            row[3] = result.getString(4);
 	            row[4] = result.getString(5);
 	            row[5] = result.getString(6);
-	            row[6] = this.mere.getConnectionBD().logement().getIdByLocateur(result.getInt(1));;
+	            row[6] = this.mere.getConnectionBD().callGetLogementIdByLocateur(result.getInt(1));;
 	            row[7] = null;
 	            dataList.add(row);
 	        }

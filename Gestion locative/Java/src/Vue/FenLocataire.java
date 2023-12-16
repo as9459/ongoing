@@ -74,18 +74,18 @@ public class FenLocataire extends JInternalFrame {
 		table.setModel(new DefaultTableModel(
 				this.gestionClic.updateTable(),
 			new String[] {
-				"IDLocataire","Nom", "Prenom", "Téléphone", "Date de Naissance", "E-Mail", "Logement", "Documents"
+				"ID Locataire","Nom", "Prenom", "Téléphone", "Date de Naissance", "E-Mail", "Logement", "Documents"
 			}
 		));
 		scrollPane.setViewportView(table);
 		
-		// cacher la collone IdLocataire
-        TableColumn idLocatairetColumn = table.getColumnModel().getColumn(0); // Assuming IdLogement is the first column
+		// cacher la colonne IdLocataire
+        /*TableColumn idLocatairetColumn = table.getColumnModel().getColumn(0); // Assuming IDLocataire is the first column
         idLocatairetColumn.setMinWidth(0);
         idLocatairetColumn.setMaxWidth(0);
         idLocatairetColumn.setWidth(0);
         idLocatairetColumn.setPreferredWidth(0);
-        idLocatairetColumn.setResizable(false);
+        idLocatairetColumn.setResizable(false);*/
 		
 		panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);

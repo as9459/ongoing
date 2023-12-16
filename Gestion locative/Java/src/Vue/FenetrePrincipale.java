@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Controleur.GestionFenetrePrincipale;
-import jdbc.GestionOracleData;
+import jdbc.CictOracleDataSource;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -24,7 +24,7 @@ import javax.swing.JLabel;
 public class FenetrePrincipale extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	private GestionOracleData bd;
+	private CictOracleDataSource bd;
 	private JPanel contentPane;
 	protected boolean estConnecte;
 	private JMenuItem mntm_Déconnecter;
@@ -157,7 +157,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 		this.estConnecte = estConnecte;
 	}
 	
-	public void setAcces(GestionOracleData con) {
+	public void setAcces(CictOracleDataSource con) {
 		this.bd = con;
 	}
 	
@@ -166,7 +166,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
     }
 
 
-    public GestionOracleData getConnectionBD() {
+    public CictOracleDataSource getConnectionBD() {
         return this.bd;
     }
     
