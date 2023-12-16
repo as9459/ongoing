@@ -12,6 +12,7 @@ import Vue.Connexion;
 import Vue.FenetrePrincipale;
 import Vue.FenBatiment;
 import Vue.FenDocument;
+import Vue.FenFacture;
 import Vue.FenLocataire;
 import Vue.FenLogement;
 import Vue.FenPaiement;
@@ -64,6 +65,13 @@ public class GestionFenetrePrincipale implements ActionListener{
 				JLayeredPane layeredPane4 = fen.getLayeredPane();
 				layeredPane4.add(bat, JLayeredPane.DEFAULT_LAYER);
 				bat.setVisible(true);
+	            break;
+			case "Facture":
+				/*System.out.println("bouton marche");*/
+				FenFacture fac = new FenFacture(this.fen);
+				JLayeredPane layeredPane5 = fen.getLayeredPane();
+				layeredPane5.add(fac, JLayeredPane.DEFAULT_LAYER);
+				fac.setVisible(true);
 	            break;
 		}
 	}}

@@ -15,23 +15,24 @@ import javax.swing.table.DefaultTableModel;
 
 import Vue.FenetrePrincipale;
 import Vue.SaisirBatiment;
-import Controleur.GestionFenBatiment;
+import Vue.SaisirFacture;
+import Controleur.GestionFenFacture;
 import modele.Batiment;
 import modele.dao.DaoBatiment;
-import Vue.FenBatiment;
+import Vue.FenFacture;
 
 public class GestionFenFacture implements ActionListener{
 	private FenFacture fac;
 	private FenetrePrincipale mere;
-	private DaoBatiment daoBatiment;
-	private DefaultTableModel modeleTable;
+	/*private DaoBatiment daoBatiment;
+	private DefaultTableModel modeleTable;*/
 
-	public GestionFenFacture(FenFacture fen, FenetrePrincipale mare) {
-		this.fene = fen;
-		this.daoBatiment = new DaoBatiment();
-		this.mere = mare ;
-		///if (this.fene.getTableBatiment().getModel() != null) {
-	      //this.modeleTable = (DefaultTableModel) this.fene.getTableBatiment().getModel();
+	public GestionFenFacture(FenFacture fen, FenetrePrincipale mere) {
+		this.fac = fen;
+		/*this.daoBatiment = new DaoBatiment();*/
+		this.mere = mere ;
+		///if (this.fac.getTableBatiment().getModel() != null) {
+	      //this.modeleTable = (DefaultTableModel) this.fac.getTableBatiment().getModel();
 		//}
 	}
 	
@@ -53,23 +54,23 @@ public class GestionFenFacture implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
         JButton bouton =(JButton) e.getSource();
        
-        if (fene != null) {
-            JTable myTable = fene.getTableBatiment();
+        if (fac != null) {
+            JTable myTable = fac.getTableBatiment();
             int selectedRow = myTable.getSelectedRow();
         
         
     	switch(bouton.getText()) {
   
     	case "Retourner":
-    		fene.dispose();
+    		fac.dispose();
     		break;
     	case "Ajouter":
-			SaisirBatiment sbat = null;
+			SaisirFacture sfact = null;
 			try {
-				sbat = new SaisirBatiment();
+				sfact = new SaisirFacture();
 				JLayeredPane layeredPane4 = this.mere.getLayeredPane();
-				layeredPane4.add(sbat, JLayeredPane.DEFAULT_LAYER);
-				sbat.setVisible(true);
+				layeredPane4.add(sfact, JLayeredPane.DEFAULT_LAYER);
+				sfact.setVisible(true);
 			} catch (ParseException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -100,30 +101,15 @@ public class GestionFenFacture implements ActionListener{
                     Object idbat = model.getValueAt(selectedRow, 0); // recup Id Batiment
                     Object addresse = model.getValueAt(selectedRow, 1);
                     
+                    
                     //test
                     System.out.println("Id batiment: " + idbat);
                     System.out.println("Adresse: " + addresse);
+                    
                 } else {
                     System.out.println("Aucun ligne est selectionner");
                 }
             
-    		
-    		
-    		
-    		/*if (rowSelected != -1) {
-				DefaultTableModel model = (DefaultTableModel) myTable.getModel();
-
-				Batiment ba1 = this.lireLigneTable(rowSelected);
-				Batiment ba2 = daoBatiment.findById(Integer.toString(ba1.getIdBatiment()),
-												  ba1.getAdresse(), 
-												  ba1.getCodePostal(),
-												  ba1.getVille(),
-												  String.valueOf(ba1.getRegimeJuridique()),
-												  String.valueOf(ba1.getDateConstruction()));
-												  //(String) this.fene.getTableBatiment().getValueAt(rowSelected, 5));
-				daoBatiment.delete(ba2);
-				((DefaultTableModel)this.fene.getTableBatiment().getModel()).removeRow(rowSelected);
-			} */
 			break;
 			
 		default:
@@ -139,18 +125,18 @@ public class GestionFenFacture implements ActionListener{
 	    List<Object[]> dataList = new ArrayList<>();
 
 	    try {
-	        result = this.mere.getConnectionBD().callGetTableData("BATIMENT");
+	        result = this.mere.getConnectionBD().callGetTableData("FACT_BATIMENT");
 
 	        while (result.next()) {
 	            Object[] row = new Object[8]; // Change the size as needed
-	            row[0] = result.getString(1);
-	            row[1] = result.getString(2);
+	            row[0] = result.getInt(1);
+	            row[1] = result.getInt(2);
 	            row[2] = result.getString(3);
-	            row[3] = result.getString(4);
+	            row[3] = result.getFloat(4);
 	            row[4] = result.getString(5);
-	            row[5] = result.getString(6);
-	            row[6] = this.mere.getConnectionBD().callGetNbLogByBatiment(result.getInt(1));
-	            row[7] = null;
+	            row[5] = result.getDate(6);
+	           // row[6] = this.mere.getConnectionBD().callGetNbLogByBatiment(result.getInt(1));
+	           // row[7] = null;
 	            dataList.add(row);
 	        }
 	    } catch (SQLException e) {
@@ -167,5 +153,6 @@ public class GestionFenFacture implements ActionListener{
 
 	    return ob;
 	}
+	
 
 }
