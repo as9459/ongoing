@@ -109,13 +109,16 @@ public class GestionFenBatiment implements ActionListener{
                         System.out.println("Succes suppression du ligne");
                     } else {
                         System.out.println("Error erreur suppression ligne");
+<<<<<<< HEAD
                     }*/
                     
+=======
+                    }
+                    */
+>>>>>>> b6c747c13221b126f8e8b5ee5ecf10fb43a028cf
                 } else {
                     System.out.println("Aucun ligne est selectionner");
                 }
-            
-			break;
 			
 		default:
 			break;
@@ -130,7 +133,7 @@ public class GestionFenBatiment implements ActionListener{
 	    List<Object[]> dataList = new ArrayList<>();
 
 	    try {
-	        result = this.mere.getConnectionBD().callGetTableData("BATIMENT");
+	        result = this.mere.getConnectionBD().getTableData("BATIMENT");
 
 	        while (result.next()) {
 	            Object[] row = new Object[8]; // Change the size as needed
@@ -140,7 +143,7 @@ public class GestionFenBatiment implements ActionListener{
 	            row[3] = result.getString(4);
 	            row[4] = result.getString(5);
 	            row[5] = result.getString(6);
-	            row[6] = this.mere.getConnectionBD().callGetNbLogByBatiment(result.getInt(1));
+	            row[6] = this.mere.getConnectionBD().logement().getNbByBatiment(result.getInt(1));
 	            row[7] = null;
 	            dataList.add(row);
 	        }
