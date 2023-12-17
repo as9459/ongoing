@@ -75,9 +75,9 @@ public class SaisirBatiment extends JInternalFrame{
 		panel.add(labelDebsemc);
 		
 		Fd_Adresse = new JTextField();
+		Fd_Adresse.setColumns(10);
 		Fd_Adresse.setBounds(186, 20, 231, 35);
 		panel.add(Fd_Adresse);
-		Fd_Adresse.setColumns(10);
 		
 		JLabel labelCP = new JLabel("Code Postal :");
 		labelCP.setFont(new Font("Tahoma", Font.BOLD, 10));
@@ -140,7 +140,7 @@ public class SaisirBatiment extends JInternalFrame{
 
 
 	public String getTextFieldDebsemc() {
-		return this.Fd_Adresse.getText();
+		return this.getFd_Adresse().getText();
 	}
 
 
@@ -165,6 +165,16 @@ public class SaisirBatiment extends JInternalFrame{
 	
 	public GestionSaisirBatiement getGsb() {
 		return gsb;
+	}
+
+
+	public JTextField getFd_Adresse() {
+		return Fd_Adresse;
+	}
+
+
+	public void setFd_Adresse(JTextField fd_Adresse) {
+		Fd_Adresse = fd_Adresse;
 	}
 	
 	

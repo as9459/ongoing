@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.sql.rowset.CachedRowSet;
 import javax.sql.rowset.RowSetProvider;
+import javax.swing.JTextField;
 
 import java.sql.ResultSetMetaData;
 
@@ -507,7 +508,7 @@ public class CictOracleDataSource extends OracleDataSource {
 
     
     public void AddBatiment(
-    	      String p_id_batiment,
+    		  String p_id_batiment,
     	      String p_adresse,
     	      String p_code_postal,
     	      String p_ville,

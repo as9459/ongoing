@@ -29,24 +29,8 @@ public class GestionSaisirBatiement implements ActionListener{
 		JButton b = (JButton) e.getSource();
 		switch (b.getText()) {
 			case "Insérer":
-				// TODO
-				/*Groupe groupe = daoGroupe.findById(this.sc.getTextFieldIdGrpC().getText());
-				Creneau cr = new Creneau(this.sc.getTextFieldDebsemc().getText(),
-										 this.sc.getTextFieldJourC().getText(), 
-										 this.sc.getTextFieldHeureDC().getText(), 
-										 this.sc.getTextFieldHeureFC().getText(), 
-										 this.sc.getTextFieldTypeC().getText(), 
-										 null,
-										 groupe);
-				new DaoCreneau().create(cr);
-				modeleTable.addRow(new Object[] {
-						cr.getDebsemc(), 
-						cr.getJourc(),
-						cr.getHeuredc(),
-						cr.getHeurefc(),
-						cr.getTypec(),
-						cr.getGrpC().getGrpc()
-				});;*/
+				String p_id_batiment = sb.getFd_Adresse();
+				AddBatiment(p_id_batiment,  String p_adresse, p_code_postal, p_ville, p_regime_juridique, p_date_construction);
 				this.sb.dispose();
 				break;
 			case "Annuler":
