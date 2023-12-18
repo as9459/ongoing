@@ -25,9 +25,9 @@ public class GestionFenBatiment implements ActionListener{
 	private FenetrePrincipale mere;
 	//private DefaultTableModel modeleTable;
 
-	public GestionFenBatiment(FenBatiment fen, FenetrePrincipale mare) {
+	public GestionFenBatiment(FenBatiment fen, FenetrePrincipale mere) {
 		this.fene = fen;
-		this.mere = mare ;
+		this.mere = mere ;
 		//this.modeleTable = (DefaultTableModel) this.fene.getTableBatiment().getModel();
 	}
 	
@@ -60,9 +60,8 @@ public class GestionFenBatiment implements ActionListener{
     		fene.dispose();
     		break;
     	case "Ajouter":
-			SaisirBatiment sbat = null;
 			try {
-				sbat = new SaisirBatiment();
+				SaisirBatiment sbat = new SaisirBatiment(this.mere, this.fene);
 				JLayeredPane layeredPane4 = this.mere.getLayeredPane();
 				layeredPane4.add(sbat, JLayeredPane.DEFAULT_LAYER);
 				sbat.setVisible(true);
@@ -72,10 +71,10 @@ public class GestionFenBatiment implements ActionListener{
 			}
 			
             break;
-    	case "Modifier":
+    	/*case "Modifier":
 			SaisirBatiment mbat = null;
 			try {
-				mbat = new SaisirBatiment();
+				mbat = new SaisirBatiment(this mere);
 				JLayeredPane layeredPane5 = this.mere.getLayeredPane();
 				layeredPane5.add(mbat, JLayeredPane.DEFAULT_LAYER);
 				mbat.setVisible(true);
@@ -83,7 +82,7 @@ public class GestionFenBatiment implements ActionListener{
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-            break;
+            break;*/
     	case "Supprimer":
 			// TODO
     		System.out.println("Vous voulez supprimer le " + (selectedRow+1) +"er/eme ligne");

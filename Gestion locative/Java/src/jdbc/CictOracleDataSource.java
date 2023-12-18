@@ -510,18 +510,18 @@ public class CictOracleDataSource extends OracleDataSource {
     public void AddBatiment(
     		  String p_id_batiment,
     	      String p_adresse,
-    	      String p_code_postal,
+    	      int p_code_postal,
     	      String p_ville,
-    	      String p_regime_juridique,
+    	      float p_regime_juridique,
     	      String p_date_construction
     	   
     	   )throws SQLException {
         try (CallableStatement cs = this.connection.prepareCall("{call InsertBatiment(?,?,?,?,?,?) }")) {
             
             cs.setString(1, p_adresse);
-            cs.setString(2, p_code_postal);
+            cs.setInt(2, p_code_postal);
             cs.setString(3, p_ville);
-            cs.setString(4, p_regime_juridique);
+            cs.setFloat(4, p_regime_juridique);
             cs.setString(5, p_date_construction);
             cs.setString(6, p_id_batiment);
             cs.execute();

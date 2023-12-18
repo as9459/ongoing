@@ -20,12 +20,16 @@ import java.text.ParseException;
 import javax.swing.JSpinner;
 import javax.swing.JFormattedTextField;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.JTextPane;
 
 @SuppressWarnings("serial")
 public class SaisirBatiment extends JInternalFrame{
 	private JTextField Fd_Adresse;
 	private JTextField Fd_Ville;
+	private JTextField idtextPane;
 	private GestionSaisirBatiement gsb;
+	private FenetrePrincipale parent;
+	private FenBatiment feneb;
 	private JButton btn_Inserer;
 	private JButton btn_Annuler;
 	private JSpinner sp_CodePostal;
@@ -56,12 +60,14 @@ public class SaisirBatiment extends JInternalFrame{
 	 * Create the frame.
 	 * @throws ParseException 
 	 */
-	public SaisirBatiment() throws ParseException {
+	public SaisirBatiment(FenetrePrincipale parent, FenBatiment feneb) throws ParseException {
+		this.parent = parent;
+		this.feneb = feneb;
 		setBorder(new LineBorder(SystemColor.activeCaption, 2));
 		setTitle("Saisie des informations");
 		setBounds(100, 100, 471, 567);
 		getContentPane().setLayout(null);
-		this.gsb = new GestionSaisirBatiement(this);
+		this.gsb = new GestionSaisirBatiement(this, this.parent, this.feneb);
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBackground(new Color(255, 255, 255));
@@ -70,38 +76,38 @@ public class SaisirBatiment extends JInternalFrame{
 		panel.setLayout(null);
 		
 		JLabel labelDebsemc = new JLabel("Adresse :");
-		labelDebsemc.setFont(new Font("Tahoma", Font.BOLD, 10));
-		labelDebsemc.setBounds(28, 31, 113, 13);
+		labelDebsemc.setFont(new Font("Tahoma", Font.BOLD, 11));
+		labelDebsemc.setBounds(28, 102, 113, 13);
 		panel.add(labelDebsemc);
 		
 		Fd_Adresse = new JTextField();
 		Fd_Adresse.setColumns(10);
-		Fd_Adresse.setBounds(186, 20, 231, 35);
+		Fd_Adresse.setBounds(186, 91, 231, 35);
 		panel.add(Fd_Adresse);
 		
 		JLabel labelCP = new JLabel("Code Postal :");
-		labelCP.setFont(new Font("Tahoma", Font.BOLD, 10));
-		labelCP.setBounds(28, 113, 113, 13);
+		labelCP.setFont(new Font("Tahoma", Font.BOLD, 11));
+		labelCP.setBounds(28, 184, 113, 13);
 		panel.add(labelCP);
 		
 		JLabel labelVille = new JLabel("Ville :");
-		labelVille.setFont(new Font("Tahoma", Font.BOLD, 10));
-		labelVille.setBounds(28, 195, 113, 13);
+		labelVille.setFont(new Font("Tahoma", Font.BOLD, 11));
+		labelVille.setBounds(28, 255, 113, 13);
 		panel.add(labelVille);
 		
 		Fd_Ville = new JTextField();
 		Fd_Ville.setColumns(10);
-		Fd_Ville.setBounds(186, 184, 231, 35);
+		Fd_Ville.setBounds(186, 244, 231, 35);
 		panel.add(Fd_Ville);
 		
 		JLabel label_Id_GrpC = new JLabel("Regime Juridique :");
-		label_Id_GrpC.setFont(new Font("Tahoma", Font.BOLD, 10));
-		label_Id_GrpC.setBounds(28, 277, 113, 13);
+		label_Id_GrpC.setFont(new Font("Tahoma", Font.BOLD, 11));
+		label_Id_GrpC.setBounds(28, 322, 113, 13);
 		panel.add(label_Id_GrpC);
 		
 		JLabel labelHeureFC = new JLabel("Date Construction : ");
-		labelHeureFC.setFont(new Font("Tahoma", Font.BOLD, 10));
-		labelHeureFC.setBounds(28, 359, 113, 13);
+		labelHeureFC.setFont(new Font("Tahoma", Font.BOLD, 11));
+		labelHeureFC.setBounds(28, 387, 113, 13);
 		panel.add(labelHeureFC);
 		
 		
@@ -117,20 +123,29 @@ public class SaisirBatiment extends JInternalFrame{
 		
 		sp_CodePostal = new JSpinner();
 		sp_CodePostal.setModel(new SpinnerNumberModel(0, 0, 99999, 1));
-		sp_CodePostal.setBounds(186, 102, 231, 35);
+		sp_CodePostal.setBounds(186, 173, 231, 35);
 		panel.add(sp_CodePostal);
 		
 		sp_RegimeJuridique = new JSpinner();
 		sp_RegimeJuridique.setModel(new SpinnerNumberModel(Float.valueOf(0), Float.valueOf(0), null, Float.valueOf(1)));
-		sp_RegimeJuridique.setBounds(186, 266, 231, 35);
+		sp_RegimeJuridique.setBounds(186, 311, 231, 35);
 		panel.add(sp_RegimeJuridique);
 
         MaskFormatter dateFormatter = new MaskFormatter("####-##-##");
 		Fd_DateConstruction = new JFormattedTextField(dateFormatter);
 		Fd_DateConstruction.setText("0000-00-00");
 		Fd_DateConstruction.setColumns(10);
-		Fd_DateConstruction.setBounds(186, 348, 231, 35);
+		Fd_DateConstruction.setBounds(186, 376, 231, 35);
 		panel.add(Fd_DateConstruction);
+		
+		JLabel lblIdBatiment = new JLabel("ID Batiment");
+		lblIdBatiment.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblIdBatiment.setBounds(28, 44, 85, 14);
+		panel.add(lblIdBatiment);
+		
+		idtextPane = new JTextField();
+		idtextPane.setBounds(186, 29, 231, 35);
+		panel.add(idtextPane);
 		
 		JLabel lblNewLabel = new JLabel("Saisir les informations du batiment");
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 13));
@@ -139,8 +154,8 @@ public class SaisirBatiment extends JInternalFrame{
 	}
 
 
-	public String getTextFieldDebsemc() {
-		return this.getFd_Adresse().getText();
+	public String getTextFd_Adresse() {
+		return this.Fd_Adresse.getText();
 	}
 
 
@@ -154,7 +169,7 @@ public class SaisirBatiment extends JInternalFrame{
 	}
 
 
-	public float getTextFieldRegimeJuridique() {
+	public float getFieldRegimeJuridique() {
 		return (float)this.sp_RegimeJuridique.getValue();
 	}
 
@@ -177,6 +192,8 @@ public class SaisirBatiment extends JInternalFrame{
 		Fd_Adresse = fd_Adresse;
 	}
 	
-	
+	public String getTextFieldIDbat() {
+		return this.idtextPane.getText();
+	}
 }
 
