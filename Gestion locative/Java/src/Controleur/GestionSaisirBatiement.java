@@ -40,8 +40,8 @@ public class GestionSaisirBatiement implements ActionListener{
 				String p_adresse = this.sb.getTextFd_Adresse();
 				int p_code_postal= this.sb.getTextFieldCP();
 	    	    String p_ville = this.sb.getTextFieldVille();
-	    	    float p_regime_juridique = this.sb.getFieldRegimeJuridique();
-	    	    String p_date_construction = sb.getTextFieldDateConstruction();
+	    	    String p_regime_juridique = this.sb.getFieldRegimeJuridique();
+	    	    String p_date_construction = this.sb.getTextFieldDateConstruction();
 			try {
 				this.mere.getConnectionBD().AddBatiment(p_id_batiment, 
 	    	    										p_adresse, 
