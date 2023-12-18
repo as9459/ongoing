@@ -2,13 +2,17 @@ package Controleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
+import javax.swing.JLayeredPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import jdbc.CictOracleDataSource;
-
+import Vue.FenBatiment;
+import Vue.FenLogement;
+import Vue.FenetrePrincipale;
 /*import modele.Creneau;
 import modele.Groupe;
 import modele.dao.DaoCreneau;
@@ -18,11 +22,15 @@ import Vue.SaisirLogement;
 public class GestionSaisirLogement implements ActionListener{
 
 	private SaisirLogement sl;
+	private FenetrePrincipale mere;
+	private FenLogement fenelog;
 	/*private DefaultTableModel modeleTable;
 	private DaoGroupe daoGroupe;*/
 	
-	public GestionSaisirLogement(SaisirLogement sl) { /*(SaisirBatiment sc, JTable tableC)*/
+	public GestionSaisirLogement(SaisirLogement sl, FenetrePrincipale mere, FenLogement fenelog) { /*(SaisirBatiment sc, JTable tableC)*/
 		this.sl = sl;
+		this.fenelog = fenelog;
+		this.mere = mere;
 		/*this.modeleTable = (DefaultTableModel) tableC.getModel();
 		this.daoGroupe = new DaoGroupe();		*/
 	}
@@ -31,27 +39,41 @@ public class GestionSaisirLogement implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		JButton b = (JButton) e.getSource();
 		switch (b.getText()) {
-			case "Insérer":
+			case "Inserer":
+				int p_id_batiment = 0;
+				int p_id_logement = this.sl.getTextFieldNbLogement();
+				int p_etage = this.sl.getTextFieldEtage();
+				String p_type = this.sl.getTextFieldTypeLogement();
+				float p_surface = this.sl.getTextFieldSurface();
+				float p_ICC = this.sl.getTextFieldICC();
+				int p_garage = this.sl.getTextFieldGarage();
+				int p_jardin = this.sl.getTextFieldJardin();
+				int p_balcon =this.sl.getTextFieldBalcon();
 				
-				// TODO
-				/*Groupe groupe = daoGroupe.findById(this.sc.getTextFieldIdGrpC().getText());
-				Creneau cr = new Creneau(this.sc.getTextFieldDebsemc().getText(),
-										 this.sc.getTextFieldJourC().getText(), 
-										 this.sc.getTextFieldHeureDC().getText(), 
-										 this.sc.getTextFieldHeureFC().getText(), 
-										 this.sc.getTextFieldTypeC().getText(), 
-										 null,
-										 groupe);
-				new DaoCreneau().create(cr);
-				modeleTable.addRow(new Object[] {
-						cr.getDebsemc(), 
-						cr.getJourc(),
-						cr.getHeuredc(),
-						cr.getHeurefc(),
-						cr.getTypec(),
-						cr.getGrpC().getGrpc()
-				});;*/
+			try {
+				this.mere.getConnectionBD().AddLogement(p_id_batiment,
+			    	      								p_id_logement,
+			    	      								p_etage,
+			    	      								p_type,
+			    	      								p_surface,
+			    	      								p_ICC,
+			    	      								p_garage,
+			    	      								p_jardin,
+			    	      								p_balcon);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+				
 				this.sl.dispose();
+				
+				this.fenelog.dispose();
+				
+				fenelog = new FenLogement(this.mere);
+				JLayeredPane layeredPane4 = this.mere.getLayeredPane();
+				layeredPane4.add(fenelog, JLayeredPane.DEFAULT_LAYER);
+				fenelog.setVisible(true);
+				
 				//CictOracleDataSource.AddLogement(0, 0, sl.getTextFieldTypeLogement(), sl.getTextFieldLoyer(), sl.getTextFieldEtage(), sl.getTextFieldICC(), sl.getTextFieldGarage(), sl.getTextFieldJardin());
 				break;
 			case "Annuler":

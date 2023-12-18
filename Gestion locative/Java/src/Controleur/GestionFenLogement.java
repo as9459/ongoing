@@ -43,16 +43,17 @@ public class GestionFenLogement implements ActionListener{
 				log.dispose();
 				break;
 			case "Ajouter":
-				SaisirLogement slog = new SaisirLogement();
+				SaisirLogement slog = new SaisirLogement(this.mere, this.log);
 				JLayeredPane layeredPane8 = fenlog.getLayeredPane();
 				layeredPane8.add(slog, JLayeredPane.DEFAULT_LAYER);
 				slog.setVisible(true);
+				System.out.println("ok");
 	            break;
 	            
 	            
 	    	case "Modifier":
 				SaisirLogement mlog = null;
-				mlog = new SaisirLogement();
+				mlog = new SaisirLogement(this.mere, this.log);
 				JLayeredPane layeredPane5 = this.mere.getLayeredPane();
 				layeredPane5.add(mlog, JLayeredPane.DEFAULT_LAYER);
 				mlog.setVisible(true);

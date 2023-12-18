@@ -1,5 +1,6 @@
 package Vue;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JTable;
@@ -21,6 +22,7 @@ import javax.swing.JSpinner;
 import javax.swing.JFormattedTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JTextPane;
+import javax.swing.JComboBox;
 
 @SuppressWarnings("serial")
 public class SaisirBatiment extends JInternalFrame{
@@ -30,10 +32,10 @@ public class SaisirBatiment extends JInternalFrame{
 	private GestionSaisirBatiement gsb;
 	private FenetrePrincipale parent;
 	private FenBatiment feneb;
+	private JComboBox comboBoxRegime;
 	private JButton btn_Inserer;
 	private JButton btn_Annuler;
 	private JSpinner sp_CodePostal;
-	private JSpinner sp_RegimeJuridique;
 	private JFormattedTextField Fd_DateConstruction;
 	// private JTable tableC;
 	
@@ -125,11 +127,6 @@ public class SaisirBatiment extends JInternalFrame{
 		sp_CodePostal.setModel(new SpinnerNumberModel(0, 0, 99999, 1));
 		sp_CodePostal.setBounds(186, 173, 231, 35);
 		panel.add(sp_CodePostal);
-		
-		sp_RegimeJuridique = new JSpinner();
-		sp_RegimeJuridique.setModel(new SpinnerNumberModel(Float.valueOf(0), Float.valueOf(0), null, Float.valueOf(1)));
-		sp_RegimeJuridique.setBounds(186, 311, 231, 35);
-		panel.add(sp_RegimeJuridique);
 
         MaskFormatter dateFormatter = new MaskFormatter("####-##-##");
 		Fd_DateConstruction = new JFormattedTextField(dateFormatter);
@@ -146,6 +143,11 @@ public class SaisirBatiment extends JInternalFrame{
 		idtextPane = new JTextField();
 		idtextPane.setBounds(186, 29, 231, 35);
 		panel.add(idtextPane);
+		
+		JComboBox comboBoxRegime = new JComboBox();
+		comboBoxRegime.setModel(new DefaultComboBoxModel(new String[] {"OUI", "NON"}));
+		comboBoxRegime.setBounds(186, 311, 231, 35);
+		panel.add(comboBoxRegime);
 		
 		JLabel lblNewLabel = new JLabel("Saisir les informations du batiment");
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 13));
@@ -169,10 +171,11 @@ public class SaisirBatiment extends JInternalFrame{
 	}
 
 
-	public float getFieldRegimeJuridique() {
-		return (float)this.sp_RegimeJuridique.getValue();
+	public String getFieldRegimeJuridique() {
+		return this.comboBoxRegime.getItemAt(this.comboBoxRegime.getSelectedIndex()).toString();
 	}
 
+	
 	public String getTextFieldDateConstruction() {
 		return this.Fd_DateConstruction.getText();
 	}

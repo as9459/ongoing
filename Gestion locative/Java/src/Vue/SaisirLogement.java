@@ -30,6 +30,8 @@ import javax.swing.SpinnerNumberModel;
 
 @SuppressWarnings("serial")
 public class SaisirLogement extends JInternalFrame{
+	private FenetrePrincipale parent;
+	private FenLogement fenelog;
 	private GestionSaisirLogement gsl;
 	private AbstractButton btn_Inserer;
 	private JButton btn_Annuler;
@@ -67,12 +69,14 @@ public class SaisirLogement extends JInternalFrame{
 	/**
 	 * Create the frame.
 	 */
-	public SaisirLogement() {
+	public SaisirLogement(FenetrePrincipale parent, FenLogement fenelog) {
+		this.parent = parent;
+		this.fenelog = fenelog;
 		setBorder(new LineBorder(SystemColor.activeCaption, 2));
 		setTitle("Saisie des informations");
 		setBounds(100, 100, 471, 567);
 		getContentPane().setLayout(null);
-		this.gsl = new GestionSaisirLogement(this);
+		this.gsl = new GestionSaisirLogement(this, this.parent, this.fenelog);
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBackground(new Color(255, 255, 255));
@@ -85,64 +89,63 @@ public class SaisirLogement extends JInternalFrame{
 		lblNewLabel.setBounds(115, 26, 236, 13);
 		getContentPane().add(lblNewLabel);
 		
-		lblLeNumeroDu_1 = new JLabel("Le numero du batement : ");
-		lblLeNumeroDu_1.setFont(new Font("Tahoma", Font.BOLD, 10));
-		lblLeNumeroDu_1.setBounds(20, 34, 129, 13);
+		lblLeNumeroDu_1 = new JLabel("Le numero du batiment ");
+		lblLeNumeroDu_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblLeNumeroDu_1.setBounds(20, 34, 149, 13);
 		panel.add(lblLeNumeroDu_1);
 		
 		CB_NbBatiment = new JComboBox();
-		CB_NbBatiment.setBounds(159, 23, 256, 35);
+		CB_NbBatiment.setBounds(179, 23, 236, 35);
 		panel.add(CB_NbBatiment);
 		
-		JLabel lblLeNumeroDu = new JLabel("Le numero du logement : ");
-		lblLeNumeroDu.setFont(new Font("Tahoma", Font.BOLD, 10));
-		lblLeNumeroDu.setBounds(20, 90, 129, 13);
+		JLabel lblLeNumeroDu = new JLabel("Le numero du logement ");
+		lblLeNumeroDu.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblLeNumeroDu.setBounds(20, 90, 149, 13);
 		panel.add(lblLeNumeroDu);
 		
 		sp_nbLogment = new JSpinner();
 		sp_nbLogment.setModel(new SpinnerNumberModel(0, 0, null, 1));
-		sp_nbLogment.setBounds(159, 79, 256, 35);
+		sp_nbLogment.setBounds(179, 79, 236, 35);
 		panel.add(sp_nbLogment);
 		
-		JLabel labelVille = new JLabel("Etage :");
-		labelVille.setFont(new Font("Tahoma", Font.BOLD, 10));
+		JLabel labelVille = new JLabel("Etage");
+		labelVille.setFont(new Font("Tahoma", Font.BOLD, 11));
 		labelVille.setBounds(20, 152, 129, 13);
 		panel.add(labelVille);
 		
 		sp_Etage = new JSpinner();
 		sp_Etage.setModel(new SpinnerNumberModel(0, 0, 20, 1));
-		sp_Etage.setBounds(159, 141, 256, 35);
+		sp_Etage.setBounds(179, 141, 236, 35);
 		panel.add(sp_Etage);
 		
-		JLabel labelDebsemc = new JLabel("Type logement :");
-		labelDebsemc.setFont(new Font("Tahoma", Font.BOLD, 10));
+		JLabel labelDebsemc = new JLabel("Type logement");
+		labelDebsemc.setFont(new Font("Tahoma", Font.BOLD, 11));
 		labelDebsemc.setBounds(20, 214, 129, 13);
 		panel.add(labelDebsemc);
 		
 		CB_TypeLogement = new JComboBox();
 		CB_TypeLogement.setModel(new DefaultComboBoxModel(new String[] {"T1", "T2", "T3", "T4", "T5", "T6"}));
-		CB_TypeLogement.setSelectedIndex(0);
-		CB_TypeLogement.setBounds(159, 203, 256, 35);
+		CB_TypeLogement.setBounds(179, 203, 236, 35);
 		panel.add(CB_TypeLogement);
 		
-		JLabel label_Id_GrpC_1 = new JLabel("Surface : ");
-		label_Id_GrpC_1.setFont(new Font("Tahoma", Font.BOLD, 10));
-		label_Id_GrpC_1.setBounds(20, 276, 129, 13);
-		panel.add(label_Id_GrpC_1);
+		JLabel lblSurface = new JLabel("Surface");
+		lblSurface.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblSurface.setBounds(20, 276, 129, 13);
+		panel.add(lblSurface);
 		
 		sp_Surface = new JSpinner();
 		sp_Surface.setModel(new SpinnerNumberModel(Float.valueOf(0), Float.valueOf(0), Float.valueOf(100), Float.valueOf(1)));
-		sp_Surface.setBounds(159, 265, 256, 35);
+		sp_Surface.setBounds(179, 265, 236, 35);
 		panel.add(sp_Surface);
 		
-		JLabel label_Id_GrpC = new JLabel("ICC :");
-		label_Id_GrpC.setFont(new Font("Tahoma", Font.BOLD, 10));
-		label_Id_GrpC.setBounds(20, 338, 129, 13);
-		panel.add(label_Id_GrpC);
+		JLabel lblIcc = new JLabel("ICC");
+		lblIcc.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblIcc.setBounds(20, 338, 129, 13);
+		panel.add(lblIcc);
 		
 		sp_Icc = new JSpinner();
 		sp_Icc.setModel(new SpinnerNumberModel(Float.valueOf(0), Float.valueOf(0), null, Float.valueOf(1)));
-		sp_Icc.setBounds(159, 327, 256, 35);
+		sp_Icc.setBounds(179, 327, 236, 35);
 		panel.add(sp_Icc);
 		
 		chckbx_Garage = new JCheckBox("Garage");
@@ -165,7 +168,7 @@ public class SaisirLogement extends JInternalFrame{
 		btn_Annuler = new JButton("Annuler");
 		btn_Annuler.addActionListener(this.gsl);
 		btn_Annuler.setBounds(89, 436, 85, 21);
-		panel.add(btn_Annuler);			
+		panel.add(btn_Annuler);
 	}
 
 	public int getTextFieldNbBatement() {
