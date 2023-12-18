@@ -219,5 +219,24 @@ public class SaisirLogement extends JInternalFrame{
 	public GestionSaisirLogement getGsl() {
 		return gsl;
 	}
+	
+	public void loadLogementInfo(String idBatiment, String idLogement, String etage, String typeLog, /*String surface,*/ String icc, String garage, String jardin, String balcon) {
+		// Charger les informations dans les champs
+		CB_NbBatiment.setToolTipText(idBatiment);
+		sp_nbLogment.setValue(Integer.parseInt(idLogement));
+		sp_Etage.setValue(Integer.parseInt(etage));
+		CB_TypeLogement.setToolTipText(typeLog);
+		//sp_Surface.setValue(Float.parseFloat(surface));
+		sp_Icc.setValue(Integer.parseInt(icc));
+		
+		boolean isGarage = "1".equals(garage);
+	    boolean isJardin = "1".equals(jardin);
+	    boolean isBalcon = "1".equals(balcon);
+
+	    chckbx_Garage.setSelected(isGarage);
+	    chckbx_Jardin.setSelected(isJardin);
+	    chckbx_Balcon.setSelected(isBalcon);
+
+	}
 }
 

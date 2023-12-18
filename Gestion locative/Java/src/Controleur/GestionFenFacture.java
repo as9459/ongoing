@@ -74,17 +74,21 @@ public class GestionFenFacture implements ActionListener{
 			
             break;
     	case "Modifier":
-			SaisirBatiment mbat = null;
+			SaisirFacture mfac = null;
 			try {
-				mbat = new SaisirBatiment();
+				mfac = new SaisirFacture();
 				JLayeredPane layeredPane5 = this.mere.getLayeredPane();
-				layeredPane5.add(mbat, JLayeredPane.DEFAULT_LAYER);
-				mbat.setVisible(true);
+				layeredPane5.add(mfac, JLayeredPane.DEFAULT_LAYER);
+				mfac.setVisible(true);
 			} catch (ParseException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			
             break;
+            
+            
+            
     	case "Supprimer":
 			// TODO
     		System.out.println("Vous voulez supprimer le " + (selectedRow+1) +"er/eme ligne");
@@ -94,13 +98,13 @@ public class GestionFenFacture implements ActionListener{
                     DefaultTableModel model = (DefaultTableModel) myTable.getModel();
 
                     
-                    Object idbat = model.getValueAt(selectedRow, 0); // recup Id Batiment
-                    Object addresse = model.getValueAt(selectedRow, 1);
+                    Object idfac = model.getValueAt(selectedRow, 0); // recup Id Batiment
+                    Object ref = model.getValueAt(selectedRow, 2);
                     
                     
                     //test
-                    System.out.println("Id batiment: " + idbat);
-                    System.out.println("Adresse: " + addresse);
+                    System.out.println("Id batiment: " + idfac);
+                    System.out.println("Adresse: " + ref);
                     /*
                     // Delete the row from the database
                     int idBatimentToDelete = Integer.parseInt(idbat.toString());

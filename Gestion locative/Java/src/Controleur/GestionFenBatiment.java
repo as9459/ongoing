@@ -71,18 +71,28 @@ public class GestionFenBatiment implements ActionListener{
 			}
 			
             break;
-    	/*case "Modifier":
-			SaisirBatiment mbat = null;
-			try {
-				mbat = new SaisirBatiment(this mere);
-				JLayeredPane layeredPane5 = this.mere.getLayeredPane();
-				layeredPane5.add(mbat, JLayeredPane.DEFAULT_LAYER);
-				mbat.setVisible(true);
-			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-            break;*/
+    	  case "Modifier":
+             if (selectedRow != -1) {
+                 // Récupérer les informations du batiment sélectionné
+                 String idBatiment = myTable.getValueAt(selectedRow, 0).toString();
+                 String adresse = myTable.getValueAt(selectedRow, 1).toString();
+                 String codePostal = myTable.getValueAt(selectedRow, 2).toString();
+                 String ville = myTable.getValueAt(selectedRow, 3).toString();
+                 String regimeJuridique = myTable.getValueAt(selectedRow, 4).toString();
+                 String dateConstruction = myTable.getValueAt(selectedRow, 5).toString();
+
+                 try {
+                     SaisirBatiment sbat = new SaisirBatiment(this.mere, this.fene);
+                     sbat.loadBatimentInfo(idBatiment, adresse, codePostal, ville, dateConstruction);
+                     JLayeredPane layeredPane4 = this.mere.getLayeredPane();
+                     layeredPane4.add(sbat, JLayeredPane.DEFAULT_LAYER);
+                     sbat.setVisible(true);
+                 } catch (ParseException e1) {
+                     e1.printStackTrace();
+                 }
+             }
+             break; 
+        
     	case "Supprimer":
 			// TODO
     		System.out.println("Vous voulez supprimer le " + (selectedRow+1) +"er/eme ligne");
@@ -94,11 +104,12 @@ public class GestionFenBatiment implements ActionListener{
                     
                     Object idbat = model.getValueAt(selectedRow, 0); // recup Id Batiment
                     Object addresse = model.getValueAt(selectedRow, 1);
-                    
+                    String dateConstruction = model.getValueAt(selectedRow, 5).toString();
                     
                     //test
                     System.out.println("Id batiment: " + idbat);
                     System.out.println("Adresse: " + addresse);
+                    System.out.println("Date: " + dateConstruction);
                     /*
                     // Delete the row from the database
                     int idBatimentToDelete = Integer.parseInt(idbat.toString());
