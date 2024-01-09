@@ -55,6 +55,14 @@ public class GestionFenLocataire implements ActionListener{
             break;
     	case "Modifier":
 			SaisirLocataire mloc = null;
+			
+            String idBatiment = myTable.getValueAt(selectedRow, 0).toString();
+            String adresse = myTable.getValueAt(selectedRow, 1).toString();
+            String codePostal = myTable.getValueAt(selectedRow, 2).toString();
+            String ville = myTable.getValueAt(selectedRow, 3).toString();
+            String regimeJuridique = myTable.getValueAt(selectedRow, 4).toString();
+            String dateConstruction = myTable.getValueAt(selectedRow, 5).toString();
+			
 			try {
 				mloc = new SaisirLocataire();
 				JLayeredPane layeredPane5 = this.mere.getLayeredPane();
@@ -96,7 +104,7 @@ public class GestionFenLocataire implements ActionListener{
 	    List<Object[]> dataList = new ArrayList<>();
 
 	    try {
-	        result = this.mere.getConnectionBD().callGetTableData("LOCATAIRE");
+	        result = this.mere.getConnectionBD().callGetLocatairesActuels();
 
 	        while (result.next()) {
 	            Object[] row = new Object[8]; // Change the size as needed

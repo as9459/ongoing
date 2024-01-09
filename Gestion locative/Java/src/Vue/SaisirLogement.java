@@ -107,6 +107,7 @@ public class SaisirLogement extends JInternalFrame{
 		/*ArrayList<String> idValuesList = GestionFenBatiment.getIdvalues();
 		String[] idValuesArray = idValuesList.toArray(new String[0]);*/
 		
+		CB_NbBatiment.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4"}));
 		CB_NbBatiment.setBounds(179, 23, 236, 35);
 		panel.add(CB_NbBatiment);
 		
@@ -235,6 +236,25 @@ public class SaisirLogement extends JInternalFrame{
 
 	public GestionSaisirLogement getGsl() {
 		return gsl;
+	}
+	
+	public void loadLogementInfo(String idBatiment, String idLogement, String etage, String typeLog, String surface, String icc, String garage, String jardin, String balcon) {
+		// Charger les informations dans les champs
+		CB_NbBatiment.getModel().setSelectedItem(idBatiment);
+		sp_nbLogment.setValue(Integer.parseInt(idLogement));
+		sp_Etage.setValue(Integer.parseInt(etage));
+		CB_TypeLogement.getModel().setSelectedItem(typeLog);
+		sp_Surface.setValue(Double.parseDouble(surface));
+		sp_Icc.setValue(Integer.parseInt(icc));
+		
+		boolean isGarage = "1".equals(garage);
+	    boolean isJardin = "1".equals(jardin);
+	    boolean isBalcon = "1".equals(balcon);
+
+	    chckbx_Garage.setSelected(isGarage);
+	    chckbx_Jardin.setSelected(isJardin);
+	    chckbx_Balcon.setSelected(isBalcon);
+
 	}
 }
 

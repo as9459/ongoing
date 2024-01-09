@@ -41,6 +41,10 @@ public class SaisirPaiement extends JInternalFrame{
 	private JComboBox BatimentcomboBox;
 	private JComboBox LogementcomboBox_1;
 	private JComboBox LocatairecomboBox_2;
+	private JSpinner sp_MontantP;
+	private JFormattedTextField Fd_DateF;
+	private JTextField Fd_RrferenceP;
+	private JTextField Fd_MontantF;
 	private JComboBox CB_TypeP;
 	private JFormattedTextField Fd_DateP;
 	// private JTable tableC;
@@ -66,8 +70,11 @@ public class SaisirPaiement extends JInternalFrame{
 
 	/**
 	 * Create the frame.
+	 * @param fene 
+	 * @param mere 
 	 * @throws ParseException 
 	 */
+	
 	public SaisirPaiement(FenetrePrincipale parent, FenPaiement fenepaie) throws ParseException {
 		this.parent = parent;
 		this.fenepaie = fenepaie;
@@ -118,7 +125,15 @@ public class SaisirPaiement extends JInternalFrame{
 		JLabel lblRrferenceDuPaiement = new JLabel("Batiment");
 		lblRrferenceDuPaiement.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblRrferenceDuPaiement.setBounds(28, 99, 146, 13);
-		panel.add(lblRrferenceDuPaiement);
+		Fd_RrferenceP = new JTextField();
+		Fd_RrferenceP.setColumns(10);
+		Fd_RrferenceP.setBounds(186, 134, 231, 35);
+		panel.add(Fd_RrferenceP);
+		
+		JLabel lblRrferenceDuPaiement1 = new JLabel("Reference du paiement :");
+		lblRrferenceDuPaiement1.setFont(new Font("Tahoma", Font.BOLD, 10));
+		lblRrferenceDuPaiement1.setBounds(28, 145, 146, 13);
+		panel.add(lblRrferenceDuPaiement1);
 		
 		BatimentcomboBox = new JComboBox();
 		try {
@@ -189,10 +204,23 @@ public class SaisirPaiement extends JInternalFrame{
 		Fd_DateP.setColumns(10);
 		Fd_DateP.setBounds(186, 364, 231, 35);
 		panel.add(Fd_DateP);
-		
 		CB_TypeP = new JComboBox();
 		CB_TypeP.setModel(new DefaultComboBoxModel(new String[] {"Prélèvement automatique", "Espèces", "Carte de crédit", "Virement bancaire", "Chèque"}));
 		CB_TypeP.setBounds(186, 318, 231, 35);
+		Fd_MontantF = new JTextField();
+		Fd_MontantF.setEditable(false);
+		Fd_MontantF.setColumns(10);
+		Fd_MontantF.setBounds(186, 309, 231, 35);
+		panel.add(Fd_MontantF);
+		
+		JLabel lblMontantTotal = new JLabel("Montant total :");
+		lblMontantTotal.setFont(new Font("Tahoma", Font.BOLD, 10));
+		lblMontantTotal.setBounds(28, 320, 113, 13);
+		panel.add(lblMontantTotal);
+		
+		CB_TypeP = new JComboBox();
+		CB_TypeP.setModel(new DefaultComboBoxModel(new String[] {"Prelevement automatique", "Especes", "Carte de credit", "Virement bancaire", "Cheque"}));
+		CB_TypeP.setBounds(186, 252, 231, 35);
 		panel.add(CB_TypeP);
 		
 		JLabel lblModeDePaiement = new JLabel("Mode de paiement :");
@@ -252,6 +280,16 @@ public class SaisirPaiement extends JInternalFrame{
 	
 	public GestionSaisirPaiement getGsb() {
 		return gsb;
+	}
+
+
+	public void loadPaiementInfo(String idfacture, String date, String refpaiement, String paiement, String type) {
+		/*Fd_ReferenceF.setText(idfacture);*/
+		Fd_DateP.setText(date);
+		Fd_RrferenceP.setText(refpaiement);
+		sp_MontantP.setValue(Double.parseDouble(paiement));
+		CB_TypeP.getModel().setSelectedItem(type);
+		
 	}
 }
 

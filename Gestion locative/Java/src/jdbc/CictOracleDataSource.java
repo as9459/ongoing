@@ -360,6 +360,20 @@ public class CictOracleDataSource extends OracleDataSource {
         }
     }
 
+    public ResultSet callGetLocatairesActuels() throws SQLException {
+        try (CallableStatement cs = this.connection.prepareCall("{ ? = call GetLocatairesActuels() }")) {
+            cs.registerOutParameter(1, java.sql.Types.REF_CURSOR);
+            cs.execute();
+            ResultSet originalResultSet = (ResultSet) cs.getObject(1);
+
+            // Copy the data into a new ResultSet to avoid premature closure
+            CachedRowSet rowSet = RowSetProvider.newFactory().createCachedRowSet();
+            rowSet.populate(originalResultSet);
+
+            return rowSet;
+        }
+    }
+    
     
     /*------------- Logement -------------*/
 
@@ -551,6 +565,7 @@ public class CictOracleDataSource extends OracleDataSource {
         }
     }
 
+    
    
     public void callAddBatimentFacture(
     	    int p_id_facture,

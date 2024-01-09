@@ -50,11 +50,26 @@ public class GestionFenLogement implements ActionListener{
 	            break;
 	            
 	    	case "Modifier":
-				SaisirLogement mlog = null;
-				mlog = new SaisirLogement(this.mere, this.log);
-				JLayeredPane layeredPane5 = this.mere.getLayeredPane();
-				layeredPane5.add(mlog, JLayeredPane.DEFAULT_LAYER);
-				mlog.setVisible(true);
+	    		
+	    		if (selectedRow != -1) {
+	                 // Récupérer les informations du batiment sélectionné
+	                 String idBatiment = myTable.getValueAt(selectedRow, 0).toString();
+	                 String idLogement = myTable.getValueAt(selectedRow, 1).toString();
+	                 String etage = myTable.getValueAt(selectedRow, 2).toString();
+	                 String typeLog = myTable.getValueAt(selectedRow, 3).toString();
+	                 String surface = myTable.getValueAt(selectedRow, 4).toString();
+	                 String icc = myTable.getValueAt(selectedRow, 5).toString();
+	                 String garage = myTable.getValueAt(selectedRow, 6).toString();
+	                 String jardin = myTable.getValueAt(selectedRow, 7).toString();
+	                 String balcon = myTable.getValueAt(selectedRow, 8).toString();
+
+	                SaisirLogement mlog = new SaisirLogement(this.mere, this.log);
+	                mlog.loadLogementInfo(idBatiment, idLogement, etage, typeLog, surface, icc, garage, jardin, balcon);
+					JLayeredPane layeredPane5 = this.mere.getLayeredPane();
+					layeredPane5.add(mlog, JLayeredPane.DEFAULT_LAYER);
+					mlog.setVisible(true);
+
+	    		}
 	            break;
 	    	case "Supprimer":
 				// TODO
@@ -87,18 +102,19 @@ public class GestionFenLogement implements ActionListener{
 	        result = this.mere.getConnectionBD().GetAllLogements();
 
 	        while (result.next()) {
-	            Object[] row = new Object[10]; // Change the size as needed
-	            row[0] = result.getInt("ID_LOGEMENT");
-	            row[1] = result.getString("ETAGE");
-	            row[2] = result.getString("TYPE");
-	            row[3] = result.getString("SURFACE");
-	            row[4] = result.getString("ICC");
-	            row[5] = result.getString("GARAGE");
-	            row[6] = result.getString("JARDIN");
-	            row[7] = result.getString("BALCON");
-	            row[8] = result.getString("state");
+	            Object[] row = new Object[11]; // Change the size as needed
+	            row[0] = result.getInt("ID_BATIMENT");
+	            row[1] = result.getInt("ID_LOGEMENT");
+	            row[2] = result.getString("ETAGE");
+	            row[3] = result.getString("TYPE");
+	            row[4] = result.getString("SURFACE");
+	            row[5] = result.getString("ICC");
+	            row[6] = result.getString("GARAGE");
+	            row[7] = result.getString("JARDIN");
+	            row[8] = result.getString("BALCON");
+	            row[9] = result.getString("state");
 	            /*row[8] = this.mere.getConnectionBD().callGetNbLogByBatiment(result.getString(1));*/
-	            row[9] = null;
+	            row[10] = null;
 	            dataList.add(row);
 	        }
 	    } catch (SQLException e) {

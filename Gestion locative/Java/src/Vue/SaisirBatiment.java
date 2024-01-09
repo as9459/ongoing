@@ -37,6 +37,8 @@ public class SaisirBatiment extends JInternalFrame{
 	private JButton btn_Annuler;
 	private JSpinner sp_CodePostal;
 	private JFormattedTextField Fd_DateConstruction;
+	
+	private MaskFormatter dateFormatter = new MaskFormatter("####-##-##");
 	// private JTable tableC;
 	
 
@@ -128,7 +130,6 @@ public class SaisirBatiment extends JInternalFrame{
 		sp_CodePostal.setBounds(186, 173, 231, 35);
 		panel.add(sp_CodePostal);
 
-        MaskFormatter dateFormatter = new MaskFormatter("####-##-##");
 		Fd_DateConstruction = new JFormattedTextField(dateFormatter);
 		Fd_DateConstruction.setText("0000-00-00");
 		Fd_DateConstruction.setColumns(10);
@@ -198,5 +199,18 @@ public class SaisirBatiment extends JInternalFrame{
 	public String getTextFieldIDbat() {
 		return this.idtextPane.getText();
 	}
+	
+	public void loadBatimentInfo(String idBatiment, String adresse, String codePostal, String ville, String dateConstruction, String regimeJuridique) {
+		// Charger les informations dans les champs
+		idtextPane.setText(idBatiment);
+		Fd_Adresse.setText(adresse);
+		sp_CodePostal.setValue(Integer.parseInt(codePostal));
+		Fd_Ville.setText(ville);
+		Fd_DateConstruction.setValue(dateConstruction);
+		comboBoxRegime.getModel().setSelectedItem(regimeJuridique);
+
+	}
+
+// ...
 }
 

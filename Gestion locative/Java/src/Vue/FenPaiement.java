@@ -75,6 +75,8 @@ public class FenPaiement extends JInternalFrame {
 				"ID facture", "Batiment", "Logement", "Locataire", "Reference du paiement", "Paiement", "Type de paiement", "Date de paiement" 
 			}
 		));
+		scrollPane.setViewportView(table);
+		
 		table.getColumnModel().getColumn(1).setPreferredWidth(95);
 		table.getColumnModel().getColumn(4).setPreferredWidth(136);
 		table.getColumnModel().getColumn(5).setPreferredWidth(102);
@@ -110,6 +112,10 @@ public class FenPaiement extends JInternalFrame {
 		splitPane.setLeftComponent(btnNewButton_3);
 		
 		
+	}
+
+	public JTable getTablePaiement() {
+		return this.table;
 	}
 
 }

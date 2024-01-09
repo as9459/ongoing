@@ -74,7 +74,7 @@ public class FenLocataire extends JInternalFrame {
 		table.setModel(new DefaultTableModel(
 				this.gestionClic.updateTable(),
 			new String[] {
-				"ID Locataire","Nom", "Prenom", "Téléphone", "Date de Naissance", "E-Mail", "Logement", "Documents"
+				"ID Locataire","Nom", "Prenom", "Téléphone", "Date de Naissance", "Statut", "Logement", "Documents"
 			}
 		));
 		scrollPane.setViewportView(table);

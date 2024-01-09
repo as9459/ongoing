@@ -16,6 +16,8 @@ import javax.swing.table.DefaultTableModel;
 import Vue.FenetrePrincipale;
 import Vue.SaisirBatiment;
 import Vue.SaisirFacture;
+import Vue.SaisirLocataire;
+import Vue.SaisirLogement;
 import Controleur.GestionFenFacture;
 import modele.Batiment;
 import modele.dao.DaoBatiment;
@@ -26,9 +28,9 @@ public class GestionFenFacture implements ActionListener{
 	private FenetrePrincipale mere;
 	//private DefaultTableModel modeleTable;
 
-	public GestionFenFacture(FenFacture fac, FenetrePrincipale mere) {
+	public GestionFenFacture(FenFacture fac, FenetrePrincipale mare) {
 		this.fac = fac;
-		this.mere = mere ;
+		this.mere = mare ;
 		//this.modeleTable = (DefaultTableModel) this.fac.getTableFacture().getModel();
 	}
 	
@@ -61,10 +63,11 @@ public class GestionFenFacture implements ActionListener{
     		fac.dispose();
     		break;
     	case "Ajouter":
+			SaisirFacture sfac = null;
 			try {
-				SaisirFacture sfac = new SaisirFacture(this.mere, this.fac);
-				JLayeredPane layeredPane5 = this.mere.getLayeredPane();
-				layeredPane5.add(sfac, JLayeredPane.DEFAULT_LAYER);
+				sfac = new SaisirFacture(mere, fac);
+				JLayeredPane layeredPane4 = this.mere.getLayeredPane();
+				layeredPane4.add(sfac, JLayeredPane.DEFAULT_LAYER);
 				sfac.setVisible(true);
 			} catch (ParseException e1) {
 				// TODO Auto-generated catch block
@@ -72,18 +75,34 @@ public class GestionFenFacture implements ActionListener{
 			}
 			
             break;
+         
     	case "Modifier":
-			/*SaisirBatiment mbat = null;
-			try {
-				mbat = new SaisirBatiment();
-				JLayeredPane layeredPane5 = this.mere.getLayeredPane();
-				layeredPane5.add(mbat, JLayeredPane.DEFAULT_LAYER);
-				mbat.setVisible(true);
-			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-            break;
+    		
+    		if (selectedRow != -1) {
+                 // Récupérer les informations du batiment sélectionné
+                 String idfacture = myTable.getValueAt(selectedRow, 0).toString();
+                 String idbatiment = myTable.getValueAt(selectedRow, 1).toString();
+                 String refpaiement = myTable.getValueAt(selectedRow, 2).toString();
+                 String paiement = myTable.getValueAt(selectedRow, 3).toString();
+                 String type = myTable.getValueAt(selectedRow, 4).toString();
+                 String date = myTable.getValueAt(selectedRow, 5).toString();
+                 System.out.println("ID facture:" + idfacture + " ID batiment:" +idbatiment + " ref paiement:" +refpaiement + 
+                		 " Paiement:" +paiement + " Type:" +type + " Date:" +date);
+                 
+                 try {
+	                SaisirFacture mfac = new SaisirFacture(this.mere, this.fac);
+	                mfac.loadFactureInfo(idfacture, idbatiment, refpaiement, paiement, type, date);
+					JLayeredPane layeredPane5 = this.mere.getLayeredPane();
+					layeredPane5.add(mfac, JLayeredPane.DEFAULT_LAYER);
+					mfac.setVisible(true);
+                 } catch (ParseException e1) {
+                     e1.printStackTrace();
+                 }
+            }
+            break; 
+            
+            
+            
     	case "Supprimer":
 			// TODO
     		System.out.println("Vous voulez supprimer le " + (selectedRow+1) +"er/eme ligne");
@@ -93,13 +112,13 @@ public class GestionFenFacture implements ActionListener{
                     DefaultTableModel model = (DefaultTableModel) myTable.getModel();
 
                     
-                    Object idbat = model.getValueAt(selectedRow, 0); // recup Id Batiment
-                    Object addresse = model.getValueAt(selectedRow, 1);
+                    Object idfac = model.getValueAt(selectedRow, 0); // recup Id Batiment
+                    Object ref = model.getValueAt(selectedRow, 2);
                     
                     
                     //test
-                    System.out.println("Id batiment: " + idbat);
-                    System.out.println("Adresse: " + addresse);
+                    System.out.println("Id batiment: " + idfac);
+                    System.out.println("Adresse: " + ref);
                     /*
                     // Delete the row from the database
                     int idBatimentToDelete = Integer.parseInt(idbat.toString());
@@ -111,9 +130,9 @@ public class GestionFenFacture implements ActionListener{
                         System.out.println("Error erreur suppression ligne");
                     }*/
                     
-                /*} else {
+                } else {
                     System.out.println("Aucun ligne est selectionner");
-                }*/
+                }
             
 			break;
 			

@@ -1,6 +1,5 @@
 package Vue;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JTable;
@@ -18,26 +17,23 @@ import Controleur.GestionSaisirFacture;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import java.awt.SystemColor;
-import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.ArrayList;
 
 import javax.swing.JSpinner;
 import javax.swing.JFormattedTextField;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.JComboBox;
 
 @SuppressWarnings("serial")
 public class SaisirFacture extends JInternalFrame{
 	private JTextField ID_Facture;
 	private JTextField Ref;
-	private JComboBox LabelIDcomboBox;
+	private JSpinner Paiement;
 	private GestionSaisirFacture gsf;
-	private FenetrePrincipale parent;
-	private FenFacture fenefac;
 	private JButton btn_Inserer;
 	private JButton btn_Annuler;
 	private JFormattedTextField Fd_DateConstruction;
+	private JTextField ID_Batiment;
+	private JTextField Tpmt;
 	// private JTable tableC;
 	
 
@@ -61,16 +57,16 @@ public class SaisirFacture extends JInternalFrame{
 
 	/**
 	 * Create the frame.
+	 * @param fac 
+	 * @param mere 
 	 * @throws ParseException 
 	 */
-	public SaisirFacture(FenetrePrincipale parent, FenFacture fenefac) throws ParseException {
-		this.parent = parent;
-		this.fenefac = fenefac;
+	public SaisirFacture(FenetrePrincipale mere, FenFacture fac) throws ParseException {
 		setBorder(new LineBorder(SystemColor.activeCaption, 2));
 		setTitle("Saisie des informations");
 		setBounds(100, 100, 471, 567);
 		getContentPane().setLayout(null);
-		this.gsf = new GestionSaisirFacture(this, this.parent, this.fenefac);
+		this.gsf = new GestionSaisirFacture(this);
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBackground(new Color(255, 255, 255));
@@ -93,18 +89,10 @@ public class SaisirFacture extends JInternalFrame{
 		label_IDb.setBounds(28, 132, 113, 13);
 		panel.add(label_IDb);
 		
-		LabelIDcomboBox = new JComboBox();
-		try {
-			ArrayList<String> values = this.parent.getConnectionBD().getTableData("BATIMENT", "ID_BATIMENT");
-			String[] idValuesArray = values.toArray(new String[0]);
-			DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(idValuesArray);
-			LabelIDcomboBox.setModel(model);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		LabelIDcomboBox.setBounds(186, 121, 231, 35);
-		panel.add(LabelIDcomboBox);
+		ID_Batiment = new JTextField();
+		ID_Batiment.setBounds(186, 116, 231, 37);
+		panel.add(ID_Batiment);
+		ID_Batiment.setColumns(10);
 		
 		JLabel lblRfrenceDuPaiement = new JLabel("Réfèrence du paiement");
 		lblRfrenceDuPaiement.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -121,19 +109,19 @@ public class SaisirFacture extends JInternalFrame{
 		label_Paiement.setBounds(28, 254, 113, 13);
 		panel.add(label_Paiement);
 		
-		JSpinner spinner = new JSpinner();
-		spinner.setBounds(186, 244, 231, 35);
-		panel.add(spinner);
+		Paiement = new JSpinner();
+		Paiement.setBounds(186, 244, 231, 35);
+		panel.add(Paiement);
 		
 		JLabel label_TypP = new JLabel("Type de paiement");
 		label_TypP.setFont(new Font("Tahoma", Font.BOLD, 11));
 		label_TypP.setBounds(28, 318, 113, 14);
 		panel.add(label_TypP);
 		
-		JComboBox TypePaiementcomboBox_1 = new JComboBox();
-		TypePaiementcomboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Virement Bancaire", "Espèces", "Carte de crédit", "Prélèvement automatique"}));
-		TypePaiementcomboBox_1.setBounds(186, 308, 231, 35);
-		panel.add(TypePaiementcomboBox_1);
+		Tpmt = new JTextField();
+		Tpmt.setBounds(186, 308, 231, 35);
+		panel.add(Tpmt);
+		Tpmt.setColumns(10);
 		
 		JLabel labelHeureFC = new JLabel("Date de paiement");
 		labelHeureFC.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -188,5 +176,17 @@ public class SaisirFacture extends JInternalFrame{
 	public GestionSaisirFacture getGsf() {
 		return gsf;
 	}
+
+
+	public void loadFactureInfo(String idfacture, String idbatiment, String refpaiement, String paiement, String type, String date) {
+		// TODO Auto-generated method stub
+		ID_Facture.setText(idfacture);
+		ID_Batiment.setText(idbatiment);
+		Ref.setText(refpaiement);
+		Paiement.setValue(Double.parseDouble(paiement));
+		Tpmt.setText(type);
+		Fd_DateConstruction.setValue(date);
+	}
+
 }
 

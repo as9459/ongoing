@@ -32,7 +32,7 @@ import javax.swing.JCheckBox;
 public class SaisirLocataire extends JInternalFrame{
 	private JTextField Fd_Nom;
 	private JTextField Fd_Prenom;
-	private JTextField Fd_Email;
+	private JTextField Fd_Statut;
 	private GestionSaisirLocataire gslo;
 	private JButton btnAnnuler;
 	// private JTable tableC;
@@ -135,15 +135,15 @@ public class SaisirLocataire extends JInternalFrame{
 		panel_1.add(label_Id_GrpC);
 		label_Id_GrpC.setFont(new Font("Tahoma", Font.BOLD, 10));
 		
-		Fd_Email = new JTextField();
-		Fd_Email.setBounds(170, 303, 231, 35);
-		panel_1.add(Fd_Email);
-		Fd_Email.setColumns(10);
+		Fd_Statut = new JTextField();
+		Fd_Statut.setBounds(170, 303, 231, 35);
+		panel_1.add(Fd_Statut);
+		Fd_Statut.setColumns(10);
 		
-		JLabel labelHeureFC = new JLabel("Email : ");
-		labelHeureFC.setBounds(47, 316, 61, 13);
-		panel_1.add(labelHeureFC);
-		labelHeureFC.setFont(new Font("Tahoma", Font.BOLD, 10));
+		JLabel labelStatut = new JLabel("Statut : ");
+		labelStatut.setBounds(47, 316, 61, 13);
+		panel_1.add(labelStatut);
+		labelStatut.setFont(new Font("Tahoma", Font.BOLD, 10));
 
 		JFormattedTextField Fd_telephone = new JFormattedTextField(telephoneFormatter);
 		Fd_telephone.setBounds(170, 167, 231, 35);
@@ -181,33 +181,33 @@ public class SaisirLocataire extends JInternalFrame{
 		lblNewLabel_1.setBounds(32, 42, 126, 22);
 		panel_2.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Le numero du logement :");
-		lblNewLabel_1_1.setBounds(223, 42, 126, 22);
-		panel_2.add(lblNewLabel_1_1);
+		JLabel lblNewLabel_2 = new JLabel("Le numero du logement :");
+		lblNewLabel_2.setBounds(223, 42, 126, 22);
+		panel_2.add(lblNewLabel_2);
 		
-		JLabel lblNewLabel_1_2 = new JLabel("Date debut :");
-		lblNewLabel_1_2.setBounds(32, 123, 126, 22);
-		panel_2.add(lblNewLabel_1_2);
+		JLabel lblNewLabel_3 = new JLabel("Date debut :");
+		lblNewLabel_3.setBounds(32, 123, 126, 22);
+		panel_2.add(lblNewLabel_3);
 		
-		JLabel lblNewLabel_1_1_1 = new JLabel("Date fin :");
-		lblNewLabel_1_1_1.setBounds(223, 123, 126, 22);
-		panel_2.add(lblNewLabel_1_1_1);
+		JLabel lblNewLabel_4 = new JLabel("Date fin :");
+		lblNewLabel_4.setBounds(223, 123, 126, 22);
+		panel_2.add(lblNewLabel_4);
 		
-		JLabel lblNewLabel_1_2_1 = new JLabel("Loyer :");
-		lblNewLabel_1_2_1.setBounds(32, 190, 126, 22);
-		panel_2.add(lblNewLabel_1_2_1);
+		JLabel lblNewLabel_5 = new JLabel("Loyer :");
+		lblNewLabel_5.setBounds(32, 190, 126, 22);
+		panel_2.add(lblNewLabel_5);
 		
-		JLabel lblNewLabel_1_1_1_1 = new JLabel("charfes fixes :");
-		lblNewLabel_1_1_1_1.setBounds(223, 190, 126, 22);
-		panel_2.add(lblNewLabel_1_1_1_1);
+		JLabel lblNewLabel_6 = new JLabel("charfes fixes :");
+		lblNewLabel_6.setBounds(223, 190, 126, 22);
+		panel_2.add(lblNewLabel_6);
 		
-		JLabel lblNewLabel_1_2_1_1 = new JLabel("Frais d'agence :");
-		lblNewLabel_1_2_1_1.setBounds(32, 270, 126, 22);
-		panel_2.add(lblNewLabel_1_2_1_1);
+		JLabel lblNewLabel_7 = new JLabel("Frais d'agence :");
+		lblNewLabel_7.setBounds(32, 270, 126, 22);
+		panel_2.add(lblNewLabel_7);
 		
-		JLabel lblNewLabel_1_1_1_1_1 = new JLabel("Jour paiement :");
-		lblNewLabel_1_1_1_1_1.setBounds(223, 270, 126, 22);
-		panel_2.add(lblNewLabel_1_1_1_1_1);
+		JLabel lblNewLabel_8 = new JLabel("Jour paiement :");
+		lblNewLabel_8.setBounds(223, 270, 126, 22);
+		panel_2.add(lblNewLabel_8);
 		
 		sp_loyer = new JSpinner();
 		sp_loyer.setModel(new SpinnerNumberModel(Float.valueOf(0), Float.valueOf(0), null, Float.valueOf(1)));
@@ -248,10 +248,10 @@ public class SaisirLocataire extends JInternalFrame{
 		Fd_GarantNom.setBounds(142, 57, 231, 35);
 		panel_3.add(Fd_GarantNom);
 		
-		JLabel labelDebsemc_1 = new JLabel("Nom :");
-		labelDebsemc_1.setFont(new Font("Tahoma", Font.BOLD, 10));
-		labelDebsemc_1.setBounds(56, 68, 61, 13);
-		panel_3.add(labelDebsemc_1);
+		JLabel labelNom = new JLabel("Nom :");
+		labelNom.setFont(new Font("Tahoma", Font.BOLD, 10));
+		labelNom.setBounds(56, 68, 61, 13);
+		panel_3.add(labelNom);
 		
 		JLabel labelVille_1 = new JLabel("Telephone :");
 		labelVille_1.setFont(new Font("Tahoma", Font.BOLD, 10));
@@ -263,10 +263,10 @@ public class SaisirLocataire extends JInternalFrame{
 		Fd_GarantMail.setBounds(142, 252, 231, 35);
 		panel_3.add(Fd_GarantMail);
 		
-		JLabel labelHeureFC_1 = new JLabel("Email : ");
-		labelHeureFC_1.setFont(new Font("Tahoma", Font.BOLD, 10));
-		labelHeureFC_1.setBounds(56, 263, 61, 13);
-		panel_3.add(labelHeureFC_1);
+		JLabel labelStatut_1 = new JLabel("Statut : ");
+		labelStatut_1.setFont(new Font("Tahoma", Font.BOLD, 10));
+		labelStatut_1.setBounds(56, 263, 61, 13);
+		panel_3.add(labelStatut_1);
 		
 		Fd_GarantAdresse = new JTextField();
 		Fd_GarantAdresse.setColumns(10);
@@ -311,8 +311,8 @@ public class SaisirLocataire extends JInternalFrame{
 	}
 
 
-	public JTextField getTextFieldEmail() {
-		return Fd_Email;
+	public JTextField getTextFieldStatut() {
+		return Fd_Statut;
 	}
 
 	public GestionSaisirLocataire getGslo() {
