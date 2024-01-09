@@ -40,12 +40,12 @@ public class GestionSaisirLogement implements ActionListener{
 		JButton b = (JButton) e.getSource();
 		switch (b.getText()) {
 			case "Inserer":
-				int p_id_batiment = 1;
+				int p_id_batiment = this.sl.getTextFieldNbBatement();
 				int p_id_logement = this.sl.getTextFieldNbLogement();
 				int p_etage = this.sl.getTextFieldEtage();
 				String p_type = this.sl.getTextFieldTypeLogement();
-				int p_surface = this.sl.getTextFieldSurface();
-				int p_ICC = this.sl.getTextFieldICC();
+				float p_surface = this.sl.getTextFieldSurface();
+				float p_ICC = this.sl.getTextFieldICC();
 				int p_colocation = 0;
 				int p_garage = this.sl.getTextFieldGarage();
 				int p_jardin = this.sl.getTextFieldJardin();

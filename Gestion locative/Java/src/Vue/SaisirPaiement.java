@@ -28,10 +28,18 @@ import javax.swing.JLayeredPane;
 
 @SuppressWarnings("serial")
 public class SaisirPaiement extends JInternalFrame{
+	private FenetrePrincipale parent;
+	private FenPaiement fenepaie;
+	private JTextField id_facture;
 	private JTextField Fd_ReferenceF;
 	private GestionSaisirPaiement gsb;
 	private JButton btn_Inserer;
 	private JButton btn_Annuler;
+	private JSpinner montantPaiement;
+	private JTextField refPaiement;
+	private JComboBox BatimentcomboBox;
+	private JComboBox LogementcomboBox_1;
+	private JComboBox LocatairecomboBox_2;
 	private JSpinner sp_MontantP;
 	private JFormattedTextField Fd_DateF;
 	private JTextField Fd_RrferenceP;
@@ -71,7 +79,7 @@ public class SaisirPaiement extends JInternalFrame{
 		setTitle("Saisie des informations");
 		setBounds(100, 100, 471, 567);
 		getContentPane().setLayout(null);
-		this.gsb = new GestionSaisirPaiement(this);
+		this.gsb = new GestionSaisirPaiement(this, this.parent, fene);
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBackground(new Color(255, 255, 255));
@@ -176,18 +184,46 @@ public class SaisirPaiement extends JInternalFrame{
 	}
 
 
+	public int getIdFacture() {
+		String text = this.id_facture.getText();
+		return Integer.parseInt(text);
+	}
+	
+	public int getIdBatiment() {
+		return (int) Integer.valueOf(this.BatimentcomboBox.getItemAt(this.BatimentcomboBox.getSelectedIndex()).toString());
+	}
+	
+	public int getIdLogement() {
+		return (int) Integer.valueOf(this.LogementcomboBox_1.getItemAt(this.LogementcomboBox_1.getSelectedIndex()).toString());
+	}
+	
+	public int getIdLocataire() {
+		return (int) Integer.valueOf(this.LocatairecomboBox_2.getItemAt(this.LocatairecomboBox_2.getSelectedIndex()).toString());
+	}
+		
+	public String getRefPaiement() {
+			return this.refPaiement.getText();
+	}
+		
+	public float getMontantPaiement() {
+			return (int) this.montantPaiement.getValue();
+	}
+	
 	public String getTextFieldDebsemc() {
 		return this.Fd_ReferenceF.getText();
 	}
 
-
-
 	public float getTextFieldRegimeJuridique() {
-		return (float)this.sp_MontantP.getValue();
+		return (float)this.montantPaiement.getValue();
+	}
+	
+	public String getTypePaiement() {
+		return this.CB_TypeP.getItemAt(this.CB_TypeP.getSelectedIndex()).toString();
+		
 	}
 
-	public String getTextFieldDateConstruction() {
-		return this.Fd_DateF.getText();
+	public String getDatePaiement() {
+		return this.Fd_DateP.getText();
 	}
 	
 	

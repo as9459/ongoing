@@ -382,8 +382,8 @@ public class CictOracleDataSource extends OracleDataSource {
     	      int p_id_logement,
     	      int p_etage,
     	      String p_type,
-    	      int p_surface,
-    	      int p_ICC,
+    	      float p_surface,
+    	      float p_ICC,
     	      int p_colocation,
     	      int p_garage,
     	      int p_jardin,
@@ -393,8 +393,8 @@ public class CictOracleDataSource extends OracleDataSource {
             cs.setInt(1, p_id_batiment);
             cs.setString(2, p_type);
             cs.setInt(3, p_etage);
-            cs.setInt(4, p_surface);
-            cs.setInt(5, p_ICC);
+            cs.setFloat(4, p_surface);
+            cs.setFloat(5, p_ICC);
             cs.setInt(6, p_colocation);
             cs.setInt(7, p_garage);
             cs.setInt(8, p_jardin);

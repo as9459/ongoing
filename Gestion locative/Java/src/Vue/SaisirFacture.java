@@ -25,6 +25,8 @@ import javax.swing.SpinnerNumberModel;
 
 @SuppressWarnings("serial")
 public class SaisirFacture extends JInternalFrame{
+	private FenetrePrincipale mere;
+	private FenFacture fac;
 	private JTextField ID_Facture;
 	private JTextField Ref;
 	private JSpinner Paiement;
@@ -62,11 +64,13 @@ public class SaisirFacture extends JInternalFrame{
 	 * @throws ParseException 
 	 */
 	public SaisirFacture(FenetrePrincipale mere, FenFacture fac) throws ParseException {
+		this.mere = mere;
+		this.fac = fac;
 		setBorder(new LineBorder(SystemColor.activeCaption, 2));
 		setTitle("Saisie des informations");
 		setBounds(100, 100, 471, 567);
 		getContentPane().setLayout(null);
-		this.gsf = new GestionSaisirFacture(this);
+		this.gsf = new GestionSaisirFacture(this, this.mere, this.fac);
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBackground(new Color(255, 255, 255));

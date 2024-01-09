@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import java.awt.SystemColor;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -95,7 +96,15 @@ public class SaisirLogement extends JInternalFrame{
 		panel.add(lblLeNumeroDu_1);
 		
 		CB_NbBatiment = new JComboBox();
-		CB_NbBatiment.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4"}));
+		try {
+			ArrayList<String> values = this.parent.getConnectionBD().getTableData("BATIMENT", "ID_BATIMENT");
+			String[] idValuesArray = values.toArray(new String[0]);
+			DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(idValuesArray);
+			CB_NbBatiment.setModel(model);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		CB_NbBatiment.setBounds(179, 23, 236, 35);
 		panel.add(CB_NbBatiment);
 		
