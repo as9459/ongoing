@@ -12,7 +12,6 @@ import java.awt.Component;
 
 import javax.swing.border.TitledBorder;
 
-import Controleur.GestionFenPaiement;
 import Controleur.GestionSaisirLogement;
 import jdbc.CictOracleDataSource;
 
@@ -20,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import java.awt.SystemColor;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -95,6 +95,18 @@ public class SaisirLogement extends JInternalFrame{
 		panel.add(lblLeNumeroDu_1);
 		
 		CB_NbBatiment = new JComboBox();
+		try {
+			ArrayList<String> values = this.parent.getConnectionBD().getTableData("BATIMENT", "ID_BATIMENT");
+			String[] idValuesArray = values.toArray(new String[0]);
+			DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(idValuesArray);
+			CB_NbBatiment.setModel(model);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		/*ArrayList<String> idValuesList = GestionFenBatiment.getIdvalues();
+		String[] idValuesArray = idValuesList.toArray(new String[0]);*/
+		
 		CB_NbBatiment.setBounds(179, 23, 236, 35);
 		panel.add(CB_NbBatiment);
 		
@@ -180,19 +192,21 @@ public class SaisirLogement extends JInternalFrame{
 	}
 	
 	public int getTextFieldEtage() {
-		return (int)this.sp_Etage.getValue();
+		return (int) this.sp_Etage.getValue();
 	}
 
 	public String getTextFieldTypeLogement() {
 		return this.CB_TypeLogement.getItemAt(this.CB_TypeLogement.getSelectedIndex()).toString();
 	}
 
-	public float getTextFieldSurface() {
-		return (float) this.sp_Surface.getValue();
+	public int getTextFieldSurface() {
+		Number surfaceValue = (Number) this.sp_Surface.getValue();
+		return surfaceValue != null ? surfaceValue.intValue() : 0;
 	}
 
-	public float getTextFieldICC() {
-		return (float) this.sp_Icc.getValue();
+	public int getTextFieldICC() {
+		Number ICCValue = (Number) this.sp_Icc.getValue();
+		return ICCValue != null ? ICCValue.intValue() : 0;
 	}
 
 

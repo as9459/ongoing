@@ -26,9 +26,9 @@ public class GestionFenFacture implements ActionListener{
 	private FenetrePrincipale mere;
 	//private DefaultTableModel modeleTable;
 
-	public GestionFenFacture(FenFacture fac, FenetrePrincipale mare) {
+	public GestionFenFacture(FenFacture fac, FenetrePrincipale mere) {
 		this.fac = fac;
-		this.mere = mare ;
+		this.mere = mere ;
 		//this.modeleTable = (DefaultTableModel) this.fac.getTableFacture().getModel();
 	}
 	
@@ -61,11 +61,10 @@ public class GestionFenFacture implements ActionListener{
     		fac.dispose();
     		break;
     	case "Ajouter":
-			SaisirFacture sfac = null;
 			try {
-				sfac = new SaisirFacture();
-				JLayeredPane layeredPane4 = this.mere.getLayeredPane();
-				layeredPane4.add(sfac, JLayeredPane.DEFAULT_LAYER);
+				SaisirFacture sfac = new SaisirFacture(this.mere, this.fac);
+				JLayeredPane layeredPane5 = this.mere.getLayeredPane();
+				layeredPane5.add(sfac, JLayeredPane.DEFAULT_LAYER);
 				sfac.setVisible(true);
 			} catch (ParseException e1) {
 				// TODO Auto-generated catch block
@@ -74,7 +73,7 @@ public class GestionFenFacture implements ActionListener{
 			
             break;
     	case "Modifier":
-			SaisirBatiment mbat = null;
+			/*SaisirBatiment mbat = null;
 			try {
 				mbat = new SaisirBatiment();
 				JLayeredPane layeredPane5 = this.mere.getLayeredPane();
@@ -112,9 +111,9 @@ public class GestionFenFacture implements ActionListener{
                         System.out.println("Error erreur suppression ligne");
                     }*/
                     
-                } else {
+                /*} else {
                     System.out.println("Aucun ligne est selectionner");
-                }
+                }*/
             
 			break;
 			

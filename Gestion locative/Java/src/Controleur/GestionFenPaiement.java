@@ -42,7 +42,7 @@ public class GestionFenPaiement implements ActionListener{
     	case "Ajouter":
 			SaisirPaiement sbat = null;
 			try {
-				sbat = new SaisirPaiement();
+				sbat = new SaisirPaiement(this.mere, this.fene);
 				JLayeredPane layeredPane4 = fen.getLayeredPane();
 				layeredPane4.add(sbat, JLayeredPane.DEFAULT_LAYER);
 				sbat.setVisible(true);
@@ -55,7 +55,7 @@ public class GestionFenPaiement implements ActionListener{
     	case "Modifier":
 			SaisirPaiement mbat = null;
 			try {
-				mbat = new SaisirPaiement();
+				mbat = new SaisirPaiement(this.mere, this.fene);
 				JLayeredPane layeredPane5 = fen.getLayeredPane();
 				layeredPane5.add(mbat, JLayeredPane.DEFAULT_LAYER);
 				mbat.setVisible(true);

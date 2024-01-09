@@ -6,6 +6,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import Vue.FenFacture;
+import Vue.FenetrePrincipale;
 /*import modele.Creneau;
 import modele.Groupe;
 import modele.dao.DaoCreneau;
@@ -15,11 +18,16 @@ import Vue.SaisirFacture;
 public class GestionSaisirFacture implements ActionListener{
 
 	private SaisirFacture sf;
+	private FenetrePrincipale mere;
+	private FenFacture fenefac;
 	/*private DefaultTableModel modeleTable;
 	private DaoGroupe daoGroupe;*/
 	
-	public GestionSaisirFacture(SaisirFacture sf) { /*(SaisirBatiment sc, JTable tableC)*/
+	public GestionSaisirFacture(SaisirFacture sf, FenetrePrincipale mere, FenFacture fenefac) { 
+		/*(SaisirBatiment sc, JTable tableC)*/
 		this.sf = sf;
+		this.mere = mere;
+		this.fenefac = fenefac;
 		/*this.modeleTable = (DefaultTableModel) tableC.getModel();
 		this.daoGroupe = new DaoGroupe();		*/
 	}
@@ -29,7 +37,9 @@ public class GestionSaisirFacture implements ActionListener{
 		JButton b = (JButton) e.getSource();
 		switch (b.getText()) {
 			case "Insérer":
-				// TODO
+				
+				
+				
 				/*Groupe groupe = daoGroupe.findById(this.sc.getTextFieldIdGrpC().getText());
 				Creneau cr = new Creneau(this.sc.getTextFieldDebsemc().getText(),
 										 this.sc.getTextFieldJourC().getText(), 

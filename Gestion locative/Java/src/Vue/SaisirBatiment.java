@@ -144,7 +144,7 @@ public class SaisirBatiment extends JInternalFrame{
 		idtextPane.setBounds(186, 29, 231, 35);
 		panel.add(idtextPane);
 		
-		JComboBox comboBoxRegime = new JComboBox();
+		comboBoxRegime = new JComboBox();
 		comboBoxRegime.setModel(new DefaultComboBoxModel(new String[] {"OUI", "NON"}));
 		comboBoxRegime.setBounds(186, 311, 231, 35);
 		panel.add(comboBoxRegime);
