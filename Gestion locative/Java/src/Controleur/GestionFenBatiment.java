@@ -23,6 +23,7 @@ import Vue.FenBatiment;
 public class GestionFenBatiment implements ActionListener{
 	private FenBatiment fene;
 	private FenetrePrincipale mere;
+	private static ArrayList<String> idvalues;
 	//private DefaultTableModel modeleTable;
 
 	public GestionFenBatiment(FenBatiment fen, FenetrePrincipale mere) {
@@ -136,6 +137,7 @@ public class GestionFenBatiment implements ActionListener{
 
 	
 	public Object[][] updateTable() {
+		idvalues = new ArrayList<String>();
 	    ResultSet result = null;
 	    List<Object[]> dataList = new ArrayList<>();
 
@@ -145,6 +147,7 @@ public class GestionFenBatiment implements ActionListener{
 	        while (result.next()) {
 	            Object[] row = new Object[8]; // Change the size as needed
 	            row[0] = result.getString(1);
+	            idvalues.add(result.getString(1));
 	            row[1] = result.getString(2);
 	            row[2] = result.getString(3);
 	            row[3] = result.getString(4);
@@ -160,6 +163,7 @@ public class GestionFenBatiment implements ActionListener{
 	        // Do not close the ResultSet here
 	    }
 
+	    
 	    // Convert the list to a 2D array
 	    Object[][] ob = new Object[dataList.size()][];
 	    for (int i = 0; i < dataList.size(); i++) {
@@ -167,6 +171,10 @@ public class GestionFenBatiment implements ActionListener{
 	    }
 
 	    return ob;
+	}
+
+	public static ArrayList<String> getIdvalues() {
+		return idvalues;
 	}
 	
 

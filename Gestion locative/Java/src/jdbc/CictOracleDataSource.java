@@ -18,6 +18,7 @@ import java.sql.ResultSetMetaData;
 
 import oracle.jdbc.OracleTypes;
 import oracle.jdbc.pool.OracleDataSource;
+import oracle.sql.ARRAY;
 
 public class CictOracleDataSource extends OracleDataSource {
 
@@ -224,6 +225,26 @@ public class CictOracleDataSource extends OracleDataSource {
     //InsertFicheDiagnostic
     //InsertCorrespondre
     
+    public ArrayList<String> getTableData(String tableNom, String colonne) throws SQLException {
+        ArrayList<String> result = new ArrayList<>();
+        
+        try (CallableStatement cs = this.connection.prepareCall("{ ? = call getTableData(?, ?) ")){
+                cs.registerOutParameter(1, OracleTypes.CURSOR);
+                cs.setString(2, tableNom);
+                cs.setString(3, colonne);
+                cs.execute();
+
+                ResultSet resultSet = (ResultSet) cs.getObject(1);
+	                while (resultSet.next()){
+	                    for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
+	                    	Object valeurColonne = resultSet.getObject(i);
+	                        result.add(valeurColonne.toString());
+	                    }
+	                }
+	            return result;
+        }
+    }
+    
 
     /*------------- Locataire -------------*/
 
@@ -361,22 +382,24 @@ public class CictOracleDataSource extends OracleDataSource {
     	      int p_id_logement,
     	      int p_etage,
     	      String p_type,
-    	      float p_surface,
-    	      float p_ICC,
+    	      int p_surface,
+    	      int p_ICC,
+    	      int p_colocation,
     	      int p_garage,
     	      int p_jardin,
     	      int p_balcon
     	   )throws SQLException {
-        try (CallableStatement cs = this.connection.prepareCall("{call InsertLogement(?,?,?,?,?,?,?,?,?) }")) {
+        try (CallableStatement cs = this.connection.prepareCall("{call InsertLogement(?,?,?,?,?,?,?,?,?,?) }")) {
             cs.setInt(1, p_id_batiment);
             cs.setString(2, p_type);
             cs.setInt(3, p_etage);
-            cs.setFloat(4, p_surface);
-            cs.setFloat(5, p_ICC);
-            cs.setInt(6, p_garage);
-            cs.setInt(7, p_jardin);
-            cs.setInt(8, p_balcon);
-            cs.setInt(9, p_id_logement);
+            cs.setInt(4, p_surface);
+            cs.setInt(5, p_ICC);
+            cs.setInt(6, p_colocation);
+            cs.setInt(7, p_garage);
+            cs.setInt(8, p_jardin);
+            cs.setInt(9, p_balcon);
+            cs.setInt(10, p_id_logement);
             cs.execute();
         }
     }
@@ -680,7 +703,30 @@ public class CictOracleDataSource extends OracleDataSource {
         }
     }
     
-   
+    /*------------- Paiement -------------*/
+    
+    public void AddPaiement(
+  		  int p_id_facture,
+    	  int p_id_batiment,
+  	      int p_id_logement,
+  	      String p_reference_du_paiement,
+  	      float p_paiement,
+  	      String p_type_paiement,
+  	      String p_date_de_paiement,
+  	      int p_id_locataire
+  	   )throws SQLException {
+      try (CallableStatement cs = this.connection.prepareCall("{call InsertFactLogement(?,?,?,?,?,?,?,?) }")) {
+          cs.setInt(1, p_id_facture);
+          cs.setInt(2, p_id_batiment);
+          cs.setInt(3, p_id_logement);
+          cs.setString(4, p_reference_du_paiement);
+          cs.setFloat(5, p_paiement);
+          cs.setString(6, p_type_paiement);
+          cs.setString(7, p_date_de_paiement);
+          cs.setInt(8, p_id_locataire);
+          cs.execute();
+      }
+  }
 
 
 

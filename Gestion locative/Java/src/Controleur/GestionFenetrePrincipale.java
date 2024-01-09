@@ -2,6 +2,8 @@ package Controleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLayeredPane;
@@ -65,7 +67,7 @@ public class GestionFenetrePrincipale implements ActionListener{
 				JLayeredPane layeredPane4 = fen.getLayeredPane();
 				layeredPane4.add(bat, JLayeredPane.DEFAULT_LAYER);
 				bat.setVisible(true);
-	            break;
+			  break;
 			case "Facture":
 				/*System.out.println("bouton marche");*/
 				FenFacture fac = new FenFacture(this.fen);

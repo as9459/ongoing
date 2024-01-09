@@ -40,12 +40,13 @@ public class GestionSaisirLogement implements ActionListener{
 		JButton b = (JButton) e.getSource();
 		switch (b.getText()) {
 			case "Inserer":
-				int p_id_batiment = 0;
+				int p_id_batiment = 1;
 				int p_id_logement = this.sl.getTextFieldNbLogement();
 				int p_etage = this.sl.getTextFieldEtage();
 				String p_type = this.sl.getTextFieldTypeLogement();
-				float p_surface = this.sl.getTextFieldSurface();
-				float p_ICC = this.sl.getTextFieldICC();
+				int p_surface = this.sl.getTextFieldSurface();
+				int p_ICC = this.sl.getTextFieldICC();
+				int p_colocation = 0;
 				int p_garage = this.sl.getTextFieldGarage();
 				int p_jardin = this.sl.getTextFieldJardin();
 				int p_balcon =this.sl.getTextFieldBalcon();
@@ -57,6 +58,7 @@ public class GestionSaisirLogement implements ActionListener{
 			    	      								p_type,
 			    	      								p_surface,
 			    	      								p_ICC,
+			    	      								p_colocation,
 			    	      								p_garage,
 			    	      								p_jardin,
 			    	      								p_balcon);
@@ -74,7 +76,6 @@ public class GestionSaisirLogement implements ActionListener{
 				layeredPane4.add(fenelog, JLayeredPane.DEFAULT_LAYER);
 				fenelog.setVisible(true);
 				
-				//CictOracleDataSource.AddLogement(0, 0, sl.getTextFieldTypeLogement(), sl.getTextFieldLoyer(), sl.getTextFieldEtage(), sl.getTextFieldICC(), sl.getTextFieldGarage(), sl.getTextFieldJardin());
 				break;
 			case "Annuler":
 				this.sl.dispose();

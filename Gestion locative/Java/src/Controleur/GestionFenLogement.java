@@ -29,7 +29,7 @@ public class GestionFenLogement implements ActionListener{
 	}
 	
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e){
 		
 		FenetrePrincipale fenlog = (FenetrePrincipale) log.getTopLevelAncestor();
 		JButton botonn = (JButton) e.getSource();
@@ -48,7 +48,6 @@ public class GestionFenLogement implements ActionListener{
 				layeredPane8.add(slog, JLayeredPane.DEFAULT_LAYER);
 				slog.setVisible(true);
 	            break;
-	            
 	            
 	    	case "Modifier":
 	    		
