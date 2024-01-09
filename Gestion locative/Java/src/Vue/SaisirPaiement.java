@@ -17,9 +17,7 @@ import Controleur.GestionSaisirPaiement;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import java.awt.SystemColor;
-import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.ArrayList;
 
 import javax.swing.JSpinner;
 import javax.swing.JFormattedTextField;
@@ -30,17 +28,10 @@ import javax.swing.JLayeredPane;
 
 @SuppressWarnings("serial")
 public class SaisirPaiement extends JInternalFrame{
-	private FenetrePrincipale parent;
-	private FenPaiement fenepaie;
-	private JTextField id_facture;
+	private JTextField Fd_ReferenceF;
 	private GestionSaisirPaiement gsb;
 	private JButton btn_Inserer;
 	private JButton btn_Annuler;
-	private JSpinner montantPaiement;
-	private JTextField refPaiement;
-	private JComboBox BatimentcomboBox;
-	private JComboBox LogementcomboBox_1;
-	private JComboBox LocatairecomboBox_2;
 	private JSpinner sp_MontantP;
 	private JFormattedTextField Fd_DateF;
 	private JTextField Fd_RrferenceP;
@@ -74,16 +65,13 @@ public class SaisirPaiement extends JInternalFrame{
 	 * @param mere 
 	 * @throws ParseException 
 	 */
-	
-	public SaisirPaiement(FenetrePrincipale parent, FenPaiement fenepaie) throws ParseException {
-		this.parent = parent;
-		this.fenepaie = fenepaie;
+	public SaisirPaiement(FenetrePrincipale mere, FenPaiement fene) throws ParseException {
         MaskFormatter dateFormatter = new MaskFormatter("####-##-##");
 		setBorder(new LineBorder(SystemColor.activeCaption, 2));
 		setTitle("Saisie des informations");
 		setBounds(100, 100, 471, 567);
 		getContentPane().setLayout(null);
-		this.gsb = new GestionSaisirPaiement(this, this.parent, this.fenepaie);
+		this.gsb = new GestionSaisirPaiement(this);
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBackground(new Color(255, 255, 255));
@@ -91,19 +79,25 @@ public class SaisirPaiement extends JInternalFrame{
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel labelDebsemc = new JLabel("ID Facture");
-		labelDebsemc.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelDebsemc.setBounds(28, 52, 113, 13);
+		JLabel labelDebsemc = new JLabel("Reference :");
+		labelDebsemc.setFont(new Font("Tahoma", Font.BOLD, 10));
+		labelDebsemc.setBounds(28, 31, 113, 13);
 		panel.add(labelDebsemc);
 		
-		id_facture = new JTextField();
-		id_facture.setBounds(186, 41, 231, 35);
-		panel.add(id_facture);
-		id_facture.setColumns(10);
+		Fd_ReferenceF = new JTextField();
+		Fd_ReferenceF.setEditable(false);
+		Fd_ReferenceF.setBounds(186, 20, 231, 35);
+		panel.add(Fd_ReferenceF);
+		Fd_ReferenceF.setColumns(10);
+		
+		JLabel labelCP = new JLabel("Date facture :");
+		labelCP.setFont(new Font("Tahoma", Font.BOLD, 10));
+		labelCP.setBounds(28, 88, 113, 13);
+		panel.add(labelCP);
 		
 		JLabel lblMontantDuPaiement = new JLabel("Montant du paiement :");
-		lblMontantDuPaiement.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblMontantDuPaiement.setBounds(28, 283, 146, 13);
+		lblMontantDuPaiement.setFont(new Font("Tahoma", Font.BOLD, 10));
+		lblMontantDuPaiement.setBounds(28, 366, 113, 13);
 		panel.add(lblMontantDuPaiement);
 		
 		
@@ -117,96 +111,39 @@ public class SaisirPaiement extends JInternalFrame{
 		btn_Annuler.setBounds(89, 436, 85, 21);
 		panel.add(btn_Annuler);
 		
-		montantPaiement = new JSpinner();
-		montantPaiement.setModel(new SpinnerNumberModel(Float.valueOf(0), Float.valueOf(0), null, Float.valueOf(1)));
-		montantPaiement.setBounds(186, 272, 231, 35);
-		panel.add(montantPaiement);
+		sp_MontantP = new JSpinner();
+		sp_MontantP.setModel(new SpinnerNumberModel(Float.valueOf(0), Float.valueOf(0), null, Float.valueOf(1)));
+		sp_MontantP.setBounds(186, 355, 231, 35);
+		panel.add(sp_MontantP);
+
+		Fd_DateF = new JFormattedTextField(dateFormatter);
+		Fd_DateF.setEditable(false);
+		Fd_DateF.setText("0000-00-00");
+		Fd_DateF.setColumns(10);
+		Fd_DateF.setBounds(186, 77, 231, 35);
+		panel.add(Fd_DateF);
 		
-		JLabel lblRrferenceDuPaiement = new JLabel("Batiment");
-		lblRrferenceDuPaiement.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblRrferenceDuPaiement.setBounds(28, 99, 146, 13);
 		Fd_RrferenceP = new JTextField();
 		Fd_RrferenceP.setColumns(10);
 		Fd_RrferenceP.setBounds(186, 134, 231, 35);
 		panel.add(Fd_RrferenceP);
 		
-		JLabel lblRrferenceDuPaiement1 = new JLabel("Reference du paiement :");
-		lblRrferenceDuPaiement1.setFont(new Font("Tahoma", Font.BOLD, 10));
-		lblRrferenceDuPaiement1.setBounds(28, 145, 146, 13);
-		panel.add(lblRrferenceDuPaiement1);
-		
-		BatimentcomboBox = new JComboBox();
-		try {
-			ArrayList<String> values = this.parent.getConnectionBD().getTableData("BATIMENT", "ID_BATIMENT");
-			String[] idValuesArray = values.toArray(new String[0]);
-			DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(idValuesArray);
-			BatimentcomboBox.setModel(model);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		BatimentcomboBox.setBounds(186, 88, 231, 35);
-		panel.add(BatimentcomboBox);
-		
-		JLabel lblNewLabel_1 = new JLabel("Logement");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel_1.setBounds(30, 144, 94, 14);
-		panel.add(lblNewLabel_1);
-		
-		LogementcomboBox_1 = new JComboBox();
-		try {
-			ArrayList<String> values = this.parent.getConnectionBD().getTableData("LOGEMENT", "ID_LOGEMENT");
-			String[] idValuesArray = values.toArray(new String[0]);
-			DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(idValuesArray);
-			LogementcomboBox_1.setModel(model);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		LogementcomboBox_1.setBounds(186, 134, 231, 35);
-		panel.add(LogementcomboBox_1);
-		
-		JLabel lblNewLabel_2 = new JLabel("Locataire");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel_2.setBounds(28, 190, 62, 14);
-		panel.add(lblNewLabel_2);
-		
-		LocatairecomboBox_2 = new JComboBox();
-		try {
-			ArrayList<String> values = this.parent.getConnectionBD().getTableData("LOCATAIRE", "ID_LOCATAIRE");
-			String[] idValuesArray = values.toArray(new String[0]);
-			DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(idValuesArray);
-			LocatairecomboBox_2.setModel(model);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		LocatairecomboBox_2.setBounds(186, 180, 232, 35);
-		panel.add(LocatairecomboBox_2);
-		
-		JLabel lblNewLabel_3 = new JLabel("Référence du paiement");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel_3.setBounds(28, 236, 146, 14);
-		panel.add(lblNewLabel_3);
-		
-		refPaiement = new JTextField();
-		refPaiement.setBounds(186, 226, 231, 35);
-		panel.add(refPaiement);
-		refPaiement.setColumns(10);
+		JLabel lblRrferenceDuPaiement = new JLabel("Reference du paiement :");
+		lblRrferenceDuPaiement.setFont(new Font("Tahoma", Font.BOLD, 10));
+		lblRrferenceDuPaiement.setBounds(28, 145, 146, 13);
+		panel.add(lblRrferenceDuPaiement);
 		
 		JLabel lblDateDuPaiement = new JLabel("Date du paiement :");
-		lblDateDuPaiement.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblDateDuPaiement.setBounds(28, 375, 113, 13);
+		lblDateDuPaiement.setFont(new Font("Tahoma", Font.BOLD, 10));
+		lblDateDuPaiement.setBounds(28, 203, 113, 13);
 		panel.add(lblDateDuPaiement);
 		
 		Fd_DateP = new JFormattedTextField(dateFormatter);
 		Fd_DateP.setText("0000-00-00");
 		Fd_DateP.setColumns(10);
-		Fd_DateP.setBounds(186, 364, 231, 35);
+		Fd_DateP.setBounds(186, 192, 231, 35);
 		panel.add(Fd_DateP);
-		CB_TypeP = new JComboBox();
-		CB_TypeP.setModel(new DefaultComboBoxModel(new String[] {"Prélèvement automatique", "Espèces", "Carte de crédit", "Virement bancaire", "Chèque"}));
-		CB_TypeP.setBounds(186, 318, 231, 35);
+		
 		Fd_MontantF = new JTextField();
 		Fd_MontantF.setEditable(false);
 		Fd_MontantF.setColumns(10);
@@ -224,8 +161,8 @@ public class SaisirPaiement extends JInternalFrame{
 		panel.add(CB_TypeP);
 		
 		JLabel lblModeDePaiement = new JLabel("Mode de paiement :");
-		lblModeDePaiement.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblModeDePaiement.setBounds(28, 329, 113, 13);
+		lblModeDePaiement.setFont(new Font("Tahoma", Font.BOLD, 10));
+		lblModeDePaiement.setBounds(28, 262, 113, 13);
 		panel.add(lblModeDePaiement);
 		
 		JLayeredPane layeredPane = new JLayeredPane();
@@ -239,42 +176,18 @@ public class SaisirPaiement extends JInternalFrame{
 	}
 
 
-	public int getIdFacture() {
-		String text = this.id_facture.getText();
-		return Integer.parseInt(text);
-	}
-	
-	public int getIdBatiment() {
-		return (int) Integer.valueOf(this.BatimentcomboBox.getItemAt(this.BatimentcomboBox.getSelectedIndex()).toString());
-	}
-	
-	public int getIdLogement() {
-		return (int) Integer.valueOf(this.LogementcomboBox_1.getItemAt(this.LogementcomboBox_1.getSelectedIndex()).toString());
-	}
-	
-	public int getIdLocataire() {
-		return (int) Integer.valueOf(this.LocatairecomboBox_2.getItemAt(this.LocatairecomboBox_2.getSelectedIndex()).toString());
+	public String getTextFieldDebsemc() {
+		return this.Fd_ReferenceF.getText();
 	}
 
-	public String getRefPaiement() {
-		return this.refPaiement.getText();
-	}
-	
-	public float getMontantPaiement() {
-		return (int) this.montantPaiement.getValue();
-	}
 
 
 	public float getTextFieldRegimeJuridique() {
-		return (float)this.montantPaiement.getValue();
-	}
-	
-	public String getTypePaiement() {
-		return this.CB_TypeP.getItemAt(this.CB_TypeP.getSelectedIndex()).toString();
+		return (float)this.sp_MontantP.getValue();
 	}
 
-	public String getDatePaiement() {
-		return this.Fd_DateP.getText();
+	public String getTextFieldDateConstruction() {
+		return this.Fd_DateF.getText();
 	}
 	
 	
@@ -284,7 +197,7 @@ public class SaisirPaiement extends JInternalFrame{
 
 
 	public void loadPaiementInfo(String idfacture, String date, String refpaiement, String paiement, String type) {
-		/*Fd_ReferenceF.setText(idfacture);*/
+		Fd_ReferenceF.setText(idfacture);
 		Fd_DateP.setText(date);
 		Fd_RrferenceP.setText(refpaiement);
 		sp_MontantP.setValue(Double.parseDouble(paiement));

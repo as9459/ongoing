@@ -49,7 +49,6 @@ public class GestionFenPaiement implements ActionListener{
     	case "Ajouter":
 			SaisirPaiement sbat = null;
 			try {
-				sbat = new SaisirPaiement(this.mere, this.fene);
 				sbat = new SaisirPaiement(fen, fene);
 				JLayeredPane layeredPane4 = fen.getLayeredPane();
 				layeredPane4.add(sbat, JLayeredPane.DEFAULT_LAYER);
@@ -61,19 +60,6 @@ public class GestionFenPaiement implements ActionListener{
 			
             break;
     	case "Modifier":
-			SaisirPaiement mbat = null;
-			try {
-				mbat = new SaisirPaiement(this.mere, this.fene);
-				JLayeredPane layeredPane5 = fen.getLayeredPane();
-				layeredPane5.add(mbat, JLayeredPane.DEFAULT_LAYER);
-				mbat.setVisible(true);
-			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-            break;
-		
-		}
     		
     		if (selectedRow != -1) {
                  // Récupérer les informations du batiment sélectionné
@@ -94,11 +80,11 @@ public class GestionFenPaiement implements ActionListener{
                      e1.printStackTrace();
                  }
             }
-        break;
+            break; 
+    	}
         }
-        
     
-	
+	}
 	
 	public Object[][] updateTable() {
 	    ResultSet result = null;
