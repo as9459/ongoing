@@ -17,7 +17,9 @@ import Controleur.GestionSaisirPaiement;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import java.awt.SystemColor;
+import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
 
 import javax.swing.JSpinner;
 import javax.swing.JFormattedTextField;
@@ -35,17 +37,16 @@ public class SaisirPaiement extends JInternalFrame{
 	private GestionSaisirPaiement gsb;
 	private JButton btn_Inserer;
 	private JButton btn_Annuler;
-	private JSpinner montantPaiement;
-	private JTextField refPaiement;
-	private JComboBox BatimentcomboBox;
-	private JComboBox LogementcomboBox_1;
-	private JComboBox LocatairecomboBox_2;
 	private JSpinner sp_MontantP;
 	private JFormattedTextField Fd_DateF;
-	private JTextField Fd_RrferenceP;
-	private JTextField Fd_MontantF;
 	private JComboBox CB_TypeP;
-	private JFormattedTextField Fd_DateP;
+	private JComboBox BatimentcomboBox;
+	private JComboBox LogementcomboBox;
+	private JComboBox LocatairecomboBox;
+	private JTextField ReftextField;
+	private JSpinner Montantspinner;
+	private JComboBox TypecomboBox;
+	private JFormattedTextField DateformattedTextField;
 	// private JTable tableC;
 	
 
@@ -73,105 +74,21 @@ public class SaisirPaiement extends JInternalFrame{
 	 * @param mere 
 	 * @throws ParseException 
 	 */
-	public SaisirPaiement(FenetrePrincipale mere, FenPaiement fene) throws ParseException {
+	public SaisirPaiement(FenetrePrincipale parent, FenPaiement fenepaie) throws ParseException {
+		this.parent = parent;
+		this.fenepaie = fenepaie;
         MaskFormatter dateFormatter = new MaskFormatter("####-##-##");
 		setBorder(new LineBorder(SystemColor.activeCaption, 2));
 		setTitle("Saisie des informations");
 		setBounds(100, 100, 471, 567);
 		getContentPane().setLayout(null);
-		this.gsb = new GestionSaisirPaiement(this, this.parent, fene);
+		this.gsb = new GestionSaisirPaiement(this, this.parent, fenepaie);
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBackground(new Color(255, 255, 255));
-		panel.setBounds(14, 49, 439, 479);
+		panel.setBounds(10, 50, 439, 479);
 		getContentPane().add(panel);
 		panel.setLayout(null);
-		
-		JLabel labelDebsemc = new JLabel("Reference :");
-		labelDebsemc.setFont(new Font("Tahoma", Font.BOLD, 10));
-		labelDebsemc.setBounds(28, 31, 113, 13);
-		panel.add(labelDebsemc);
-		
-		Fd_ReferenceF = new JTextField();
-		Fd_ReferenceF.setEditable(false);
-		Fd_ReferenceF.setBounds(186, 20, 231, 35);
-		panel.add(Fd_ReferenceF);
-		Fd_ReferenceF.setColumns(10);
-		
-		JLabel labelCP = new JLabel("Date facture :");
-		labelCP.setFont(new Font("Tahoma", Font.BOLD, 10));
-		labelCP.setBounds(28, 88, 113, 13);
-		panel.add(labelCP);
-		
-		JLabel lblMontantDuPaiement = new JLabel("Montant du paiement :");
-		lblMontantDuPaiement.setFont(new Font("Tahoma", Font.BOLD, 10));
-		lblMontantDuPaiement.setBounds(28, 366, 113, 13);
-		panel.add(lblMontantDuPaiement);
-		
-		
-		btn_Inserer = new JButton("Inserer");
-		btn_Inserer.addActionListener(this.gsb);
-		btn_Inserer.setBounds(263, 436, 85, 21);
-		panel.add(btn_Inserer);
-		
-		btn_Annuler = new JButton("Annuler");
-		btn_Annuler.addActionListener(this.gsb);
-		btn_Annuler.setBounds(89, 436, 85, 21);
-		panel.add(btn_Annuler);
-		
-		sp_MontantP = new JSpinner();
-		sp_MontantP.setModel(new SpinnerNumberModel(Float.valueOf(0), Float.valueOf(0), null, Float.valueOf(1)));
-		sp_MontantP.setBounds(186, 355, 231, 35);
-		panel.add(sp_MontantP);
-
-		Fd_DateF = new JFormattedTextField(dateFormatter);
-		Fd_DateF.setEditable(false);
-		Fd_DateF.setText("0000-00-00");
-		Fd_DateF.setColumns(10);
-		Fd_DateF.setBounds(186, 77, 231, 35);
-		panel.add(Fd_DateF);
-		
-		Fd_RrferenceP = new JTextField();
-		Fd_RrferenceP.setColumns(10);
-		Fd_RrferenceP.setBounds(186, 134, 231, 35);
-		panel.add(Fd_RrferenceP);
-		
-		JLabel lblRrferenceDuPaiement = new JLabel("Reference du paiement :");
-		lblRrferenceDuPaiement.setFont(new Font("Tahoma", Font.BOLD, 10));
-		lblRrferenceDuPaiement.setBounds(28, 145, 146, 13);
-		panel.add(lblRrferenceDuPaiement);
-		
-		JLabel lblDateDuPaiement = new JLabel("Date du paiement :");
-		lblDateDuPaiement.setFont(new Font("Tahoma", Font.BOLD, 10));
-		lblDateDuPaiement.setBounds(28, 203, 113, 13);
-		panel.add(lblDateDuPaiement);
-		
-		Fd_DateP = new JFormattedTextField(dateFormatter);
-		Fd_DateP.setText("0000-00-00");
-		Fd_DateP.setColumns(10);
-		Fd_DateP.setBounds(186, 192, 231, 35);
-		panel.add(Fd_DateP);
-		
-		Fd_MontantF = new JTextField();
-		Fd_MontantF.setEditable(false);
-		Fd_MontantF.setColumns(10);
-		Fd_MontantF.setBounds(186, 309, 231, 35);
-		panel.add(Fd_MontantF);
-		
-		JLabel lblMontantTotal = new JLabel("Montant total :");
-		lblMontantTotal.setFont(new Font("Tahoma", Font.BOLD, 10));
-		lblMontantTotal.setBounds(28, 320, 113, 13);
-		panel.add(lblMontantTotal);
-		
-		CB_TypeP = new JComboBox();
-		CB_TypeP.setModel(new DefaultComboBoxModel(new String[] {"Prelevement automatique", "Especes", "Carte de credit", "Virement bancaire", "Cheque"}));
-		CB_TypeP.setBounds(186, 252, 231, 35);
-		panel.add(CB_TypeP);
-		
-		JLabel lblModeDePaiement = new JLabel("Mode de paiement :");
-		lblModeDePaiement.setFont(new Font("Tahoma", Font.BOLD, 10));
-		lblModeDePaiement.setBounds(28, 262, 113, 13);
-		panel.add(lblModeDePaiement);
 		
 		JLayeredPane layeredPane = new JLayeredPane();
 		layeredPane.setBounds(89, 157, 1, 1);
@@ -181,6 +98,124 @@ public class SaisirPaiement extends JInternalFrame{
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 13));
 		lblNewLabel.setBounds(115, 26, 236, 13);
 		getContentPane().add(lblNewLabel);
+		
+		JLabel labelDebsemc = new JLabel("ID Facture");
+		labelDebsemc.setFont(new Font("Tahoma", Font.BOLD, 11));
+		labelDebsemc.setBounds(28, 23, 113, 13);
+		panel.add(labelDebsemc);
+		
+		id_facture = new JTextField();
+		id_facture.setBounds(186, 12, 231, 35);
+		panel.add(id_facture);
+		id_facture.setColumns(10);
+		
+		
+		btn_Inserer = new JButton("Inserer");
+		btn_Inserer.addActionListener(this.gsb);
+		
+		JLabel lblNewLabel_1 = new JLabel("ID Batiment");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_1.setBounds(28, 66, 85, 14);
+		panel.add(lblNewLabel_1);
+		
+		BatimentcomboBox = new JComboBox();
+		try {
+			ArrayList<String> values = this.parent.getConnectionBD().getTableData("BATIMENT", "ID_BATIMENT");
+			String[] idValuesArray = values.toArray(new String[0]);
+			DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(idValuesArray);
+			BatimentcomboBox.setModel(model);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		BatimentcomboBox.setBounds(186, 58, 231, 33);
+		panel.add(BatimentcomboBox);
+		
+		JLabel lblNewLabel_2 = new JLabel("ID Logement");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_2.setBounds(28, 117, 113, 14);
+		panel.add(lblNewLabel_2);
+		
+		LogementcomboBox = new JComboBox();
+		try {
+			ArrayList<String> values = this.parent.getConnectionBD().getTableData("LOGEMENT", "ID_LOGEMENT");
+			String[] idValuesArray = values.toArray(new String[0]);
+			DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(idValuesArray);
+			LogementcomboBox.setModel(model);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		LogementcomboBox.setBounds(186, 102, 231, 35);
+		panel.add(LogementcomboBox);
+		
+		JLabel lblNewLabel_3 = new JLabel("ID Locataire");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_3.setBounds(29, 170, 97, 14);
+		panel.add(lblNewLabel_3);
+		
+		LocatairecomboBox = new JComboBox();
+		try {
+			ArrayList<String> values = this.parent.getConnectionBD().getTableData("LOCATAIRE", "ID_LOCATAIRE");
+			String[] idValuesArray = values.toArray(new String[0]);
+			DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(idValuesArray);
+			LocatairecomboBox.setModel(model);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		LocatairecomboBox.setBounds(186, 149, 231, 37);
+		panel.add(LocatairecomboBox);
+		
+		JLabel lblNewLabel_4 = new JLabel("Reference de paiement");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_4.setBounds(28, 213, 133, 14);
+		panel.add(lblNewLabel_4);
+		
+		ReftextField = new JTextField();
+		ReftextField.setBounds(186, 198, 231, 35);
+		panel.add(ReftextField);
+		ReftextField.setColumns(10);
+		
+		JLabel lblNewLabel_5 = new JLabel("Montant");
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_5.setBounds(28, 255, 90, 14);
+		panel.add(lblNewLabel_5);
+		
+		Montantspinner = new JSpinner();
+		Montantspinner.setBounds(186, 246, 231, 35);
+		panel.add(Montantspinner);
+		
+		JLabel lblNewLabel_6 = new JLabel("Type de paiement");
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_6.setBounds(28, 302, 113, 14);
+		panel.add(lblNewLabel_6);
+		
+		TypecomboBox = new JComboBox();
+		TypecomboBox.setModel(new DefaultComboBoxModel(new String[] {"Prélèvement automatique", "Espèces", "Carte de crédit", "Virement bancaire", "Chèque"}));
+		TypecomboBox.setBounds(186, 293, 231, 35);
+		panel.add(TypecomboBox);
+		
+		JLabel lblNewLabel_7 = new JLabel("Date de paiement");
+		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_7.setBounds(28, 352, 113, 14);
+		panel.add(lblNewLabel_7);
+		
+		DateformattedTextField = new JFormattedTextField();
+		DateformattedTextField.setBounds(186, 341, 231, 35);
+		panel.add(DateformattedTextField);
+		btn_Inserer.setBounds(263, 436, 85, 21);
+		panel.add(btn_Inserer);
+		
+		btn_Annuler = new JButton("Annuler");
+		btn_Annuler.addActionListener(this.gsb);
+		btn_Annuler.setBounds(89, 436, 85, 21);
+		panel.add(btn_Annuler);
+		
+		JLabel lblRrferenceDuPaiement = new JLabel("Batiment");
+		lblRrferenceDuPaiement.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblRrferenceDuPaiement.setBounds(28, 99, 146, 13);
+		
 	}
 
 
@@ -194,36 +229,31 @@ public class SaisirPaiement extends JInternalFrame{
 	}
 	
 	public int getIdLogement() {
-		return (int) Integer.valueOf(this.LogementcomboBox_1.getItemAt(this.LogementcomboBox_1.getSelectedIndex()).toString());
+		return (int) Integer.valueOf(this.LogementcomboBox.getItemAt(this.LogementcomboBox.getSelectedIndex()).toString());
 	}
 	
 	public int getIdLocataire() {
-		return (int) Integer.valueOf(this.LocatairecomboBox_2.getItemAt(this.LocatairecomboBox_2.getSelectedIndex()).toString());
+		return (int) Integer.valueOf(this.LocatairecomboBox.getItemAt(this.LocatairecomboBox.getSelectedIndex()).toString());
 	}
 		
 	public String getRefPaiement() {
-			return this.refPaiement.getText();
+			return this.ReftextField.getText();
 	}
 		
 	public float getMontantPaiement() {
-			return (int) this.montantPaiement.getValue();
+			return (int) this.Montantspinner.getValue();
+	}
+	
+	public String getTypePaiement() {
+		return this.TypecomboBox.getItemAt(this.CB_TypeP.getSelectedIndex()).toString();
 	}
 	
 	public String getTextFieldDebsemc() {
 		return this.Fd_ReferenceF.getText();
 	}
 
-	public float getTextFieldRegimeJuridique() {
-		return (float)this.montantPaiement.getValue();
-	}
-	
-	public String getTypePaiement() {
-		return this.CB_TypeP.getItemAt(this.CB_TypeP.getSelectedIndex()).toString();
-		
-	}
-
 	public String getDatePaiement() {
-		return this.Fd_DateP.getText();
+		return this.DateformattedTextField.getText();
 	}
 	
 	
@@ -234,11 +264,12 @@ public class SaisirPaiement extends JInternalFrame{
 
 	public void loadPaiementInfo(String idfacture, String date, String refpaiement, String paiement, String type) {
 		Fd_ReferenceF.setText(idfacture);
-		Fd_DateP.setText(date);
-		Fd_RrferenceP.setText(refpaiement);
-		sp_MontantP.setValue(Double.parseDouble(paiement));
-		CB_TypeP.getModel().setSelectedItem(type);
-		
+		this.DateformattedTextField.setText(date);
+		this.ReftextField.setText(refpaiement);
+		this.Montantspinner.setValue(Double.parseDouble(paiement));
+		this.TypecomboBox.getModel().setSelectedItem(type);
 	}
+		
+	
 }
 

@@ -38,7 +38,7 @@ public class GestionSaisirPaiement implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		JButton b = (JButton) e.getSource();
 		switch (b.getText()) {
-			case "Insérer":
+			case "Inserer":
 				int p_id_facture = this.sp.getIdFacture();
 				int p_id_batiment = this.sp.getIdBatiment();
 				int p_id_logement = this.sp.getIdLogement();
