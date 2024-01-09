@@ -145,7 +145,7 @@ public class SaisirBatiment extends JInternalFrame{
 		idtextPane.setBounds(186, 29, 231, 35);
 		panel.add(idtextPane);
 		
-		JComboBox comboBoxRegime = new JComboBox();
+		comboBoxRegime = new JComboBox();
 		comboBoxRegime.setModel(new DefaultComboBoxModel(new String[] {"OUI", "NON"}));
 		comboBoxRegime.setBounds(186, 311, 231, 35);
 		panel.add(comboBoxRegime);
@@ -200,14 +200,14 @@ public class SaisirBatiment extends JInternalFrame{
 		return this.idtextPane.getText();
 	}
 	
-	public void loadBatimentInfo(String idBatiment, String adresse, String codePostal, String ville, String dateConstruction) {
+	public void loadBatimentInfo(String idBatiment, String adresse, String codePostal, String ville, String dateConstruction, String regimeJuridique) {
 		// Charger les informations dans les champs
 		idtextPane.setText(idBatiment);
 		Fd_Adresse.setText(adresse);
 		sp_CodePostal.setValue(Integer.parseInt(codePostal));
 		Fd_Ville.setText(ville);
 		Fd_DateConstruction.setValue(dateConstruction);
-		//sp_RegimeJuridique.setValue(regimeJuridique);
+		comboBoxRegime.getModel().setSelectedItem(regimeJuridique);
 
 	}
 

@@ -27,6 +27,7 @@ import javax.swing.SpinnerNumberModel;
 public class SaisirFacture extends JInternalFrame{
 	private JTextField ID_Facture;
 	private JTextField Ref;
+	private JSpinner Paiement;
 	private GestionSaisirFacture gsf;
 	private JButton btn_Inserer;
 	private JButton btn_Annuler;
@@ -56,9 +57,11 @@ public class SaisirFacture extends JInternalFrame{
 
 	/**
 	 * Create the frame.
+	 * @param fac 
+	 * @param mere 
 	 * @throws ParseException 
 	 */
-	public SaisirFacture() throws ParseException {
+	public SaisirFacture(FenetrePrincipale mere, FenFacture fac) throws ParseException {
 		setBorder(new LineBorder(SystemColor.activeCaption, 2));
 		setTitle("Saisie des informations");
 		setBounds(100, 100, 471, 567);
@@ -106,9 +109,9 @@ public class SaisirFacture extends JInternalFrame{
 		label_Paiement.setBounds(28, 254, 113, 13);
 		panel.add(label_Paiement);
 		
-		JSpinner spinner = new JSpinner();
-		spinner.setBounds(186, 244, 231, 35);
-		panel.add(spinner);
+		Paiement = new JSpinner();
+		Paiement.setBounds(186, 244, 231, 35);
+		panel.add(Paiement);
 		
 		JLabel label_TypP = new JLabel("Type de paiement");
 		label_TypP.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -173,5 +176,17 @@ public class SaisirFacture extends JInternalFrame{
 	public GestionSaisirFacture getGsf() {
 		return gsf;
 	}
+
+
+	public void loadFactureInfo(String idfacture, String idbatiment, String refpaiement, String paiement, String type, String date) {
+		// TODO Auto-generated method stub
+		ID_Facture.setText(idfacture);
+		ID_Batiment.setText(idbatiment);
+		Ref.setText(refpaiement);
+		Paiement.setValue(Double.parseDouble(paiement));
+		Tpmt.setText(type);
+		Fd_DateConstruction.setValue(date);
+	}
+
 }
 

@@ -36,6 +36,8 @@ public class SaisirPaiement extends JInternalFrame{
 	private JFormattedTextField Fd_DateF;
 	private JTextField Fd_RrferenceP;
 	private JTextField Fd_MontantF;
+	private JComboBox CB_TypeP;
+	private JFormattedTextField Fd_DateP;
 	// private JTable tableC;
 	
 
@@ -59,9 +61,11 @@ public class SaisirPaiement extends JInternalFrame{
 
 	/**
 	 * Create the frame.
+	 * @param fene 
+	 * @param mere 
 	 * @throws ParseException 
 	 */
-	public SaisirPaiement() throws ParseException {
+	public SaisirPaiement(FenetrePrincipale mere, FenPaiement fene) throws ParseException {
         MaskFormatter dateFormatter = new MaskFormatter("####-##-##");
 		setBorder(new LineBorder(SystemColor.activeCaption, 2));
 		setTitle("Saisie des informations");
@@ -124,7 +128,7 @@ public class SaisirPaiement extends JInternalFrame{
 		Fd_RrferenceP.setBounds(186, 134, 231, 35);
 		panel.add(Fd_RrferenceP);
 		
-		JLabel lblRrferenceDuPaiement = new JLabel("Rrference du paiement :");
+		JLabel lblRrferenceDuPaiement = new JLabel("Reference du paiement :");
 		lblRrferenceDuPaiement.setFont(new Font("Tahoma", Font.BOLD, 10));
 		lblRrferenceDuPaiement.setBounds(28, 145, 146, 13);
 		panel.add(lblRrferenceDuPaiement);
@@ -134,7 +138,7 @@ public class SaisirPaiement extends JInternalFrame{
 		lblDateDuPaiement.setBounds(28, 203, 113, 13);
 		panel.add(lblDateDuPaiement);
 		
-		JFormattedTextField Fd_DateP = new JFormattedTextField(dateFormatter);
+		Fd_DateP = new JFormattedTextField(dateFormatter);
 		Fd_DateP.setText("0000-00-00");
 		Fd_DateP.setColumns(10);
 		Fd_DateP.setBounds(186, 192, 231, 35);
@@ -151,8 +155,8 @@ public class SaisirPaiement extends JInternalFrame{
 		lblMontantTotal.setBounds(28, 320, 113, 13);
 		panel.add(lblMontantTotal);
 		
-		JComboBox CB_TypeP = new JComboBox();
-		CB_TypeP.setModel(new DefaultComboBoxModel(new String[] {"Prélèvement automatique", "Espèces", "Carte de crédit", "Virement bancaire", "Chèque"}));
+		CB_TypeP = new JComboBox();
+		CB_TypeP.setModel(new DefaultComboBoxModel(new String[] {"Prelevement automatique", "Especes", "Carte de credit", "Virement bancaire", "Cheque"}));
 		CB_TypeP.setBounds(186, 252, 231, 35);
 		panel.add(CB_TypeP);
 		
@@ -189,6 +193,16 @@ public class SaisirPaiement extends JInternalFrame{
 	
 	public GestionSaisirPaiement getGsb() {
 		return gsb;
+	}
+
+
+	public void loadPaiementInfo(String idfacture, String date, String refpaiement, String paiement, String type) {
+		Fd_ReferenceF.setText(idfacture);
+		Fd_DateP.setText(date);
+		Fd_RrferenceP.setText(refpaiement);
+		sp_MontantP.setValue(Double.parseDouble(paiement));
+		CB_TypeP.getModel().setSelectedItem(type);
+		
 	}
 }
 

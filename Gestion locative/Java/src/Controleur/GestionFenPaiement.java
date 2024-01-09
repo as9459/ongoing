@@ -11,10 +11,12 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLayeredPane;
 import javax.swing.JMenuItem;
+import javax.swing.JTable;
 
 import modele.Charges;
 import Vue.Connexion;
 import Vue.FenetrePrincipale;
+import Vue.SaisirFacture;
 import Vue.SaisirPaiement;
 import Vue.FenDocument;
 import Vue.FenLocataire;
@@ -34,6 +36,11 @@ public class GestionFenPaiement implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		FenetrePrincipale fen = (FenetrePrincipale) fene.getTopLevelAncestor();
         JButton bouton =(JButton) e.getSource();
+        
+        if (fene != null) {
+            JTable myTable = fene.getTablePaiement();
+            int selectedRow = myTable.getSelectedRow();
+        
     	switch(bouton.getText()) {
   
     	case "Retourner":
@@ -42,7 +49,7 @@ public class GestionFenPaiement implements ActionListener{
     	case "Ajouter":
 			SaisirPaiement sbat = null;
 			try {
-				sbat = new SaisirPaiement();
+				sbat = new SaisirPaiement(fen, fene);
 				JLayeredPane layeredPane4 = fen.getLayeredPane();
 				layeredPane4.add(sbat, JLayeredPane.DEFAULT_LAYER);
 				sbat.setVisible(true);
@@ -53,19 +60,29 @@ public class GestionFenPaiement implements ActionListener{
 			
             break;
     	case "Modifier":
-			SaisirPaiement mbat = null;
-			try {
-				mbat = new SaisirPaiement();
-				JLayeredPane layeredPane5 = fen.getLayeredPane();
-				layeredPane5.add(mbat, JLayeredPane.DEFAULT_LAYER);
-				mbat.setVisible(true);
-			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-            break;
-		
-		}
+    		
+    		if (selectedRow != -1) {
+                 // Récupérer les informations du batiment sélectionné
+                 String idfacture = myTable.getValueAt(selectedRow, 0).toString();
+                 String date = myTable.getValueAt(selectedRow, 7).toString();
+                 String refpaiement = myTable.getValueAt(selectedRow, 4).toString();
+                 String type = myTable.getValueAt(selectedRow, 6).toString();
+                 String paiement = myTable.getValueAt(selectedRow, 5).toString();
+                 
+                 
+                 try {
+	                SaisirPaiement mfac = new SaisirPaiement(this.mere, this.fene);
+	                mfac.loadPaiementInfo(idfacture, date, refpaiement, paiement, type);
+					JLayeredPane layeredPane5 = this.mere.getLayeredPane();
+					layeredPane5.add(mfac, JLayeredPane.DEFAULT_LAYER);
+					mfac.setVisible(true);
+                 } catch (ParseException e1) {
+                     e1.printStackTrace();
+                 }
+            }
+            break; 
+    	}
+        }
     
 	}
 	

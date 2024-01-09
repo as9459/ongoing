@@ -83,7 +83,7 @@ public class GestionFenBatiment implements ActionListener{
 
                  try {
                      SaisirBatiment sbat = new SaisirBatiment(this.mere, this.fene);
-                     sbat.loadBatimentInfo(idBatiment, adresse, codePostal, ville, dateConstruction);
+                     sbat.loadBatimentInfo(idBatiment, adresse, codePostal, ville, dateConstruction, regimeJuridique);
                      JLayeredPane layeredPane4 = this.mere.getLayeredPane();
                      layeredPane4.add(sbat, JLayeredPane.DEFAULT_LAYER);
                      sbat.setVisible(true);

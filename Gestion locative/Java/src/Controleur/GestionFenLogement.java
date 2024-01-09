@@ -43,7 +43,7 @@ public class GestionFenLogement implements ActionListener{
 				log.dispose();
 				break;
 			case "Ajouter":
-				SaisirLogement slog = new SaisirLogement();
+				SaisirLogement slog = new SaisirLogement(this.mere, this.log);
 				JLayeredPane layeredPane8 = fenlog.getLayeredPane();
 				layeredPane8.add(slog, JLayeredPane.DEFAULT_LAYER);
 				slog.setVisible(true);
@@ -60,11 +60,11 @@ public class GestionFenLogement implements ActionListener{
 	                 String typeLog = myTable.getValueAt(selectedRow, 3).toString();
 	                 String surface = myTable.getValueAt(selectedRow, 4).toString();
 	                 String icc = myTable.getValueAt(selectedRow, 5).toString();
-	                 String garage = myTable.getValueAt(selectedRow, 5).toString();
-	                 String jardin = myTable.getValueAt(selectedRow, 5).toString();
-	                 String balcon = myTable.getValueAt(selectedRow, 5).toString();
+	                 String garage = myTable.getValueAt(selectedRow, 6).toString();
+	                 String jardin = myTable.getValueAt(selectedRow, 7).toString();
+	                 String balcon = myTable.getValueAt(selectedRow, 8).toString();
 
-	                SaisirLogement mlog = new SaisirLogement();
+	                SaisirLogement mlog = new SaisirLogement(this.mere, this.log);
 	                mlog.loadLogementInfo(idBatiment, idLogement, etage, typeLog, /*surface,*/ icc, garage, jardin, balcon);
 					JLayeredPane layeredPane5 = this.mere.getLayeredPane();
 					layeredPane5.add(mlog, JLayeredPane.DEFAULT_LAYER);

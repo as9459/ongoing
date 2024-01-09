@@ -16,6 +16,8 @@ import javax.swing.table.DefaultTableModel;
 import Vue.FenetrePrincipale;
 import Vue.SaisirBatiment;
 import Vue.SaisirFacture;
+import Vue.SaisirLocataire;
+import Vue.SaisirLogement;
 import Controleur.GestionFenFacture;
 import modele.Batiment;
 import modele.dao.DaoBatiment;
@@ -63,7 +65,7 @@ public class GestionFenFacture implements ActionListener{
     	case "Ajouter":
 			SaisirFacture sfac = null;
 			try {
-				sfac = new SaisirFacture();
+				sfac = new SaisirFacture(mere, fac);
 				JLayeredPane layeredPane4 = this.mere.getLayeredPane();
 				layeredPane4.add(sfac, JLayeredPane.DEFAULT_LAYER);
 				sfac.setVisible(true);
@@ -73,19 +75,31 @@ public class GestionFenFacture implements ActionListener{
 			}
 			
             break;
+         
     	case "Modifier":
-			SaisirFacture mfac = null;
-			try {
-				mfac = new SaisirFacture();
-				JLayeredPane layeredPane5 = this.mere.getLayeredPane();
-				layeredPane5.add(mfac, JLayeredPane.DEFAULT_LAYER);
-				mfac.setVisible(true);
-			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-            break;
+    		
+    		if (selectedRow != -1) {
+                 // Récupérer les informations du batiment sélectionné
+                 String idfacture = myTable.getValueAt(selectedRow, 0).toString();
+                 String idbatiment = myTable.getValueAt(selectedRow, 1).toString();
+                 String refpaiement = myTable.getValueAt(selectedRow, 2).toString();
+                 String paiement = myTable.getValueAt(selectedRow, 3).toString();
+                 String type = myTable.getValueAt(selectedRow, 4).toString();
+                 String date = myTable.getValueAt(selectedRow, 5).toString();
+                 System.out.println("ID facture:" + idfacture + " ID batiment:" +idbatiment + " ref paiement:" +refpaiement + 
+                		 " Paiement:" +paiement + " Type:" +type + " Date:" +date);
+                 
+                 try {
+	                SaisirFacture mfac = new SaisirFacture(this.mere, this.fac);
+	                mfac.loadFactureInfo(idfacture, idbatiment, refpaiement, paiement, type, date);
+					JLayeredPane layeredPane5 = this.mere.getLayeredPane();
+					layeredPane5.add(mfac, JLayeredPane.DEFAULT_LAYER);
+					mfac.setVisible(true);
+                 } catch (ParseException e1) {
+                     e1.printStackTrace();
+                 }
+            }
+            break; 
             
             
             
