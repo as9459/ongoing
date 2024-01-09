@@ -95,6 +95,7 @@ public class SaisirLogement extends JInternalFrame{
 		panel.add(lblLeNumeroDu_1);
 		
 		CB_NbBatiment = new JComboBox();
+		CB_NbBatiment.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4"}));
 		CB_NbBatiment.setBounds(179, 23, 236, 35);
 		panel.add(CB_NbBatiment);
 		
@@ -223,13 +224,13 @@ public class SaisirLogement extends JInternalFrame{
 		return gsl;
 	}
 	
-	public void loadLogementInfo(String idBatiment, String idLogement, String etage, String typeLog, /*String surface,*/ String icc, String garage, String jardin, String balcon) {
+	public void loadLogementInfo(String idBatiment, String idLogement, String etage, String typeLog, String surface, String icc, String garage, String jardin, String balcon) {
 		// Charger les informations dans les champs
-		CB_NbBatiment.setToolTipText(idBatiment);
+		CB_NbBatiment.getModel().setSelectedItem(idBatiment);
 		sp_nbLogment.setValue(Integer.parseInt(idLogement));
 		sp_Etage.setValue(Integer.parseInt(etage));
-		CB_TypeLogement.setToolTipText(typeLog);
-		//sp_Surface.setValue(Float.parseFloat(surface));
+		CB_TypeLogement.getModel().setSelectedItem(typeLog);
+		sp_Surface.setValue(Double.parseDouble(surface));
 		sp_Icc.setValue(Integer.parseInt(icc));
 		
 		boolean isGarage = "1".equals(garage);

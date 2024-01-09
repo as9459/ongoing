@@ -65,7 +65,7 @@ public class GestionFenLogement implements ActionListener{
 	                 String balcon = myTable.getValueAt(selectedRow, 8).toString();
 
 	                SaisirLogement mlog = new SaisirLogement(this.mere, this.log);
-	                mlog.loadLogementInfo(idBatiment, idLogement, etage, typeLog, /*surface,*/ icc, garage, jardin, balcon);
+	                mlog.loadLogementInfo(idBatiment, idLogement, etage, typeLog, surface, icc, garage, jardin, balcon);
 					JLayeredPane layeredPane5 = this.mere.getLayeredPane();
 					layeredPane5.add(mlog, JLayeredPane.DEFAULT_LAYER);
 					mlog.setVisible(true);
