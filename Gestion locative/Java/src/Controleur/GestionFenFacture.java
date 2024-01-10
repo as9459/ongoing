@@ -149,17 +149,17 @@ public class GestionFenFacture implements ActionListener{
 	    List<Object[]> dataList = new ArrayList<>();
 
 	    try {
-	        result = this.mere.getConnectionBD().callGetTableData("FACT_BATIMENT");
+	        result = this.mere.getConnectionBD().callGetTableData("FACTURE");
 
 	        while (result.next()) {
 	            Object[] row = new Object[8]; // Change the size as needed
-	            row[0] = result.getString(1);
-	            row[1] = result.getString(2);
+	            row[0] = result.getInt(1);
+	            row[1] = result.getDate(2);
 	            row[2] = result.getString(3);
-	            row[3] = result.getString(4);
-	            row[4] = result.getString(5);
+	            row[3] = result.getFloat(4);
+	            row[4] = result.getFloat(5);
 	            row[5] = result.getString(6);
-	            //row[6] = this.mere.getConnectionBD().callGetNbLogByBatiment(result.getInt(1));
+	            row[6] = result.getString(7);       //row[6] = this.mere.getConnectionBD().callGetNbLogByBatiment(result.getInt(1));
 	            //row[7] = null;
 	            dataList.add(row);
 	        }

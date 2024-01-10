@@ -73,7 +73,7 @@ public class FenLogement extends JInternalFrame {
 		table.setModel(new DefaultTableModel(
 				this.gestionClic.updateTable(),
 			new String[] {
-				"ID Batiment", "ID Logement", "Etage", "Type", "Surface", "ICC", "Garage", "Jardin", "Balcon", "State", "Documents"
+				"ID Batiment", "ID Logement", "Etage", "Type", "Surface", "ICC", "Garage", "Jardin", "Balcon", "State"
 			}
 		));
 		scrollPane.setViewportView(table);

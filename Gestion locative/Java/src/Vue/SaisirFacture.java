@@ -28,14 +28,15 @@ public class SaisirFacture extends JInternalFrame{
 	private FenetrePrincipale mere;
 	private FenFacture fac;
 	private JTextField ID_Facture;
-	private JTextField Ref;
-	private JSpinner Paiement;
+	private JTextField Description;
+	private JSpinner MontantHT;
 	private GestionSaisirFacture gsf;
 	private JButton btn_Inserer;
 	private JButton btn_Annuler;
-	private JFormattedTextField Fd_DateConstruction;
-	private JTextField ID_Batiment;
-	private JTextField Tpmt;
+	private JFormattedTextField dateFacture;
+	private JTextField typeFacture;
+	private JTextField tva;
+	private JTextField siren;
 	// private JTable tableC;
 	
 
@@ -88,53 +89,63 @@ public class SaisirFacture extends JInternalFrame{
 		panel.add(ID_Facture);
 		ID_Facture.setColumns(10);
 		
-		JLabel label_IDb = new JLabel("ID Batiment");
-		label_IDb.setFont(new Font("Tahoma", Font.BOLD, 11));
-		label_IDb.setBounds(28, 132, 113, 13);
-		panel.add(label_IDb);
+		JLabel lblType = new JLabel("Type");
+		lblType.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblType.setBounds(28, 290, 113, 13);
+		panel.add(lblType);
 		
-		ID_Batiment = new JTextField();
-		ID_Batiment.setBounds(186, 116, 231, 37);
-		panel.add(ID_Batiment);
-		ID_Batiment.setColumns(10);
+		typeFacture = new JTextField();
+		typeFacture.setBounds(186, 282, 231, 28);
+		panel.add(typeFacture);
+		typeFacture.setColumns(10);
 		
-		JLabel lblRfrenceDuPaiement = new JLabel("Réfèrence du paiement");
+		JLabel lblRfrenceDuPaiement = new JLabel("Description");
 		lblRfrenceDuPaiement.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblRfrenceDuPaiement.setBounds(28, 194, 132, 13);
+		lblRfrenceDuPaiement.setBounds(29, 162, 132, 13);
 		panel.add(lblRfrenceDuPaiement);
 		
-		Ref = new JTextField();
-		Ref.setColumns(10);
-		Ref.setBounds(186, 183, 231, 35);
-		panel.add(Ref);
+		Description = new JTextField();
+		Description.setColumns(10);
+		Description.setBounds(186, 151, 231, 35);
+		panel.add(Description);
 		
-		JLabel label_Paiement = new JLabel("Paiement");
-		label_Paiement.setFont(new Font("Tahoma", Font.BOLD, 11));
-		label_Paiement.setBounds(28, 254, 113, 13);
-		panel.add(label_Paiement);
+		JLabel lblMontantHt = new JLabel("Montant HT");
+		lblMontantHt.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblMontantHt.setBounds(28, 208, 113, 13);
+		panel.add(lblMontantHt);
 		
-		Paiement = new JSpinner();
-		Paiement.setBounds(186, 244, 231, 35);
-		panel.add(Paiement);
+		MontantHT = new JSpinner();
+		MontantHT.setBounds(186, 197, 231, 35);
+		panel.add(MontantHT);
 		
-		JLabel label_TypP = new JLabel("Type de paiement");
-		label_TypP.setFont(new Font("Tahoma", Font.BOLD, 11));
-		label_TypP.setBounds(28, 318, 113, 14);
-		panel.add(label_TypP);
+		JLabel lblTva = new JLabel("TVA");
+		lblTva.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblTva.setBounds(28, 253, 113, 14);
+		panel.add(lblTva);
 		
-		Tpmt = new JTextField();
-		Tpmt.setBounds(186, 308, 231, 35);
-		panel.add(Tpmt);
-		Tpmt.setColumns(10);
+		tva = new JTextField();
+		tva.setBounds(186, 243, 231, 28);
+		panel.add(tva);
+		tva.setColumns(10);
 		
-		JLabel labelHeureFC = new JLabel("Date de paiement");
+		JLabel labelHeureFC = new JLabel("Date Facture");
 		labelHeureFC.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelHeureFC.setBounds(28, 385, 113, 13);
+		labelHeureFC.setBounds(28, 116, 113, 13);
 		panel.add(labelHeureFC);
 		
 		
 		btn_Inserer = new JButton("Inserer");
 		btn_Inserer.addActionListener(this.gsf);
+		
+		JLabel lblNewLabel_1 = new JLabel("SIREN");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_1.setBounds(28, 335, 46, 14);
+		panel.add(lblNewLabel_1);
+		
+		siren = new JTextField();
+		siren.setBounds(186, 327, 231, 28);
+		panel.add(siren);
+		siren.setColumns(10);
 		btn_Inserer.setBounds(263, 436, 85, 21);
 		panel.add(btn_Inserer);
 		
@@ -144,11 +155,11 @@ public class SaisirFacture extends JInternalFrame{
 		panel.add(btn_Annuler);
 
         MaskFormatter dateFormatter = new MaskFormatter("####-##-##");
-		Fd_DateConstruction = new JFormattedTextField(dateFormatter);
-		Fd_DateConstruction.setText("0000-00-00");
-		Fd_DateConstruction.setColumns(10);
-		Fd_DateConstruction.setBounds(186, 374, 231, 35);
-		panel.add(Fd_DateConstruction);
+		dateFacture = new JFormattedTextField(dateFormatter);
+		dateFacture.setText("0000-00-00");
+		dateFacture.setColumns(10);
+		dateFacture.setBounds(186, 105, 231, 35);
+		panel.add(dateFacture);
 		
 		JLabel lblNewLabel = new JLabel("Saisir les informations de la facture");
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 13));
@@ -166,14 +177,14 @@ public class SaisirFacture extends JInternalFrame{
 
 
 	public String getTextFieldVille() {
-		return this.Ref.getText();
+		return this.Description.getText();
 	}
 
 
 	
 
 	public String getTextFieldDateConstruction() {
-		return this.Fd_DateConstruction.getText();
+		return this.dateFacture.getText();
 	}
 	
 	
@@ -185,12 +196,11 @@ public class SaisirFacture extends JInternalFrame{
 	public void loadFactureInfo(String idfacture, String idbatiment, String refpaiement, String paiement, String type, String date) {
 		// TODO Auto-generated method stub
 		ID_Facture.setText(idfacture);
-		ID_Batiment.setText(idbatiment);
-		Ref.setText(refpaiement);
-		Paiement.setValue(Double.parseDouble(paiement));
-		Tpmt.setText(type);
-		Fd_DateConstruction.setValue(date);
+		typeFacture.setText(idbatiment);
+		Description.setText(refpaiement);
+		MontantHT.setValue(Double.parseDouble(paiement));
+		tva.setText(type);
+		dateFacture.setValue(date);
 	}
-
 }
 
