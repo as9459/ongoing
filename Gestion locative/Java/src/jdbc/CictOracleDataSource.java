@@ -715,8 +715,9 @@ public class CictOracleDataSource extends OracleDataSource {
   	      String p_date_de_paiement,
   	      int p_id_locataire
   	   )throws SQLException {
-      try (CallableStatement cs = this.connection.prepareCall("{call InsertFactLogement(?,?,?,?,?,?,?,?) }")) {
-          cs.setInt(1, p_id_facture);
+      try (CallableStatement cs = this.connection.prepareCall("{call INSERTPAIEMENT(?,?,?,?,?,?,?,?) }")) {
+          System.out.println(p_type_paiement);
+    	  cs.setInt(1, p_id_facture);
           cs.setInt(2, p_id_batiment);
           cs.setInt(3, p_id_logement);
           cs.setString(4, p_reference_du_paiement);

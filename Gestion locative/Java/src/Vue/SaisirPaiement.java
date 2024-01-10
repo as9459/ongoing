@@ -245,7 +245,7 @@ public class SaisirPaiement extends JInternalFrame{
 	}
 	
 	public String getTypePaiement() {
-		return this.TypecomboBox.getItemAt(this.CB_TypeP.getSelectedIndex()).toString();
+		return this.TypecomboBox.getItemAt(this.TypecomboBox.getSelectedIndex()).toString();
 	}
 	
 	public String getTextFieldDebsemc() {
