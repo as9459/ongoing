@@ -2,11 +2,14 @@ package Controleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
+import javax.swing.JLayeredPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import Vue.FenBatiment;
 import Vue.FenFacture;
 import Vue.FenetrePrincipale;
 /*import modele.Creneau;
@@ -36,8 +39,35 @@ public class GestionSaisirFacture implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		JButton b = (JButton) e.getSource();
 		switch (b.getText()) {
-			case "Insérer":
+			case "Inserer":
+				int p_id_facture = this.sf.getIDfacture();
+				String p_date_facture = this.sf.getDateFacture();
+				String p_description= this.sf.getDescription();
+	    	    float p_montantHT = this.sf.getmontantHT();
+	    	    float p_tva = this.sf.getTVA();
+	    	    String p_type = this.sf.getTypeFacture();
+	    	    int p_siren = this.sf.getSiren();
+			try {
+				this.mere.getConnectionBD().AddFacture(p_id_facture,
+													   p_date_facture,
+													   p_description,
+													   p_montantHT,
+													   p_tva,
+													   p_type,
+													   p_siren);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+				this.sf.dispose();
 				
+				this.fenefac.dispose();
+				
+				fenefac = new FenFacture(this.mere);
+				JLayeredPane layeredPane4 = this.mere.getLayeredPane();
+				layeredPane4.add(fenefac, JLayeredPane.DEFAULT_LAYER);
+				fenefac.setVisible(true);
+				break;
 				
 				
 				/*Groupe groupe = daoGroupe.findById(this.sc.getTextFieldIdGrpC().getText());
@@ -57,8 +87,7 @@ public class GestionSaisirFacture implements ActionListener{
 						cr.getTypec(),
 						cr.getGrpC().getGrpc()
 				});;*/
-				this.sf.dispose();
-				break;
+				
 			case "Annuler":
 				this.sf.dispose();
 				break;

@@ -168,25 +168,36 @@ public class SaisirFacture extends JInternalFrame{
 	}
 
 
-	public String getTextFieldDebsemc() {
-		return this.ID_Facture.getText();
+	public int getIDfacture() {
+		String text = this.ID_Facture.getText();
+		return Integer.parseInt(text);
 	}
 
-
-	
-
-
-	public String getTextFieldVille() {
-		return this.Description.getText();
-	}
-
-
-	
-
-	public String getTextFieldDateConstruction() {
+	public String getDateFacture() {
 		return this.dateFacture.getText();
 	}
 	
+	public float getmontantHT() {
+		return (int) this.MontantHT.getValue();
+	}
+	
+	public float getTVA() {
+		String text = this.tva.getText();
+		return Float.parseFloat(text);
+	}
+	
+	public String getDescription() {
+		return this.Description.getText();
+	}
+	
+	public String getTypeFacture() {
+		return this.typeFacture.getText();
+	}
+	
+	public int getSiren() {
+		String text = this.siren.getText();
+		return Integer.parseInt(text);
+	}
 	
 	public GestionSaisirFacture getGsf() {
 		return gsf;
