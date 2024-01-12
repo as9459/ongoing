@@ -715,8 +715,8 @@ public class CictOracleDataSource extends OracleDataSource {
   	      String p_date_de_paiement,
   	      int p_id_locataire
   	   )throws SQLException {
-      try (CallableStatement cs = this.connection.prepareCall("{call InsertFactLogement(?,?,?,?,?,?,?,?) }")) {
-          cs.setInt(1, p_id_facture);
+      try (CallableStatement cs = this.connection.prepareCall("{call INSERTPAIEMENT(?,?,?,?,?,?,?,?) }")) {
+    	  cs.setInt(1, p_id_facture);
           cs.setInt(2, p_id_batiment);
           cs.setInt(3, p_id_logement);
           cs.setString(4, p_reference_du_paiement);
@@ -726,7 +726,32 @@ public class CictOracleDataSource extends OracleDataSource {
           cs.setInt(8, p_id_locataire);
           cs.execute();
       }
-  }
+    }
+    
+    /*------------- Facture -------------*/
+    
+    public void AddFacture(
+    	  int p_id_facture,
+    	  String p_date_facture,
+  	      String p_description,
+  	      float p_montantHT,
+  	      float p_tva,
+  	      String p_type,
+  	      int p_siren
+  	   )throws SQLException {
+      try (CallableStatement cs = this.connection.prepareCall("{call INSERTFACTURE(?,?,?,?,?,?,?) }")) {
+    	  cs.setInt(1, p_id_facture);
+          cs.setString(2, p_date_facture);
+          cs.setString(3, p_description);
+          cs.setFloat(4, p_montantHT);
+          cs.setFloat(5, p_tva);
+          cs.setString(6, p_type);
+          cs.setInt(7, p_siren);
+          cs.execute();
+      }
+    }
+    
+    
 
 
 

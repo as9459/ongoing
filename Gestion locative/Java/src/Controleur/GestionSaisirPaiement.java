@@ -57,11 +57,10 @@ public class GestionSaisirPaiement implements ActionListener{
 				    	  								p_date_de_paiement,
 				    	  								p_id_locataire);
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-				this.sp.dispose();
 				
+				this.sp.dispose();
 				this.fenepaie.dispose();
 				
 				fenepaie = new FenPaiement(this.mere);

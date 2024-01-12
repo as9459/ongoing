@@ -113,8 +113,6 @@ public class GestionFenLogement implements ActionListener{
 	            row[7] = result.getString("JARDIN");
 	            row[8] = result.getString("BALCON");
 	            row[9] = result.getString("state");
-	            /*row[8] = this.mere.getConnectionBD().callGetNbLogByBatiment(result.getString(1));*/
-	            row[10] = null;
 	            dataList.add(row);
 	        }
 	    } catch (SQLException e) {

@@ -36,7 +36,6 @@ public class GestionSaisirBatiement implements ActionListener{
 		JButton b = (JButton) e.getSource();
 		switch (b.getText()) {
 			case "Inserer":
-				System.out.println("Ici");
 				String p_id_batiment = this.sb.getTextFieldIDbat()  ;
 				String p_adresse = this.sb.getTextFd_Adresse();
 				int p_code_postal= this.sb.getTextFieldCP();
