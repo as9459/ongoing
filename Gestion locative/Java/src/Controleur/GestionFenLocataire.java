@@ -17,6 +17,7 @@ import Vue.FenFacture;
 import Vue.FenLocataire;
 import Vue.FenetrePrincipale;
 import Vue.SaisirLocataire;
+import Vue.SaisirPaiement;
 
 public class GestionFenLocataire implements ActionListener{
 	private FenLocataire fene;
@@ -56,23 +57,24 @@ public class GestionFenLocataire implements ActionListener{
     	case "Modifier":
 			SaisirLocataire mloc = null;
 			
-            String idBatiment = myTable.getValueAt(selectedRow, 0).toString();
-            String adresse = myTable.getValueAt(selectedRow, 1).toString();
-            String codePostal = myTable.getValueAt(selectedRow, 2).toString();
-            String ville = myTable.getValueAt(selectedRow, 3).toString();
-            String regimeJuridique = myTable.getValueAt(selectedRow, 4).toString();
-            String dateConstruction = myTable.getValueAt(selectedRow, 5).toString();
-			
-			try {
-				mloc = new SaisirLocataire();
+            String sIdLocataire = myTable.getValueAt(selectedRow, 0).toString();
+            String sNom = myTable.getValueAt(selectedRow, 1).toString();
+            String sPrenom = myTable.getValueAt(selectedRow, 2).toString();
+            String sTele = myTable.getValueAt(selectedRow, 3).toString();
+            String sDateNaissance = myTable.getValueAt(selectedRow, 4).toString();
+            String sStatut = myTable.getValueAt(selectedRow, 5).toString();
+				
+            try {
+                mloc = new SaisirLocataire();
+                mloc.loadPaiementInfo(sNom, sPrenom, sTele, sDateNaissance, sStatut);
 				JLayeredPane layeredPane5 = this.mere.getLayeredPane();
 				layeredPane5.add(mloc, JLayeredPane.DEFAULT_LAYER);
 				mloc.setVisible(true);
-			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-            break;
+             } catch (ParseException e1) {
+                 e1.printStackTrace();
+             }
+        break; 
+        
     	case "Supprimer":
 			// TODO
     		System.out.println("Vous voulez supprimer le " + (selectedRow+1) +"er/eme ligne");

@@ -32,6 +32,7 @@ import javax.swing.JCheckBox;
 public class SaisirLocataire extends JInternalFrame{
 	private JTextField Fd_Nom;
 	private JTextField Fd_Prenom;
+	private JFormattedTextField Fd_telephone;
 	private JTextField Fd_Statut;
 	private GestionSaisirLocataire gslo;
 	private JButton btnAnnuler;
@@ -145,7 +146,7 @@ public class SaisirLocataire extends JInternalFrame{
 		panel_1.add(labelStatut);
 		labelStatut.setFont(new Font("Tahoma", Font.BOLD, 10));
 
-		JFormattedTextField Fd_telephone = new JFormattedTextField(telephoneFormatter);
+		Fd_telephone = new JFormattedTextField(telephoneFormatter);
 		Fd_telephone.setBounds(170, 167, 231, 35);
 		panel_1.add(Fd_telephone);
 		
@@ -317,6 +318,17 @@ public class SaisirLocataire extends JInternalFrame{
 
 	public GestionSaisirLocataire getGslo() {
 		return gslo;
+	}
+
+
+	public void loadPaiementInfo(String sNom, String sPrenom, String sTele, String sDateNaissance, String sStatut) {
+		Fd_Nom.setText(sNom);
+		Fd_Prenom.setText(sPrenom);
+		Fd_telephone.setText(sTele);
+		Fd_DateNaissance.setText(sDateNaissance);
+		Fd_Statut.setText(sStatut);
+		
+		
 	}
 	
 	
