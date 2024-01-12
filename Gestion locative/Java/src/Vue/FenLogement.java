@@ -59,7 +59,7 @@ public class FenLogement extends JInternalFrame {
 		this.parent = parent;
 		setTitle("Fenètre Logement");
 		setDefaultCloseOperation(JInternalFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 775, 303);
+		setBounds(100, 100, 775, 521);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
