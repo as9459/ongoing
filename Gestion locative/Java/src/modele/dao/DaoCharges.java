@@ -35,7 +35,7 @@ public class DaoCharges implements Dao<Charges> {
 
     @Override
     public List<Charges> findAll() {
-        return DaoTest.selectCharges(0);
+        return DaoTest.selectCharges();
     }
 
 }

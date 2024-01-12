@@ -22,9 +22,9 @@ public class DaoDiagnostic implements Dao<Diagnostic> {
     }
 
     @Override
-    public Diagnostic findById(String id) {
+    public Diagnostic findById(String... id) {
         // Assuming Diagnostic has an ID field
-        if (id.length() >= 1) {
+        if (id.length >= 1) {
             List<Diagnostic> Diagnostics = DaoTest.selectDiagnostic(id);
             if (!Diagnostics.isEmpty()) {
                 return Diagnostics.get(0);
@@ -38,9 +38,4 @@ public class DaoDiagnostic implements Dao<Diagnostic> {
         return DaoTest.selectDiagnostic();
     }
 
-	@Override
-	public Diagnostic findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

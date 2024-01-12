@@ -22,9 +22,9 @@ public class DaoGarant implements Dao<Garant> {
     }
 
     @Override
-    public Garant findById(int id) {
+    public Garant findById(String... id) {
         // Assuming Garant has an ID field
-        if (id >= 1) {
+        if (id.length >= 1) {
             List<Garant> garants = DaoTest.selectGarant(id);
             if (!garants.isEmpty()) {
                 return garants.get(0);
@@ -35,12 +35,7 @@ public class DaoGarant implements Dao<Garant> {
 
     @Override
     public List<Garant> findAll() {
-        return DaoTest.selectGarant(0);
+        return DaoTest.selectGarant();
     }
 
-	@Override
-	public Garant findById(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

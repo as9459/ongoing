@@ -51,8 +51,8 @@ public class DaoTest {
 
     // -------------------------- Charges --------------------------------------------
 
-    public static List<Charges> selectCharges(int id) {
-        List<Charges> liste = DaoTest.CHARGES.stream().filter(c -> c.getIdCharges() == id)
+    public static List<Charges> selectCharges(String... id) {
+        List<Charges> liste = DaoTest.CHARGES.stream().filter(c -> Integer.toString(c.getIdCharges()).equals(id[0]))
                 .collect(Collectors.toList());
         return liste;
     }
@@ -62,7 +62,7 @@ public class DaoTest {
     }
 
     public static void updateCharges(Charges c) {
-        List<Charges> liste = DaoTest.selectCharges(c.getIdCharges());
+        List<Charges> liste = DaoTest.selectCharges(Integer.toString(c.getIdCharges()));
         Charges d = liste.get(0);
         // Update fields of Charges
     }
@@ -73,8 +73,8 @@ public class DaoTest {
 
     // -------------------------- Contrat_Bail ---------------------------------------
 
-    public static List<Contrat_Bail> selectContratBail(int id) {
-        List<Contrat_Bail> liste = DaoTest.CONTRATBAIL.stream().filter(cb -> cb.getIdBail() == id)
+    public static List<Contrat_Bail> selectContratBail(String... id) {
+        List<Contrat_Bail> liste = DaoTest.CONTRATBAIL.stream().filter(cb -> Integer.toString(cb.getIdBail()).equals(id[0]))
                 .collect(Collectors.toList());
         return liste;
     }
@@ -84,7 +84,7 @@ public class DaoTest {
     }
 
     public static void updateContratBail(Contrat_Bail cb) {
-        List<Contrat_Bail> liste = DaoTest.selectContratBail(cb.getIdBail());
+        List<Contrat_Bail> liste = DaoTest.selectContratBail(Integer.toString(cb.getIdBail()));
         Contrat_Bail d = liste.get(0);
         // Update fields of Contrat_Bail
     }
@@ -95,8 +95,8 @@ public class DaoTest {
     
     //------------------------- Correspondre ----------------------------------------------
 
-    public static List<Correspondre> selectCorrespondre(int id) {
-        List<Correspondre> liste = DaoTest.CORRESPONDRE.stream().filter(corresp -> corresp.getIdFacture() == id)
+    public static List<Correspondre> selectCorrespondre(String... id) {
+        List<Correspondre> liste = DaoTest.CORRESPONDRE.stream().filter(corresp -> Integer.toString(corresp.getIdFacture()).equals(id[0]))
                 .collect(Collectors.toList());
         return liste;
     }
@@ -106,7 +106,7 @@ public class DaoTest {
     }
 
     public static void updateCorrespondre(Correspondre corresp) {
-        List<Correspondre> liste = DaoTest.selectCorrespondre(corresp.getIdFacture());
+        List<Correspondre> liste = DaoTest.selectCorrespondre(Integer.toString(corresp.getIdFacture()));
         Correspondre c = liste.get(0);
         // Update fields of Correspondre
     }
@@ -205,8 +205,8 @@ public class DaoTest {
 
     // -------------------------- Facture --------------------------------------------
 
-    public static List<Facture> selectFacture(int id) {
-        List<Facture> liste = DaoTest.FACTURE.stream().filter(fact -> fact.getId_facture() == id)
+    public static List<Facture> selectFacture(String... id) {
+        List<Facture> liste = DaoTest.FACTURE.stream().filter(fact -> Integer.toString(fact.getId_facture()).equals(id[0]))
                 .collect(Collectors.toList());
         return liste;
     }
@@ -216,7 +216,7 @@ public class DaoTest {
     }
 
     public static void updateFacture(Facture fact) {
-        List<Facture> liste = DaoTest.selectFacture(fact.getId_facture());
+        List<Facture> liste = DaoTest.selectFacture(Integer.toString(fact.getId_facture()));
         Facture f = liste.get(0);
         // Update fields of Facture
     }
@@ -226,8 +226,8 @@ public class DaoTest {
     }
         //------------------------- Garant ----------------------------------------------
 
-    public static List<Garant> selectGarant(int id) {
-        List<Garant> liste = DaoTest.GARANT.stream().filter(g -> g.getId_garant() == id)
+    public static List<Garant> selectGarant(String... id) {
+        List<Garant> liste = DaoTest.GARANT.stream().filter(g -> Integer.toString(g.getId_garant()).equals(id[0]))
                 .collect(Collectors.toList());
         return liste;
     }
@@ -237,7 +237,7 @@ public class DaoTest {
     }
 
     public static void updateGarant(Garant garant) {
-        List<Garant> liste = DaoTest.selectGarant(garant.getId_garant());
+        List<Garant> liste = DaoTest.selectGarant(Integer.toString(garant.getId_garant()));
         Garant g = liste.get(0);
         // Update fields of Garant
     }

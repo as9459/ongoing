@@ -23,8 +23,8 @@ public class DaoContrat_Bail implements Dao<Contrat_Bail> {
     }
 
     @Override
-    public Contrat_Bail findById(int id) {
-        if (id >= 1) {
+    public Contrat_Bail findById(String... id) {
+        if (id.length >= 1) {
             List<Contrat_Bail> contrats = DaoTest.selectContratBail(id);
             if (!contrats.isEmpty()) {
                 return contrats.get(0);
@@ -35,12 +35,6 @@ public class DaoContrat_Bail implements Dao<Contrat_Bail> {
 
     @Override
     public List<Contrat_Bail> findAll() {
-        return DaoTest.selectContratBail(0);
+        return DaoTest.selectContratBail();
     }
-
-	@Override
-	public Contrat_Bail findById(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

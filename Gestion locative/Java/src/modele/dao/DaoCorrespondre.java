@@ -23,9 +23,9 @@ public class DaoCorrespondre implements Dao<Correspondre> {
     }
 
     @Override
-    public Correspondre findById(int id) {
+    public Correspondre findById(String... id) {
         // Assuming Correspondre has an ID field
-        if (id >= 1) {
+        if (id.length >= 1) {
             List<Correspondre> correspondres = DaoTest.selectCorrespondre(id);
             if (!correspondres.isEmpty()) {
                 return correspondres.get(0);
@@ -36,12 +36,7 @@ public class DaoCorrespondre implements Dao<Correspondre> {
 
     @Override
     public List<Correspondre> findAll() {
-        return DaoTest.selectCorrespondre(0);
+        return DaoTest.selectCorrespondre();
     }
 
-	@Override
-	public Correspondre findById(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
