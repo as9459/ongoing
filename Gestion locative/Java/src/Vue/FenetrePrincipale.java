@@ -31,7 +31,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 	private JMenuItem mntm_Connecter;
 	private JMenu menu_AdLoc;
 	private JMenu menu_AdProp;
-	
+	private JMenuItem CalculCharge;
 	private GestionFenetrePrincipale gestionClic;
 	
 
@@ -100,8 +100,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 		this.gestionClic = new GestionFenetrePrincipale(this);
 		menu_AdLoc.add(mntm_Locataire);
 		
-
-		
 		JMenuItem mntm_Paiement = new JMenuItem("Paiement");
 		mntm_Paiement.setBackground(new Color(240, 240, 240));
 		mntm_Paiement.addActionListener(this.gestionClic);
@@ -127,6 +125,11 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 		this.gestionClic = new GestionFenetrePrincipale(this);
 		menu_AdProp.add(mntmFacture);
 		
+		CalculCharge = new JMenuItem("Calcul charges");
+		menu_AdProp.add(CalculCharge);
+		CalculCharge.addActionListener(this.gestionClic);
+		this.gestionClic = new GestionFenetrePrincipale(this);
+		
 	}
 
 	
@@ -136,7 +139,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 			mntm_Déconnecter.setEnabled(param1);
 			menu_AdLoc.setEnabled(param1);
 			menu_AdProp.setEnabled(param1);
-			
 			mntm_Connecter.setEnabled(param2);
 				
 	}
