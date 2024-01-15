@@ -248,7 +248,7 @@ public class CictOracleDataSource extends OracleDataSource {
 
     /*------------- Locataire -------------*/
 
-    public void callAddLocataire(
+    public void callADDLocataire(
             int p_id_locataire,
             String p_nom,
             String p_prenom,
@@ -373,6 +373,25 @@ public class CictOracleDataSource extends OracleDataSource {
             return rowSet;
         }
     }
+    
+    public void AddLocataire(
+  		  String p_nom,
+  	      String p_prenom,
+  	      String p_date_de_naissance,
+  	      String p_telephone,
+  	      String p_email,
+  	      String p_statut
+  	   )throws SQLException {
+      try (CallableStatement cs = this.connection.prepareCall("{call InsertLocataire(?,?,?,?,?,?) }")) {
+          cs.setString(1, p_nom);
+          cs.setString(2, p_prenom);
+          cs.setString(3, p_date_de_naissance);
+          cs.setString(4, p_telephone);
+          cs.setString(5, p_email);
+          cs.setString(6, p_statut);
+          cs.execute();
+      }
+  }
     
     
     /*------------- Logement -------------*/

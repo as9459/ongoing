@@ -22,9 +22,9 @@ public class GestionFenLocataire implements ActionListener{
 	private FenLocataire fene;
 	private FenetrePrincipale mere ;
 
-	public GestionFenLocataire(FenLocataire fen, FenetrePrincipale mare) {
+	public GestionFenLocataire(FenLocataire fen, FenetrePrincipale mere) {
 		this.fene = fen;
-		this.mere = mare ;
+		this.mere = mere ;
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class GestionFenLocataire implements ActionListener{
     	case "Ajouter":
 			SaisirLocataire sloc = null;
 			try {
-				sloc = new SaisirLocataire();
+				sloc = new SaisirLocataire(this.mere, this.fene);
 				JLayeredPane layeredPane4 = this.mere.getLayeredPane();
 				layeredPane4.add(sloc, JLayeredPane.DEFAULT_LAYER);
 				sloc.setVisible(true);
@@ -64,7 +64,7 @@ public class GestionFenLocataire implements ActionListener{
             String dateConstruction = myTable.getValueAt(selectedRow, 5).toString();
 			
 			try {
-				mloc = new SaisirLocataire();
+				mloc = new SaisirLocataire(this.mere, this.fene);
 				JLayeredPane layeredPane5 = this.mere.getLayeredPane();
 				layeredPane5.add(mloc, JLayeredPane.DEFAULT_LAYER);
 				mloc.setVisible(true);

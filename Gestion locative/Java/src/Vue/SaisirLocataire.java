@@ -1,5 +1,6 @@
 package Vue;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JTable;
@@ -31,11 +32,15 @@ import javax.swing.JCheckBox;
 @SuppressWarnings("serial")
 public class SaisirLocataire extends JInternalFrame{
 	private GestionSaisirLocataire gslo;
+	private FenetrePrincipale parent;
+	private FenLocataire fenloca;
 	private JButton btnAnnuler;
 	private JButton btnInserer;
-	private JTextField idLocataire;
 	private JTextField nom;
 	private JTextField prenom;
+	private JFormattedTextField tel;
+	private JFormattedTextField dateN;
+	private JComboBox statut;
 	private JTextField mail;
 	
 
@@ -61,7 +66,9 @@ public class SaisirLocataire extends JInternalFrame{
 	 * Create the frame.
 	 * @throws ParseException 
 	 */
-	public SaisirLocataire() throws ParseException {
+	public SaisirLocataire(FenetrePrincipale mere, FenLocataire fenloca) throws ParseException {
+		this.parent = mere;
+		this.fenloca =fenloca;
         MaskFormatter dateFormatter = new MaskFormatter("####-##-##");
         MaskFormatter telephoneFormatter = new MaskFormatter("## ## ## ## ##");
         
@@ -69,77 +76,68 @@ public class SaisirLocataire extends JInternalFrame{
 		setTitle("Saisie des informations");
 		setBounds(100, 100, 464, 707);
 		getContentPane().setLayout(null); 
-		this.gslo = new GestionSaisirLocataire(this);
+		this.gslo = new GestionSaisirLocataire(this, this.parent, this.fenloca);
 		
 		JLabel lblNewLabel = new JLabel("Saisir les informations du locataire");
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 13));
 		lblNewLabel.setBounds(125, 26, 236, 13);
 		getContentPane().add(lblNewLabel);
 		
-		JLabel idLocataire_label = new JLabel("idLocataire");
-		idLocataire_label.setFont(new Font("Tahoma", Font.BOLD, 11));
-		idLocataire_label.setBounds(47, 105, 78, 14);
-		getContentPane().add(idLocataire_label);
-		
-		idLocataire = new JTextField();
-		idLocataire.setBounds(206, 100, 203, 28);
-		getContentPane().add(idLocataire);
-		idLocataire.setColumns(10);
-		
 		JLabel nom_label = new JLabel("Nom");
 		nom_label.setFont(new Font("Tahoma", Font.BOLD, 11));
-		nom_label.setBounds(47, 152, 46, 14);
+		nom_label.setBounds(47, 110, 46, 14);
 		getContentPane().add(nom_label);
 		
 		nom = new JTextField();
-		nom.setBounds(209, 145, 200, 28);
+		nom.setBounds(209, 103, 200, 28);
 		getContentPane().add(nom);
 		nom.setColumns(10);
 		
 		JLabel prenom_label = new JLabel("Prenom");
 		prenom_label.setFont(new Font("Tahoma", Font.BOLD, 11));
-		prenom_label.setBounds(47, 198, 46, 14);
+		prenom_label.setBounds(47, 161, 46, 14);
 		getContentPane().add(prenom_label);
 		
 		prenom = new JTextField();
-		prenom.setBounds(212, 190, 197, 28);
+		prenom.setBounds(209, 154, 197, 28);
 		getContentPane().add(prenom);
 		prenom.setColumns(10);
 		
 		JLabel telephone_label = new JLabel("Numéro de télephone");
 		telephone_label.setFont(new Font("Tahoma", Font.BOLD, 11));
-		telephone_label.setBounds(47, 252, 147, 14);
+		telephone_label.setBounds(47, 212, 147, 14);
 		getContentPane().add(telephone_label);
 		
-		JFormattedTextField tel = new JFormattedTextField();
-		tel.setBounds(212, 243, 197, 28);
+		tel = new JFormattedTextField();
+		tel.setBounds(209, 205, 197, 28);
 		getContentPane().add(tel);
 		
 		JLabel dateNaissance_label = new JLabel("Date de Naissance");
 		dateNaissance_label.setFont(new Font("Tahoma", Font.BOLD, 11));
-		dateNaissance_label.setBounds(47, 298, 131, 14);
+		dateNaissance_label.setBounds(47, 266, 131, 14);
 		getContentPane().add(dateNaissance_label);
 		
-		JFormattedTextField dateN = new JFormattedTextField();
-		dateN.setBounds(212, 292, 197, 28);
+		dateN = new JFormattedTextField();
+		dateN.setBounds(209, 259, 197, 28);
 		getContentPane().add(dateN);
 		
 		JLabel statut_label = new JLabel("Statut");
 		statut_label.setFont(new Font("Tahoma", Font.BOLD, 11));
-		statut_label.setBounds(47, 346, 46, 14);
+		statut_label.setBounds(47, 322, 46, 14);
 		getContentPane().add(statut_label);
 		
-		JComboBox statut = new JComboBox();
-		statut.setBounds(212, 340, 197, 28);
+		statut = new JComboBox();
+		statut.setModel(new DefaultComboBoxModel(new String[] {"Etudiant", "Salarié"}));
+		statut.setBounds(209, 315, 197, 28);
 		getContentPane().add(statut);
 		
 		JLabel email_label = new JLabel("E-mail");
 		email_label.setFont(new Font("Tahoma", Font.BOLD, 11));
-		email_label.setBounds(47, 392, 46, 14);
+		email_label.setBounds(47, 370, 46, 14);
 		getContentPane().add(email_label);
 		
 		mail = new JTextField();
-		mail.setBounds(212, 389, 197, 28);
+		mail.setBounds(209, 363, 197, 28);
 		getContentPane().add(mail);
 		mail.setColumns(10);
 		
@@ -154,7 +152,31 @@ public class SaisirLocataire extends JInternalFrame{
 		btnInserer.addActionListener(this.gslo);
 	}
 
-
+	public String getNom() {
+		return this.nom.getText();
+	}
+	
+	public String getPrenom() {
+		return this.prenom.getText();
+	}
+	
+	public String getTel() {
+		return this.tel.getText();
+	}
+	
+	public String getDate() {
+		return this.dateN.getText();
+	}
+	
+	public String getMail() {
+		return this.mail.getText();
+	}
+	
+	public String getStatut() {
+		return this.statut.getItemAt(this.statut.getSelectedIndex()).toString();
+	}
+	
+	
 	
 
 	public GestionSaisirLocataire getGslo() {

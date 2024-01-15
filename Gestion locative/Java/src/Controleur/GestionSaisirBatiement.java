@@ -50,7 +50,6 @@ public class GestionSaisirBatiement implements ActionListener{
 	    	    										p_regime_juridique, 
 	    	    										p_date_construction);
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 				this.sb.dispose();
@@ -62,6 +61,7 @@ public class GestionSaisirBatiement implements ActionListener{
 				layeredPane4.add(feneb, JLayeredPane.DEFAULT_LAYER);
 				feneb.setVisible(true);
 				break;
+				
 			case "Annuler":
 				this.sb.dispose();
 				break;
