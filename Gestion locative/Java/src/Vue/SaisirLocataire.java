@@ -1,5 +1,6 @@
 package Vue;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JTable;
@@ -37,6 +38,9 @@ public class SaisirLocataire extends JInternalFrame{
 	private JTextField nom;
 	private JTextField prenom;
 	private JTextField mail;
+	private JFormattedTextField dateN;
+	private JFormattedTextField tel;
+	private JComboBox statut;
 	
 
 	/**
@@ -67,7 +71,7 @@ public class SaisirLocataire extends JInternalFrame{
         
 		setBorder(new LineBorder(SystemColor.activeCaption, 2));
 		setTitle("Saisie des informations");
-		setBounds(100, 100, 464, 707);
+		setBounds(100, 100, 464, 604);
 		getContentPane().setLayout(null); 
 		this.gslo = new GestionSaisirLocataire(this);
 		
@@ -111,7 +115,7 @@ public class SaisirLocataire extends JInternalFrame{
 		telephone_label.setBounds(47, 252, 147, 14);
 		getContentPane().add(telephone_label);
 		
-		JFormattedTextField tel = new JFormattedTextField();
+		tel = new JFormattedTextField();
 		tel.setBounds(212, 243, 197, 28);
 		getContentPane().add(tel);
 		
@@ -120,7 +124,7 @@ public class SaisirLocataire extends JInternalFrame{
 		dateNaissance_label.setBounds(47, 298, 131, 14);
 		getContentPane().add(dateNaissance_label);
 		
-		JFormattedTextField dateN = new JFormattedTextField();
+		dateN = new JFormattedTextField();
 		dateN.setBounds(212, 292, 197, 28);
 		getContentPane().add(dateN);
 		
@@ -129,7 +133,8 @@ public class SaisirLocataire extends JInternalFrame{
 		statut_label.setBounds(47, 346, 46, 14);
 		getContentPane().add(statut_label);
 		
-		JComboBox statut = new JComboBox();
+		statut = new JComboBox();
+		statut.setModel(new DefaultComboBoxModel(new String[] {"Etudiant(e)", "Salarie(e)", "non"}));
 		statut.setBounds(212, 340, 197, 28);
 		getContentPane().add(statut);
 		
@@ -159,6 +164,18 @@ public class SaisirLocataire extends JInternalFrame{
 
 	public GestionSaisirLocataire getGslo() {
 		return gslo;
+	}
+
+
+
+
+	public void loadLocataireInfo(String sNom, String sPrenom, String sTele, String sDateNaissance, String sStatut) {
+		// TODO Auto-generated method stub
+		nom.setText(sNom);
+		prenom.setText(sPrenom);
+		tel.setText(sTele);
+		dateN.setText(sDateNaissance);
+		statut.getModel().setSelectedItem(sStatut);
 	}
 }
 

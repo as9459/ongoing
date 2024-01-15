@@ -66,7 +66,7 @@ public class GestionFenLocataire implements ActionListener{
 				
             try {
                 mloc = new SaisirLocataire();
-                mloc.loadPaiementInfo(sNom, sPrenom, sTele, sDateNaissance, sStatut);
+                mloc.loadLocataireInfo(sNom, sPrenom, sTele, sDateNaissance, sStatut);
 				JLayeredPane layeredPane5 = this.mere.getLayeredPane();
 				layeredPane5.add(mloc, JLayeredPane.DEFAULT_LAYER);
 				mloc.setVisible(true);
