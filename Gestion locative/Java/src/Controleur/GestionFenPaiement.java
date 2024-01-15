@@ -26,6 +26,11 @@ import Vue.FenPaiement;
 public class GestionFenPaiement implements ActionListener{
 	private FenPaiement fene;
 	private FenetrePrincipale mere;
+	private String idfacture;
+    private String date;
+    private String refpaiement;
+    private String type;
+    private String paiement;
 
 	public GestionFenPaiement(FenPaiement fen, FenetrePrincipale mere) {
 		this.fene = fen;
@@ -63,11 +68,13 @@ public class GestionFenPaiement implements ActionListener{
     		
     		if (selectedRow != -1) {
                  // Récupérer les informations du batiment sélectionné
-                 String idfacture = myTable.getValueAt(selectedRow, 0).toString();
-                 String date = myTable.getValueAt(selectedRow, 7).toString();
-                 String refpaiement = myTable.getValueAt(selectedRow, 4).toString();
-                 String type = myTable.getValueAt(selectedRow, 6).toString();
-                 String paiement = myTable.getValueAt(selectedRow, 5).toString();
+                 this.idfacture = myTable.getValueAt(selectedRow, 0).toString();
+                 this.date = myTable.getValueAt(selectedRow, 7).toString();
+                 this.refpaiement = myTable.getValueAt(selectedRow, 4).toString();
+                 this.type = myTable.getValueAt(selectedRow, 6).toString();
+                 this.paiement = myTable.getValueAt(selectedRow, 5).toString();
+                 
+                 System.out.println(idfacture + " " + date + " " + refpaiement +  " " + type + " " + paiement);
                  
                  
                  try {
@@ -85,6 +92,26 @@ public class GestionFenPaiement implements ActionListener{
         }
     
 	}
+	
+	/*public String getQidfacture() {
+		return this.idfacture;
+	}
+	
+	public String getQdate() {
+		return this.date;
+	}
+	
+	public String getQrefpaiement() {
+		return this.refpaiement;
+	}
+	
+	public String getQtype() {
+		return this.type;
+	}
+	
+	public String getQpaiement() {
+		return this.paiement;
+	}*/
 	
 	public Object[][] updateTable() {
 	    ResultSet result = null;
