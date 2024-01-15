@@ -12,11 +12,12 @@ import Vue.FenBatiment;
 import Vue.FenetrePrincipale;
 
 public class GestionConnexion implements ActionListener {
-	
+	private FenetrePrincipale parent;
 	private Connexion fen;
 
-	public GestionConnexion(Connexion fen) {
+	public GestionConnexion(Connexion fen, FenetrePrincipale parent) {
 		this.fen = fen;
+		this.parent = parent;
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -45,6 +46,9 @@ public class GestionConnexion implements ActionListener {
 					mere.setEstConnecte(true);
 					mere.activerItems(true);
 					fen.dispose();
+					parent.effacerPhoto();
+		            parent.effacerTexte();
+		            parent.effacerBoutonConnecter();
 				}
                 
 				break;

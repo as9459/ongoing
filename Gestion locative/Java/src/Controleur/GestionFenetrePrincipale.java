@@ -43,9 +43,6 @@ public class GestionFenetrePrincipale implements ActionListener{
 				break;
 			case "Connecter":
 				showConnectionWindow();
-				fen.effacerPhoto();
-	            fen.effacerTexte();
-	            fen.effacerBoutonConnecter();
 				break;
 			case "Déconnecter":
 				fen.deconnecter();
@@ -91,15 +88,11 @@ public class GestionFenetrePrincipale implements ActionListener{
 
 	    if ("Connecter".equals(actionCommand)) {
 	        showConnectionWindow();
-	        fen.effacerPhoto();
-            fen.effacerTexte();
-            fen.effacerBoutonConnecter();
-        
 	    }
 	}
 	
 	private void showConnectionWindow() {
-	    Connexion connexion = new Connexion();
+	    Connexion connexion = new Connexion(this.fen);
 	    JLayeredPane layeredPane = fen.getLayeredPane();
 	    layeredPane.add(connexion, JLayeredPane.DEFAULT_LAYER);
 	    connexion.setVisible(true);
