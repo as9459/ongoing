@@ -2,6 +2,9 @@ package Vue;
 
 import java.awt.EventQueue;
 
+import javax.swing.ImageIcon;
+import java.awt.Image;
+import java.io.File;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
@@ -16,10 +19,13 @@ import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 
 import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JButton;
 
 public class FenetrePrincipale extends JFrame implements ActionListener {
 
@@ -31,6 +37,19 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 	private JMenuItem mntm_Connecter;
 	private JMenu menu_AdLoc;
 	private JMenu menu_AdProp;
+    private JLabel lblImage;
+    private JButton btnConnceter;
+    private JLabel lbltxt1;
+    private JLabel lbltxt2;
+    private JLabel lbltxt3;
+    private JLabel lbltxt4;
+    private JLabel lbltxt5;
+    private JLabel lbltxt6;
+    private JLabel lbltxt7;
+    private JLabel lbltxt8;
+
+
+
 	
 	private GestionFenetrePrincipale gestionClic;
 	
@@ -127,6 +146,56 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 		this.gestionClic = new GestionFenetrePrincipale(this);
 		menu_AdProp.add(mntmFacture);
 		
+		
+		ImageIcon imageIcon = new ImageIcon(getClass().getResource("/image/home.PNG"));
+        Image image = imageIcon.getImage().getScaledInstance(400, 700, Image.SCALE_SMOOTH);
+        imageIcon = new ImageIcon(image);
+
+        
+        lblImage = new JLabel(imageIcon);
+        lblImage.setBounds(10, 33, 421, 579);
+        contentPane.add(lblImage);
+        
+        lbltxt1 = new JLabel("Bienvenue sur GererBien");
+        lbltxt1.setFont(new Font("Tahoma", Font.BOLD, 16));
+        lbltxt1.setBounds(546, 185, 210, 14);
+        contentPane.add(lbltxt1);
+        
+        lbltxt2 = new JLabel("Optimisez votre gestion immobilière avec notre logiciel intuitif et puissant. Profitez d'une ");
+        lbltxt2.setBounds(441, 250, 441, 14);
+        contentPane.add(lbltxt2);
+        
+        lbltxt3 = new JLabel("expérience simplifiée grâce à nos fonctionnalités d'automatisation avancées.");
+        lbltxt3.setBounds(441, 275, 366, 14);
+        contentPane.add(lbltxt3);
+        
+        lbltxt4 = new JLabel("Automatisation Sans Effort.");
+        lbltxt4.setFont(new Font("Tahoma", Font.BOLD, 11));
+        lbltxt4.setBounds(469, 313, 200, 14);
+        contentPane.add(lbltxt4);
+        
+        lbltxt5 = new JLabel("Suivi Intelligente des Propriétés.");
+        lbltxt5.setFont(new Font("Tahoma", Font.BOLD, 11));
+        lbltxt5.setBounds(469, 338, 200, 14);
+        contentPane.add(lbltxt5);
+        
+        lbltxt6 = new JLabel("Analyses Perspicaces.");
+        lbltxt6.setFont(new Font("Tahoma", Font.BOLD, 11));
+        lbltxt6.setBounds(469, 363, 148, 14);
+        contentPane.add(lbltxt6);
+        
+        lbltxt7 = new JLabel("Profitez de la tranquillité d'esprit grâce à une gestion efficace de vos propriétés. ");
+        lbltxt7.setBounds(441, 401, 393, 14);
+        contentPane.add(lbltxt7);
+        
+        lbltxt8 = new JLabel("GererBien vous offre la clé d'une gestion immobilière moderne et sans soucis.");
+        lbltxt8.setBounds(441, 425, 441, 14);
+        contentPane.add(lbltxt8);
+        
+        btnConnceter = new JButton("Connecter");
+        btnConnceter.addActionListener(this.gestionClic);
+        btnConnceter.setBounds(768, 496, 114, 23);
+        contentPane.add(btnConnceter);
 	}
 
 	
@@ -139,12 +208,6 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 			
 			mntm_Connecter.setEnabled(param2);
 				
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 
@@ -181,4 +244,30 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
             layeredPane.remove(component);
 	    }
     }
+
+    public void effacerPhoto() {
+        lblImage.setIcon(null);
+    }
+
+    public void effacerTexte() {
+        lbltxt1.setText("");
+        lbltxt2.setText("");
+        lbltxt3.setText("");
+        lbltxt4.setText("");
+        lbltxt5.setText("");
+        lbltxt6.setText("");
+        lbltxt7.setText("");
+        lbltxt8.setText("");
+        
+    }
+
+    public void effacerBoutonConnecter() {
+        btnConnceter.setVisible(false); 
+    }
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }

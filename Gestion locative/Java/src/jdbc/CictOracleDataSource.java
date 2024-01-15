@@ -383,15 +383,22 @@ public class CictOracleDataSource extends OracleDataSource {
   	      String p_statut
   	   )throws SQLException {
       try (CallableStatement cs = this.connection.prepareCall("{call InsertLocataire(?,?,?,?,?,?) }")) {
-          cs.setString(1, p_nom);
+    	  cs.setString(1, p_nom);
           cs.setString(2, p_prenom);
           cs.setString(3, p_date_de_naissance);
           cs.setString(4, p_telephone);
           cs.setString(5, p_email);
           cs.setString(6, p_statut);
+          //cs.execute();
+          
           cs.execute();
+        	    }
+      catch (SQLException e) {
+	        e.printStackTrace(); // Print the stack trace for debugging
+	        throw e; // Rethrow the exception to the calling method
+	    }
       }
-  }
+  
     
     
     /*------------- Logement -------------*/

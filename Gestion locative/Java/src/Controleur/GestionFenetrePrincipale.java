@@ -26,17 +26,26 @@ public class GestionFenetrePrincipale implements ActionListener{
 		this.fen = fen;
 	}
 	@Override
+	
 	public void actionPerformed(ActionEvent e) {
-		JMenuItem itemm = (JMenuItem) e.getSource();
-		switch (itemm.getText()) {
+	    if (e.getSource() instanceof JMenuItem) {
+	        handleMenuItem((JMenuItem) e.getSource());
+	    } else if (e.getSource() instanceof JButton) {
+	        handleButton((JButton) e.getSource());
+	    }
+	}
+	
+	public void handleMenuItem(JMenuItem menuItem) {
+		String actionCommand = menuItem.getText();
+	    switch (actionCommand) {
 			case "Quitter":
 				fen.dispose();
 				break;
 			case "Connecter":
-				Connexion cn = new Connexion();
-				JLayeredPane layeredPane0 = fen.getLayeredPane();
-				layeredPane0.add(cn, JLayeredPane.DEFAULT_LAYER);
-				cn.setVisible(true);
+				showConnectionWindow();
+				fen.effacerPhoto();
+	            fen.effacerTexte();
+	            fen.effacerBoutonConnecter();
 				break;
 			case "Déconnecter":
 				fen.deconnecter();
@@ -69,11 +78,31 @@ public class GestionFenetrePrincipale implements ActionListener{
 				bat.setVisible(true);
 			  break;
 			case "Facture":
-				/*System.out.println("bouton marche");*/
 				FenFacture fac = new FenFacture(this.fen);
 				JLayeredPane layeredPane5 = fen.getLayeredPane();
 				layeredPane5.add(fac, JLayeredPane.DEFAULT_LAYER);
 				fac.setVisible(true);
 	            break;
-		}
-	}}
+		}      
+	}
+	
+	private void handleButton(JButton button) {
+	    String actionCommand = button.getText();
+
+	    if ("Connecter".equals(actionCommand)) {
+	        showConnectionWindow();
+	        fen.effacerPhoto();
+            fen.effacerTexte();
+            fen.effacerBoutonConnecter();
+        
+	    }
+	}
+	
+	private void showConnectionWindow() {
+	    Connexion connexion = new Connexion();
+	    JLayeredPane layeredPane = fen.getLayeredPane();
+	    layeredPane.add(connexion, JLayeredPane.DEFAULT_LAYER);
+	    connexion.setVisible(true);
+	}
+		
+}

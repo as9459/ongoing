@@ -1,9 +1,8 @@
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 
-public class CreatePDF {
+public class PDFGenerator {
 
     public static void main(String[] args) {
         // Spécifiez le chemin du fichier PDF que vous souhaitez créer
