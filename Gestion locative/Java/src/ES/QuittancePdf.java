@@ -1,5 +1,6 @@
 package ES;
 
+import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Font;
@@ -7,9 +8,13 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
+
+import com.itextpdf.text.Image;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 
 public class QuittancePdf {
 
@@ -35,15 +40,20 @@ public class QuittancePdf {
         String dateFormatee = dateActuelle.format(format);
 
         Font yourFont = new Font(Font.FontFamily.TIMES_ROMAN, 24);
-       
+
+        
+        
     	Document Quittance = new Document();
 
         try {
             PdfWriter.getInstance(Quittance, new FileOutputStream("C:\\Users\\hp\\Documents\\GitHub\\ongoing\\Gestion locative\\Quittance\\Quittance"+periodeLocation+".pdf"));
 
             Quittance.open();
+            
+			Image logo = Image.getInstance("C:\\Users\\hp\\Documents\\GitHub\\ongoing\\Gestion locative\\Java\\src\\image\\logo.png");
 
-            Paragraph bailleur = new Paragraph("Bailleur: Nom & Prenom du Bailleur. \n Adresse du bailleur \n\n");
+
+            Paragraph bailleur = new Paragraph("\n\n\nBailleur: Nom & Prenom du Bailleur. \n Adresse du bailleur \n\n");
             Paragraph locataire = new Paragraph("Locataire: "+nomLocataire+" "+prenomLocataire+"\n Adresse locataire :"+adresseLocataire+"\n\n\n\n\n");
             Paragraph titre = new Paragraph();
             Chunk chunk = new Chunk("Quittance de loyer", yourFont);
@@ -62,6 +72,7 @@ public class QuittancePdf {
             								"        - Reste à payer : "+reste+" €\n\n\n\n");
             Paragraph conclusion = new Paragraph("Fait à Toulouse, le "+dateFormatee);
             
+            logo.scaleToFit(100, 200);
             locataire.setAlignment(Paragraph.ALIGN_RIGHT);
             titre.setAlignment(Paragraph.ALIGN_CENTER);
             periode.setAlignment(Paragraph.ALIGN_CENTER);
@@ -69,6 +80,7 @@ public class QuittancePdf {
             float indentationGauche = 20f; 
             corps.setIndentationLeft(indentationGauche);
             
+            Quittance.add(logo);
             Quittance.add(bailleur);
             Quittance.add(locataire);
             Quittance.add(titre);
