@@ -22,9 +22,9 @@ public class DaoFacture implements Dao<Facture> {
     }
 
     @Override
-    public Facture findById(int id) {
+    public Facture findById(String... id) {
         // Assuming Facture has an ID field
-        if (id >= 1) {
+        if (id.length >= 1) {
             List<Facture> factures = DaoTest.selectFacture(id);
             if (!factures.isEmpty()) {
                 return factures.get(0);
@@ -35,12 +35,7 @@ public class DaoFacture implements Dao<Facture> {
 
     @Override
     public List<Facture> findAll() {
-        return DaoTest.selectFacture(0);
+        return DaoTest.selectFacture();
     }
 
-	@Override
-	public Facture findById(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

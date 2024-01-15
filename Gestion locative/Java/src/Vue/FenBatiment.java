@@ -116,8 +116,6 @@ public class FenBatiment extends JInternalFrame {
 		splitPane.setLeftComponent(btnNewButton_3);
 		btnNewButton_3.addActionListener(this.gestionClic);
 		
-		
-		
 	}
 	
 	public JTable getTableBatiment() {

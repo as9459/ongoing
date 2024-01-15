@@ -22,9 +22,9 @@ public class DaoEntreprise implements Dao<Entreprise> {
     }
 
     @Override
-    public Entreprise findById(String id) {
+    public Entreprise findById(String... id) {
         // Assuming Entreprise has an ID field
-        if (id.length() >= 1) {
+        if (id.length >= 1) {
             List<Entreprise> entreprises = DaoTest.selectEntreprise(id);
             if (!entreprises.isEmpty()) {
                 return entreprises.get(0);
@@ -38,9 +38,4 @@ public class DaoEntreprise implements Dao<Entreprise> {
         return DaoTest.selectEntreprise();
     }
 
-	@Override
-	public Entreprise findById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

@@ -31,7 +31,6 @@ public class GestionConnexion implements ActionListener {
 				String msg="";
 				fen.setMsgAcces(msg);
 				
-				
 				try {
 					bd = new CictOracleDataSource();
 					msg = bd.creerAcces(fen.getValeurChLogin(), fen.getValeurPassword());
@@ -47,8 +46,7 @@ public class GestionConnexion implements ActionListener {
 					mere.activerItems(true);
 					fen.dispose();
 				}
-			
-				
+                
 				break;
 		}
 	}
