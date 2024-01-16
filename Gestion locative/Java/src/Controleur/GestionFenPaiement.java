@@ -21,17 +21,18 @@ import Vue.SaisirPaiement;
 import Vue.FenLocataire;
 import Vue.FenLogement;
 import Vue.FenPaiement;
-import ES.QuittancePdf;;
 
 public class GestionFenPaiement implements ActionListener{
 	private FenPaiement fene;
 	private FenetrePrincipale mere;
 	private String idfacture;
+	private String idbatiment;
+	private String idlogement;
+	private String idlocataire;
     private String date;
     private String refpaiement;
     private String type;
     private String paiement;
-    private String provision;
 
 	public GestionFenPaiement(FenPaiement fen, FenetrePrincipale mere) {
 		this.fene = fen;
@@ -68,20 +69,19 @@ public class GestionFenPaiement implements ActionListener{
     	case "Modifier":
     		
     		if (selectedRow != -1) {
-                 // Récupérer les informations du batiment sélectionné
                  this.idfacture = myTable.getValueAt(selectedRow, 0).toString();
-                 this.date = myTable.getValueAt(selectedRow, 7).toString();
+                 this.idbatiment = myTable.getValueAt(selectedRow, 1).toString();
+                 this.idlogement = myTable.getValueAt(selectedRow, 2).toString();
+                 this.idlocataire = myTable.getValueAt(selectedRow, 3).toString();
                  this.refpaiement = myTable.getValueAt(selectedRow, 4).toString();
-                 this.type = myTable.getValueAt(selectedRow, 6).toString();
                  this.paiement = myTable.getValueAt(selectedRow, 5).toString();
-                 this.provision = myTable.getValueAt(selectedRow, 8).toString();
-                 
-                 System.out.println(idfacture + " " + date + " " + refpaiement +  " " + type + " " + paiement);
+                 this.type = myTable.getValueAt(selectedRow, 6).toString();
+                 this.date = myTable.getValueAt(selectedRow, 7).toString();
                  
                  
                  try {
 	                SaisirPaiement mfac = new SaisirPaiement(this.mere, this.fene);
-	                mfac.loadPaiementInfo(idfacture, date, refpaiement, paiement, type);
+	                mfac.loadPaiementInfo(idfacture, idbatiment, idlogement, idlocataire, refpaiement, paiement, type, date);
 					JLayeredPane layeredPane5 = this.mere.getLayeredPane();
 					layeredPane5.add(mfac, JLayeredPane.DEFAULT_LAYER);
 					mfac.setVisible(true);
@@ -90,21 +90,6 @@ public class GestionFenPaiement implements ActionListener{
                  }
             }
             break; 
-    	case "Imprimer Quitance":
-    		
-    		QuittancePdf maQuittance = new QuittancePdf(this);
-    		maQuittance.imprimerQuittance("nomLocataire",
-					 "prenomLocataire",
-					 "adresseLocataire",
-					 this.date,
-					 this.refpaiement,
-					 this.type,
-					 this.paiement,
-					 "montantLoyer",
-					 this.provision,
-					 "montantTotal",
-					 "reste",
-					 "periodeLocation");
     	}
         }
     

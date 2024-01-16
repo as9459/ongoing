@@ -52,6 +52,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 
 	
 	private GestionFenetrePrincipale gestionClic;
+	private JMenuItem mntmCharges;
 	
 
 	/**
@@ -146,6 +147,9 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 		this.gestionClic = new GestionFenetrePrincipale(this);
 		menu_AdProp.add(mntmFacture);
 		
+		mntmCharges = new JMenuItem("Calcul charges");
+		mntmCharges.addActionListener(this.gestionClic);
+		menu_AdProp.add(mntmCharges);
 		
 		ImageIcon imageIcon = new ImageIcon(getClass().getResource("/image/home.PNG"));
         Image image = imageIcon.getImage().getScaledInstance(400, 700, Image.SCALE_SMOOTH);

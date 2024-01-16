@@ -203,7 +203,7 @@ public class SaisirLocataire extends JInternalFrame{
 		tel.setText(sTele);
 		dateN.setText(sDateNaissance);
 		statut.getModel().setSelectedItem(sStatut);
-		mail.setText(sDateNaissance);
+		mail.setText(mail2);
 	}
 }
 

@@ -262,13 +262,20 @@ public class SaisirPaiement extends JInternalFrame{
 	}
 
 
-	public void loadPaiementInfo(String idfacture, String date, String refpaiement, String paiement, String type) {
+	public void loadPaiementInfo(String idfacture, String idbatiment, String idlogement, String idlocataire, String refpaiement, String paiement, String type, String date) {
+
 		Fd_ReferenceF.setText(idfacture);
-		this.DateformattedTextField.setText(date);
-		this.ReftextField.setText(refpaiement);
-		this.Montantspinner.setValue(Double.parseDouble(paiement));
-		this.TypecomboBox.getModel().setSelectedItem(type);
+		BatimentcomboBox.getModel().setSelectedItem(idbatiment);
+		LogementcomboBox.getModel().setSelectedItem(idlogement);
+		LocatairecomboBox.getModel().setSelectedItem(idlocataire)
+		ReftextField.setText(refpaiement);
+		Montantspinner.setValue(Double.parseDouble(paiement));
+		TypecomboBox.getModel().setSelectedItem(type);
+		DateformattedTextField.setText(date);
+	
 	}
+
+
 		
 	
 }

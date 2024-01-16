@@ -55,8 +55,6 @@ public class GestionFenLocataire implements ActionListener{
             break;
     	case "Modifier":
 			SaisirLocataire mloc = null;
-			
-			 String sIdLocataire = myTable.getValueAt(selectedRow, 0).toString();
 	            String sNom = myTable.getValueAt(selectedRow, 1).toString();
 	            String sPrenom = myTable.getValueAt(selectedRow, 2).toString();
 	            String sTele = myTable.getValueAt(selectedRow, 3).toString();

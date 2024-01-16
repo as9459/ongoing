@@ -17,6 +17,7 @@ import Vue.FenFacture;
 import Vue.FenLocataire;
 import Vue.FenLogement;
 import Vue.FenPaiement;
+import Vue.FenCharges;
 
 public class GestionFenetrePrincipale implements ActionListener{
 	private FenetrePrincipale fen;
@@ -78,6 +79,13 @@ public class GestionFenetrePrincipale implements ActionListener{
 				JLayeredPane layeredPane5 = fen.getLayeredPane();
 				layeredPane5.add(fac, JLayeredPane.DEFAULT_LAYER);
 				fac.setVisible(true);
+	            break;
+			case "Calcul charges":
+				System.out.println("Calcul Charges");
+				FenCharges charg = new FenCharges(this.fen);
+				JLayeredPane layeredPane6 = fen.getLayeredPane();
+				layeredPane6.add(charg, JLayeredPane.DEFAULT_LAYER);
+				charg.setVisible(true);
 	            break;
 		}      
 	}
