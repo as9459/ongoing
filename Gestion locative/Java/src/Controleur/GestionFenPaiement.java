@@ -123,15 +123,16 @@ public class GestionFenPaiement implements ActionListener{
 	        result = this.mere.getConnectionBD().callGetTableData("FACT_LOGEMENT");
 
 	        while (result.next()) {
-	            Object[] row = new Object[8]; // Change the size as needed
+	            Object[] row = new Object[9]; // Change the size as needed
 	            row[0] = result.getInt("ID_FACTURE");
 	            row[1] = result.getString("ID_BATIMENT");
 	            row[2] = result.getString("ID_LOGEMENT");
 	            row[3] = result.getString("ID_LOCATAIRE");
 	            row[4] = result.getString("REFERENCE_DU_PAIEMENT");
-	            row[5] = result.getString("PAIEMENT");
+	            row[5] = result.getString("LOYER");
 	            row[6] = result.getString("TYPE_PAIMENT");
 	            row[7] = result.getString("DATE_DE_PAIEMENT");
+	            row[8] = result.getString("PROVISION");
 	            /*row[8] = this.mere.getConnectionBD().callGetNbLogByBatiment(result.getString(1));*/
 	            dataList.add(row);
 	        }
