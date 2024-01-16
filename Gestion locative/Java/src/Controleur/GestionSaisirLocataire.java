@@ -19,7 +19,7 @@ import modele.dao.DaoGroupe;*/
 import Vue.SaisirLocataire;
 
 public class GestionSaisirLocataire implements ActionListener{
-
+	
 	private SaisirLocataire sl;
 	private FenetrePrincipale mere;
 	private FenLocataire fenloca;
@@ -58,16 +58,47 @@ public class GestionSaisirLocataire implements ActionListener{
 			}
 			
 			
-			this.sl.dispose();
+				this.sl.dispose();
+				this.fenloca.dispose();
+				
+				fenloca = new FenLocataire(this.mere);
+				JLayeredPane layeredPane4 = this.mere.getLayeredPane();
+				layeredPane4.add(fenloca, JLayeredPane.DEFAULT_LAYER);
+				fenloca.setVisible(true);
+				
+				break;
+			case "Modifier":
+				String id_locataire = fenloca.getTableLocataire().getValueAt(fenloca.getTableLocataire().getSelectedRow(), 0).toString();;
+				String m_nom = this.sl.getNom() ;
+				String m_prenom = this.sl.getPrenom();
+				String m_date_de_naissance= this.sl.getDate();
+	    	    String m_telephone = this.sl.getTel();
+	    	    String m_email = this.sl.getMail();
+	    	    String m_statut = this.sl.getStatut();
+			try {
+				this.mere.getConnectionBD().UpdateLocataire(id_locataire,
+														m_nom, 
+	    	    										m_prenom, 
+	    	    										m_date_de_naissance, 
+	    	    										m_telephone, 
+	    	    										m_email, 
+	    	    										m_statut);
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+				
+				
+				this.sl.dispose();
 
-			this.fenloca.dispose();
-			
-			fenloca = new FenLocataire(this.mere);
-			JLayeredPane layeredPane4 = this.mere.getLayeredPane();
-			layeredPane4.add(fenloca, JLayeredPane.DEFAULT_LAYER);
-			fenloca.setVisible(true);
-			
-			break;
+				this.fenloca.dispose();
+				
+				fenloca = new FenLocataire(this.mere);
+				JLayeredPane layeredPane5 = this.mere.getLayeredPane();
+				layeredPane5.add(fenloca, JLayeredPane.DEFAULT_LAYER);
+				fenloca.setVisible(true);
+				
+				break;
+				
 			case "Annuler":
 				this.sl.dispose();
 				break;

@@ -56,23 +56,24 @@ public class GestionFenLocataire implements ActionListener{
     	case "Modifier":
 			SaisirLocataire mloc = null;
 			
-            String idBatiment = myTable.getValueAt(selectedRow, 0).toString();
-            String adresse = myTable.getValueAt(selectedRow, 1).toString();
-            String codePostal = myTable.getValueAt(selectedRow, 2).toString();
-            String ville = myTable.getValueAt(selectedRow, 3).toString();
-            String regimeJuridique = myTable.getValueAt(selectedRow, 4).toString();
-            String dateConstruction = myTable.getValueAt(selectedRow, 5).toString();
-			
-			try {
-				mloc = new SaisirLocataire(this.mere, this.fene);
-				JLayeredPane layeredPane5 = this.mere.getLayeredPane();
-				layeredPane5.add(mloc, JLayeredPane.DEFAULT_LAYER);
-				mloc.setVisible(true);
-			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-            break;
+			 String sIdLocataire = myTable.getValueAt(selectedRow, 0).toString();
+	            String sNom = myTable.getValueAt(selectedRow, 1).toString();
+	            String sPrenom = myTable.getValueAt(selectedRow, 2).toString();
+	            String sTele = myTable.getValueAt(selectedRow, 3).toString();
+	            String sDateNaissance = myTable.getValueAt(selectedRow, 4).toString();
+	            String sStatut = myTable.getValueAt(selectedRow, 5).toString();
+	            String sMail = myTable.getValueAt(selectedRow, 6).toString();
+					
+	            try {
+	                mloc = new SaisirLocataire(mere, fene);
+	                mloc.loadLocataireInfo(sNom, sPrenom, sTele, sDateNaissance, sStatut, sMail);
+					JLayeredPane layeredPane5 = this.mere.getLayeredPane();
+					layeredPane5.add(mloc, JLayeredPane.DEFAULT_LAYER);
+					mloc.setVisible(true);
+	            } catch (ParseException e1) {
+	                 e1.printStackTrace();
+	             }
+	        break; 
     	case "Supprimer":
 			// TODO
     		System.out.println("Vous voulez supprimer le " + (selectedRow+1) +"er/eme ligne");
@@ -115,7 +116,8 @@ public class GestionFenLocataire implements ActionListener{
 	            row[4] = result.getString(5);
 	            row[5] = result.getString(6);
 	            row[6] = result.getString(7);
-	            row[7] = this.mere.getConnectionBD().callGetLogementIdByLocateur(result.getInt(1));
+	            row[7] = this.mere.getConnectionBD().callGetLogementIdByLocateur(result.getInt(1));;
+
 	            dataList.add(row);
 	        }
 	    } catch (SQLException e) {

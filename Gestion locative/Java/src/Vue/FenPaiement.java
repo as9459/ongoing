@@ -18,6 +18,12 @@ import javax.swing.JLabel;
 import javax.swing.JSplitPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.BoxLayout;
+import java.awt.GridLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.awt.CardLayout;
 
 public class FenPaiement extends JInternalFrame {
 
@@ -34,6 +40,7 @@ public class FenPaiement extends JInternalFrame {
 	
 	private GestionFenPaiement gestionClic;
 	private FenetrePrincipale parent;
+	private JButton imprimerQuitance;
 
 	/**
 	 * Launch the application.
@@ -90,26 +97,26 @@ public class FenPaiement extends JInternalFrame {
 		
 		panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.SOUTH);
-		panel_1.setLayout(new BorderLayout(0, 0));
 		
 		btnNewButton = new JButton("Ajouter");
 		btnNewButton.addActionListener(this.gestionClic);
-		panel_1.add(btnNewButton, BorderLayout.WEST);
-		
-		btnNewButton_1 = new JButton("Retourner");
-		btnNewButton_1.addActionListener(this.gestionClic);
-		panel_1.add(btnNewButton_1, BorderLayout.EAST);
-		
-		splitPane = new JSplitPane();
-		panel_1.add(splitPane, BorderLayout.CENTER);
+		panel_1.setLayout(new GridLayout(0, 5, 0, 0));
+		panel_1.add(btnNewButton);
 		
 		btnNewButton_2 = new JButton("Modifier");
 		btnNewButton_2.addActionListener(this.gestionClic);
-		splitPane.setRightComponent(btnNewButton_2);
+		panel_1.add(btnNewButton_2);
+		
+		imprimerQuitance = new JButton("Imprimer Quitance");
+		imprimerQuitance.addActionListener(this.gestionClic);
+		panel_1.add(imprimerQuitance);
 		
 		btnNewButton_3 = new JButton("Suprimer");
+		panel_1.add(btnNewButton_3);
+		
+		btnNewButton_1 = new JButton("Retourner");
 		btnNewButton_1.addActionListener(this.gestionClic);
-		splitPane.setLeftComponent(btnNewButton_3);
+		panel_1.add(btnNewButton_1);
 		
 		
 	}

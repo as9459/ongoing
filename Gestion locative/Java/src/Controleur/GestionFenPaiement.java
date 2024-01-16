@@ -18,7 +18,6 @@ import Vue.Connexion;
 import Vue.FenetrePrincipale;
 import Vue.SaisirFacture;
 import Vue.SaisirPaiement;
-import Vue.FenDocument;
 import Vue.FenLocataire;
 import Vue.FenLogement;
 import Vue.FenPaiement;

@@ -204,14 +204,14 @@ public class SaisirFacture extends JInternalFrame{
 	}
 
 
-	public void loadFactureInfo(String idfacture, String idbatiment, String refpaiement, String paiement, String type, String date) {
-		// TODO Auto-generated method stub
+	public void loadFactureInfo(String idfacture, String description, String montantHT, String montantTVA, String type, String date, String siren2) {
 		ID_Facture.setText(idfacture);
-		typeFacture.setText(idbatiment);
-		Description.setText(refpaiement);
-		MontantHT.setValue(Double.parseDouble(paiement));
-		tva.setText(type);
+		Description.setText(description);
 		dateFacture.setValue(date);
+		Description.setText(montantHT);
+		MontantHT.setValue(Double.parseDouble(montantTVA));
+		typeFacture.setText(type);
+		siren.setText(siren2);
 	}
 }
 
