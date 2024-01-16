@@ -72,7 +72,7 @@ public class FenPaiement extends JInternalFrame {
 		table.setModel(new DefaultTableModel(
 			this.gestionClic.updateTable(),
 			new String[] {
-				"ID facture", "Batiment", "Logement", "Locataire", "Reference du paiement", "Paiement", "Type de paiement", "Date de paiement" 
+				"ID facture", "Batiment", "Logement", "Locataire", "Reference du paiement", "Loyer", "Type de paiement", "Date de paiement", "Provision"  
 			}
 		));
 		scrollPane.setViewportView(table);
