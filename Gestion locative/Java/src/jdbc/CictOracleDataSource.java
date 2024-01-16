@@ -399,7 +399,7 @@ public class CictOracleDataSource extends OracleDataSource {
 	    }
       }
 
-    }
+
     
     public void UpdateLocataire(
             String p_idLocataire,

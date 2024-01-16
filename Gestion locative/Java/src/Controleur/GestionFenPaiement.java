@@ -21,6 +21,7 @@ import Vue.SaisirPaiement;
 import Vue.FenLocataire;
 import Vue.FenLogement;
 import Vue.FenPaiement;
+import ES.QuittancePdf;;
 
 public class GestionFenPaiement implements ActionListener{
 	private FenPaiement fene;
@@ -30,6 +31,7 @@ public class GestionFenPaiement implements ActionListener{
     private String refpaiement;
     private String type;
     private String paiement;
+    private String provision;
 
 	public GestionFenPaiement(FenPaiement fen, FenetrePrincipale mere) {
 		this.fene = fen;
@@ -72,6 +74,7 @@ public class GestionFenPaiement implements ActionListener{
                  this.refpaiement = myTable.getValueAt(selectedRow, 4).toString();
                  this.type = myTable.getValueAt(selectedRow, 6).toString();
                  this.paiement = myTable.getValueAt(selectedRow, 5).toString();
+                 this.provision = myTable.getValueAt(selectedRow, 8).toString();
                  
                  System.out.println(idfacture + " " + date + " " + refpaiement +  " " + type + " " + paiement);
                  
@@ -87,6 +90,21 @@ public class GestionFenPaiement implements ActionListener{
                  }
             }
             break; 
+    	case "Imprimer Quitance":
+    		
+    		QuittancePdf maQuittance = new QuittancePdf(this);
+    		maQuittance.imprimerQuittance("nomLocataire",
+					 "prenomLocataire",
+					 "adresseLocataire",
+					 this.date,
+					 this.refpaiement,
+					 this.type,
+					 this.paiement,
+					 "montantLoyer",
+					 this.provision,
+					 "montantTotal",
+					 "reste",
+					 "periodeLocation");
     	}
         }
     

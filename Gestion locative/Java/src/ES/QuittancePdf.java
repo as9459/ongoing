@@ -7,6 +7,8 @@ import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import Controleur.GestionFenPaiement;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -17,12 +19,14 @@ import java.time.format.DateTimeFormatter;
 
 
 public class QuittancePdf {
+	public GestionFenPaiement gdp;
+	public QuittancePdf quittance;
+	
+	public QuittancePdf(GestionFenPaiement gdp) {
+		this.gdp = gdp;
+	}
 
-    public static void main(String[] args) {
-        imprimerQuittance("nom", "prenom", "adresse", "date", "ref", "type", "somme", "loyer", "charges", "total", "reste", "periode");
-    }
-
-    public static void imprimerQuittance(String nomLocataire,
+    public void imprimerQuittance(String nomLocataire,
     									 String prenomLocataire,
     									 String adresseLocataire,
     									 String datePaiement,
