@@ -81,17 +81,16 @@ public class GestionFenFacture implements ActionListener{
     		if (selectedRow != -1) {
                  // Récupérer les informations du batiment sélectionné
                  String idfacture = myTable.getValueAt(selectedRow, 0).toString();
-                 String idbatiment = myTable.getValueAt(selectedRow, 1).toString();
-                 String refpaiement = myTable.getValueAt(selectedRow, 2).toString();
-                 String paiement = myTable.getValueAt(selectedRow, 3).toString();
+                 String date = myTable.getValueAt(selectedRow, 1).toString();
+                 String description = myTable.getValueAt(selectedRow, 1).toString();
+                 String montantHT = myTable.getValueAt(selectedRow, 2).toString();
+                 String montantTVA = myTable.getValueAt(selectedRow, 3).toString();
                  String type = myTable.getValueAt(selectedRow, 4).toString();
-                 String date = myTable.getValueAt(selectedRow, 5).toString();
-                 System.out.println("ID facture:" + idfacture + " ID batiment:" +idbatiment + " ref paiement:" +refpaiement + 
-                		 " Paiement:" +paiement + " Type:" +type + " Date:" +date);
+                 String siren = myTable.getValueAt(selectedRow, 5).toString();
                  
                  try {
 	                SaisirFacture mfac = new SaisirFacture(this.mere, this.fac);
-	                mfac.loadFactureInfo(idfacture, idbatiment, refpaiement, paiement, type, date);
+	                mfac.loadFactureInfo(idfacture, date, description, montantHT, montantTVA, type, siren);
 					JLayeredPane layeredPane5 = this.mere.getLayeredPane();
 					layeredPane5.add(mfac, JLayeredPane.DEFAULT_LAYER);
 					mfac.setVisible(true);

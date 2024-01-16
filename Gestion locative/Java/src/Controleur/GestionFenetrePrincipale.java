@@ -13,7 +13,6 @@ import modele.Charges;
 import Vue.Connexion;
 import Vue.FenetrePrincipale;
 import Vue.FenBatiment;
-import Vue.FenDocument;
 import Vue.FenFacture;
 import Vue.FenLocataire;
 import Vue.FenLogement;

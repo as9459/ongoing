@@ -36,6 +36,7 @@ public class SaisirLocataire extends JInternalFrame{
 	private FenLocataire fenloca;
 	private JButton btnAnnuler;
 	private JButton btnInserer;
+	private JButton btnModifier;
 	private JTextField nom;
 	private JTextField prenom;
 	private JFormattedTextField tel;
@@ -74,7 +75,7 @@ public class SaisirLocataire extends JInternalFrame{
         
 		setBorder(new LineBorder(SystemColor.activeCaption, 2));
 		setTitle("Saisie des informations");
-		setBounds(100, 100, 464, 707);
+		setBounds(100, 100, 463, 641);
 		getContentPane().setLayout(null); 
 		this.gslo = new GestionSaisirLocataire(this, this.parent, this.fenloca);
 		
@@ -148,8 +149,17 @@ public class SaisirLocataire extends JInternalFrame{
 		btnAnnuler = new JButton("Annuler");
 		btnAnnuler.setBounds(271, 495, 124, 28);
 		getContentPane().add(btnAnnuler);
+		
+		btnModifier = new JButton("Modifier");
+		btnModifier.setBounds(184, 550, 94, 28);
+		getContentPane().add(btnModifier);
+		
+		
+		
+		
 		btnAnnuler.addActionListener(this.gslo);
 		btnInserer.addActionListener(this.gslo);
+		btnModifier.addActionListener(this.gslo);
 	}
 
 	public String getNom() {
@@ -181,6 +191,16 @@ public class SaisirLocataire extends JInternalFrame{
 
 	public GestionSaisirLocataire getGslo() {
 		return gslo;
+	}
+	
+	public void loadLocataireInfo(String sNom, String sPrenom, String sTele, String sDateNaissance, String sStatut, String mail2) {
+		// TODO Auto-generated method stub
+		nom.setText(sNom);
+		prenom.setText(sPrenom);
+		tel.setText(sTele);
+		dateN.setText(sDateNaissance);
+		statut.getModel().setSelectedItem(sStatut);
+		mail.setText(sDateNaissance);
 	}
 }
 

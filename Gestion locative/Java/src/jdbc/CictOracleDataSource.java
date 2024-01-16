@@ -391,7 +391,29 @@ public class CictOracleDataSource extends OracleDataSource {
           cs.setString(6, p_statut);
           cs.execute();
       }
-  }
+    }
+    
+    public void UpdateLocataire(
+            String p_idLocataire,
+            String p_nom,
+            String p_prenom,
+            String p_date_de_naissance,
+            String p_telephone,
+            String p_email,
+            String p_statut
+        ) throws SQLException {
+            try (CallableStatement cs = this.connection.prepareCall("{call UpdateLocataire(?,?,?,?,?,?,?) }")) {
+                cs.setString(1, p_idLocataire);
+                cs.setString(2, p_nom);
+                cs.setString(3, p_prenom);
+                cs.setString(4, p_date_de_naissance);
+                cs.setString(5, p_telephone);
+                cs.setString(6, p_email);
+                cs.setString(7, p_statut);
+                cs.execute();
+            }
+        }
+
     
     
     /*------------- Logement -------------*/
