@@ -105,7 +105,7 @@ public class GestionFenLocataire implements ActionListener{
 	    List<Object[]> dataList = new ArrayList<>();
 
 	    try {
-	        result = this.mere.getConnectionBD().callGetLocatairesActuels();
+	        result = this.mere.getConnectionBD().callGetTableData("LOCATAIRE");
 
 	        while (result.next()) {
 	            Object[] row = new Object[8]; // Change the size as needed
@@ -117,6 +117,7 @@ public class GestionFenLocataire implements ActionListener{
 	            row[5] = result.getString(6);
 	            row[6] = result.getString(7);
 	            row[7] = this.mere.getConnectionBD().callGetLogementIdByLocateur(result.getInt(1));;
+
 	            dataList.add(row);
 	        }
 	    } catch (SQLException e) {

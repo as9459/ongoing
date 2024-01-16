@@ -45,6 +45,7 @@ public class GestionSaisirLocataire implements ActionListener{
 	    	    String p_telephone = this.sl.getTel();
 	    	    String p_email = this.sl.getMail();
 	    	    String p_statut = this.sl.getStatut();
+	    	    
 			try {
 				this.mere.getConnectionBD().AddLocataire(p_nom, 
 	    	    										p_prenom, 
@@ -55,10 +56,9 @@ public class GestionSaisirLocataire implements ActionListener{
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
-				
-				
+			
+			
 				this.sl.dispose();
-
 				this.fenloca.dispose();
 				
 				fenloca = new FenLocataire(this.mere);
@@ -98,7 +98,6 @@ public class GestionSaisirLocataire implements ActionListener{
 				fenloca.setVisible(true);
 				
 				break;
-				
 				
 			case "Annuler":
 				this.sl.dispose();

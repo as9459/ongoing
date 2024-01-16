@@ -22,6 +22,7 @@ import javax.swing.SwingConstants;
 public class Connexion extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
+	private static FenetrePrincipale parent;
 	private JPasswordField Fd_password;
 	private GestionConnexion GestionClic;
 	private JTextField Fd_user;
@@ -33,7 +34,7 @@ public class Connexion extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Connexion frame = new Connexion();
+					Connexion frame = new Connexion(parent);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,7 +46,8 @@ public class Connexion extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Connexion() {
+	public Connexion(FenetrePrincipale parent) {
+		this.parent = parent;
 		setTitle("Connexion");
 		setBounds(100, 100, 550, 300);
 		getContentPane().setLayout(null);
@@ -65,13 +67,13 @@ public class Connexion extends JInternalFrame {
 		getContentPane().add(lblNewLabel_1);
 		
 		JButton btn_Connecter = new JButton("Connecter");
-		this.GestionClic = new GestionConnexion(this);
+		this.GestionClic = new GestionConnexion(this, this.parent);
 		btn_Connecter.addActionListener(this.GestionClic);
 		btn_Connecter.setBounds(116, 224, 108, 23);
 		getContentPane().add(btn_Connecter);
 		
 		JButton btn_Annuler = new JButton("Annuler");
-		this.GestionClic = new GestionConnexion(this);
+		this.GestionClic = new GestionConnexion(this, this.parent);
 		btn_Annuler.addActionListener(this.GestionClic);
 		btn_Annuler.setBounds(301, 224, 108, 23);
 		getContentPane().add(btn_Annuler);

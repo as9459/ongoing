@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.awt.Component;
 
 import javax.swing.border.TitledBorder;
+import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 
 import Controleur.GestionFenLocataire;
@@ -70,8 +71,8 @@ public class SaisirLocataire extends JInternalFrame{
 	public SaisirLocataire(FenetrePrincipale mere, FenLocataire fenloca) throws ParseException {
 		this.parent = mere;
 		this.fenloca =fenloca;
-        MaskFormatter dateFormatter = new MaskFormatter("####-##-##");
-        MaskFormatter telephoneFormatter = new MaskFormatter("## ## ## ## ##");
+        MaskFormatter dateFormatter = new MaskFormatter("##-##-####");
+        MaskFormatter telephoneFormatter = new MaskFormatter("##-##-##-##-##");
         
 		setBorder(new LineBorder(SystemColor.activeCaption, 2));
 		setTitle("Saisie des informations");
@@ -110,6 +111,7 @@ public class SaisirLocataire extends JInternalFrame{
 		getContentPane().add(telephone_label);
 		
 		tel = new JFormattedTextField();
+		tel.setFormatterFactory(new DefaultFormatterFactory(telephoneFormatter));
 		tel.setBounds(209, 205, 197, 28);
 		getContentPane().add(tel);
 		
@@ -119,6 +121,7 @@ public class SaisirLocataire extends JInternalFrame{
 		getContentPane().add(dateNaissance_label);
 		
 		dateN = new JFormattedTextField();
+		dateN.setFormatterFactory(new DefaultFormatterFactory(dateFormatter));
 		dateN.setBounds(209, 259, 197, 28);
 		getContentPane().add(dateN);
 		
