@@ -421,6 +421,30 @@ public class CictOracleDataSource extends OracleDataSource {
                 cs.execute();
             }
         }
+    
+    public ArrayList<String> getNomPrenomLocataire(int idlocataire) throws SQLException {
+        ArrayList<String> nomPrenomList = new ArrayList<>();
+        
+        try(CallableStatement cs = this.connection.prepareCall("{? = call GetNomPrenomLocataire(?)}")) {
+            cs.registerOutParameter(1, OracleTypes.CURSOR);
+            cs.setInt(2, idlocataire);
+            cs.execute();
+
+            try (ResultSet rs = (ResultSet) cs.getObject(1)) {
+                if (rs.next()) {
+                    String nom = rs.getString("NOM");
+                    String prenom = rs.getString("PRENOM");
+                    
+                    nomPrenomList.add(nom);
+                    nomPrenomList.add(prenom);
+                }
+            }
+        }
+
+
+        return nomPrenomList;
+    }
+
 
 
     
@@ -752,6 +776,25 @@ public class CictOracleDataSource extends OracleDataSource {
             return rowSet;
         }
     }
+    
+    public String getAdresseBatiment(int idBatiment) throws SQLException {
+        String adresse = null;
+
+        try (CallableStatement cs = this.connection.prepareCall("{? = call GETADRESSEBATIMENT(?)}")) {
+            cs.registerOutParameter(1, OracleTypes.CURSOR);
+            cs.setInt(2, idBatiment);
+            cs.execute();
+
+            try (ResultSet rs = (ResultSet) cs.getObject(1)) {
+                if (rs.next()) {
+                    adresse = rs.getString("ADRESSE");
+                }
+            }
+        }
+
+        return adresse;
+    }
+
     
     /*------------- Paiement -------------*/
     

@@ -40,7 +40,7 @@ public class FenPaiement extends JInternalFrame {
 	
 	private GestionFenPaiement gestionClic;
 	private FenetrePrincipale parent;
-	private JButton imprimerQuitance;
+	private JButton imprimerQuittance;
 
 	/**
 	 * Launch the application.
@@ -107,9 +107,9 @@ public class FenPaiement extends JInternalFrame {
 		btnNewButton_2.addActionListener(this.gestionClic);
 		panel_1.add(btnNewButton_2);
 		
-		imprimerQuitance = new JButton("Imprimer Quitance");
-		imprimerQuitance.addActionListener(this.gestionClic);
-		panel_1.add(imprimerQuitance);
+		imprimerQuittance = new JButton("Imprimer Quittance");
+		imprimerQuittance.addActionListener(this.gestionClic);
+		panel_1.add(imprimerQuittance);
 		
 		btnNewButton_3 = new JButton("Suprimer");
 		panel_1.add(btnNewButton_3);
