@@ -47,27 +47,27 @@ public class GestionSaisirPaiement implements ActionListener{
 				String p_type_paiement = this.sp.getTypePaiement();
 				String p_date_de_paiement = this.sp.getDatePaiement();
 				int p_id_locataire = this.sp.getIdLocataire();
-			try {
-				this.mere.getConnectionBD().AddPaiement(p_id_facture,
-				    	  								p_id_batiment,
-				    	  								p_id_logement,
-				    	  								p_reference_du_paiement,
-				    	  								p_paiement,
-				    	  								p_type_paiement,
-				    	  								p_date_de_paiement,
-				    	  								p_id_locataire);
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-				
-				this.sp.dispose();
-				this.fenepaie.dispose();
-				
-				fenepaie = new FenPaiement(this.mere);
-				JLayeredPane layeredPane4 = this.mere.getLayeredPane();
-				layeredPane4.add(fenepaie, JLayeredPane.DEFAULT_LAYER);
-				fenepaie.setVisible(true);
-				
+				try {
+					this.mere.getConnectionBD().AddPaiement(p_id_facture,
+					    	  								p_id_batiment,
+					    	  								p_id_logement,
+					    	  								p_reference_du_paiement,
+					    	  								p_paiement,
+					    	  								p_type_paiement,
+					    	  								p_date_de_paiement,
+					    	  								p_id_locataire);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+					
+					this.sp.dispose();
+					this.fenepaie.dispose();
+					
+					fenepaie = new FenPaiement(this.mere);
+					JLayeredPane layeredPane4 = this.mere.getLayeredPane();
+					layeredPane4.add(fenepaie, JLayeredPane.DEFAULT_LAYER);
+					fenepaie.setVisible(true);
+					
 				break;
 			case "Annuler":
 				this.sp.dispose();

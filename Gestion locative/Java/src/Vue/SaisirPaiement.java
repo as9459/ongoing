@@ -267,7 +267,7 @@ public class SaisirPaiement extends JInternalFrame{
 		Fd_ReferenceF.setText(idfacture);
 		BatimentcomboBox.getModel().setSelectedItem(idbatiment);
 		LogementcomboBox.getModel().setSelectedItem(idlogement);
-		LocatairecomboBox.getModel().setSelectedItem(idlocataire)
+		LocatairecomboBox.getModel().setSelectedItem(idlocataire);
 		ReftextField.setText(refpaiement);
 		Montantspinner.setValue(Double.parseDouble(paiement));
 		TypecomboBox.getModel().setSelectedItem(type);
