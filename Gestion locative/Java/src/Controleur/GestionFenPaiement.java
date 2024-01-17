@@ -184,5 +184,7 @@ public class GestionFenPaiement implements ActionListener{
 	    return ob;
 	}
 	
-	
+	public void insererDonneesCSV() {
+		
+	}
 }
