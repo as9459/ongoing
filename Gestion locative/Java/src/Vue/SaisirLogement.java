@@ -148,7 +148,7 @@ public class SaisirLogement extends JInternalFrame{
 		sp_Surface.setBounds(179, 265, 236, 35);
 		panel.add(sp_Surface);
 		
-		JLabel lblIcc = new JLabel("ICC");
+		JLabel lblIcc = new JLabel("Id fiscal");
 		lblIcc.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblIcc.setBounds(20, 338, 129, 13);
 		panel.add(lblIcc);

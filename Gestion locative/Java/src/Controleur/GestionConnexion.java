@@ -36,7 +36,6 @@ public class GestionConnexion implements ActionListener {
 					bd = new CictOracleDataSource();
 					msg = bd.creerAcces(fen.getValeurChLogin(), fen.getValeurPassword());
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 

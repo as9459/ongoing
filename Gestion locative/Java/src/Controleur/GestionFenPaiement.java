@@ -99,9 +99,9 @@ public class GestionFenPaiement implements ActionListener{
 		    	        	String idFacture = myTable.getValueAt(selectedRow, 0).toString();
 			    	        int idBatiment = (int) myTable.getValueAt(selectedRow, 1);
 			    	        int idLocataire = (int) myTable.getValueAt(selectedRow, 3);
-			    	        String refPaiement = myTable.getValueAt(selectedRow, 4).toString();
+			    	        /*String refPaiement = myTable.getValueAt(selectedRow, 4).toString();*/
 			    	        String datePaiement = myTable.getValueAt(selectedRow, 7).toString();
-			    	        String typePaiement = myTable.getValueAt(selectedRow, 6).toString();
+			    	        /*String typePaiement = myTable.getValueAt(selectedRow, 6).toString();*/
 			    	        String loyerPaiement = myTable.getValueAt(selectedRow, 5).toString();
 			    	        /*String provision = myTable.getValueAt(selectedRow, 8).toString();*/
 			    	        
@@ -112,7 +112,7 @@ public class GestionFenPaiement implements ActionListener{
 							String adresseLocataire = this.mere.getConnectionBD().getAdresseBatiment(idBatiment);
 							
 							QuittancePdf maQuittance = new QuittancePdf(this);
-							maQuittance.imprimerQuittance(nomLocataire, prenomLocataire, adresseLocataire, datePaiement, refPaiement, typePaiement, loyerPaiement); 
+							maQuittance.imprimerQuittance(nomLocataire, prenomLocataire, adresseLocataire, datePaiement, "refinconnue", "inconnue", loyerPaiement); 
 							
 							System.out.println("check");
 						} catch (SQLException e1) {

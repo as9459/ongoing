@@ -47,6 +47,7 @@ public class GestionSaisirFacture implements ActionListener{
 	    	    float p_tva = this.sf.getTVA();
 	    	    String p_type = this.sf.getTypeFacture();
 	    	    int p_siren = this.sf.getSiren();
+	    	    System.out.println("check");
 			try {
 				this.mere.getConnectionBD().AddFacture(p_id_facture,
 													   p_date_facture,

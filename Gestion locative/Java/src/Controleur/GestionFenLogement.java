@@ -99,7 +99,7 @@ public class GestionFenLogement implements ActionListener{
 	    List<Object[]> dataList = new ArrayList<>();
 
 	    try {
-	        result = this.mere.getConnectionBD().GetAllLogements();
+	        result = this.mere.getConnectionBD().callGetTableData("LOGEMENT");
 
 	        while (result.next()) {
 	            Object[] row = new Object[11]; // Change the size as needed
@@ -108,11 +108,10 @@ public class GestionFenLogement implements ActionListener{
 	            row[2] = result.getString("ETAGE");
 	            row[3] = result.getString("TYPE");
 	            row[4] = result.getString("SURFACE");
-	            row[5] = result.getString("ICC");
+	            row[5] = result.getString("ID_FISCAL");
 	            row[6] = result.getString("GARAGE");
 	            row[7] = result.getString("JARDIN");
 	            row[8] = result.getString("BALCON");
-	            row[9] = result.getString("state");
 	            dataList.add(row);
 	        }
 	    } catch (SQLException e) {

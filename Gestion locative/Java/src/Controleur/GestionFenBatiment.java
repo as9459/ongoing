@@ -24,27 +24,11 @@ public class GestionFenBatiment implements ActionListener{
 	private FenBatiment fene;
 	private FenetrePrincipale mere;
 	private static ArrayList<String> idvalues;
-	//private DefaultTableModel modeleTable;
-
+	
 	public GestionFenBatiment(FenBatiment fen, FenetrePrincipale mere) {
 		this.fene = fen;
 		this.mere = mere ;
-		//this.modeleTable = (DefaultTableModel) this.fene.getTableBatiment().getModel();
-	}
-	
-	/*
-	public Batiment lireLigneTable(int index) {
-		Batiment bat = new Batiment((int) this.modeleTable.getValueAt(index, 0),
-								 (String) this.modeleTable.getValueAt(index, 1),
-								 (String) this.modeleTable.getValueAt(index, 2),
-								 (String) this.modeleTable.getValueAt(index, 3), 
-								 (String) String.valueOf(this.modeleTable.getValueAt(index, 4)),
-								 (String) String.valueOf(this.modeleTable.getValueAt(index, 5)));
-		
-								 //(Groupe) new DaoGroupe().findById((String) this.modeleTable.getValueAt(index,5)));
-		return bat;
-	}*/
-	
+	}	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -107,20 +91,10 @@ public class GestionFenBatiment implements ActionListener{
                     Object addresse = model.getValueAt(selectedRow, 1);
                     String dateConstruction = model.getValueAt(selectedRow, 5).toString();
                     
-                    //test
                     System.out.println("Id batiment: " + idbat);
                     System.out.println("Adresse: " + addresse);
                     System.out.println("Date: " + dateConstruction);
-                    /*
-                    // Delete the row from the database
-                    int idBatimentToDelete = Integer.parseInt(idbat.toString());
-                    if (this.mere.getConnectionBD().deleteBatimentById(idBatimentToDelete)) {
-                        // If deletion is successful, remove the row from the table
-                        model.removeRow(selectedRow);
-                        System.out.println("Succes suppression du ligne");
-                    } else {
-                        System.out.println("Error erreur suppression ligne");
-                    }*/
+                  
                     
                 } else {
                     System.out.println("Aucun ligne est selectionner");
@@ -160,11 +134,11 @@ public class GestionFenBatiment implements ActionListener{
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    } finally {
-	        // Do not close the ResultSet here
+	        
 	    }
 
 	    
-	    // Convert the list to a 2D array
+	    
 	    Object[][] ob = new Object[dataList.size()][];
 	    for (int i = 0; i < dataList.size(); i++) {
 	        ob[i] = dataList.get(i);
