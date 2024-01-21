@@ -142,6 +142,11 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
 		this.gestionClic = new GestionFenetrePrincipale(this);
 		menu_AdProp.add(mntmLogement);
 		
+		JMenuItem mntmEntreprise = new JMenuItem("Entreprise");
+		mntmEntreprise.addActionListener(this.gestionClic);
+		this.gestionClic = new GestionFenetrePrincipale(this);
+		menu_AdProp.add(mntmEntreprise);
+		
 		JMenuItem mntmFacture = new JMenuItem("Facture");
 		mntmFacture.addActionListener(this.gestionClic);
 		this.gestionClic = new GestionFenetrePrincipale(this);

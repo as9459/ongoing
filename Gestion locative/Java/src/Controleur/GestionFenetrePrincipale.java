@@ -18,6 +18,7 @@ import Vue.FenLocataire;
 import Vue.FenLogement;
 import Vue.FenPaiement;
 import Vue.FenCharges;
+import Vue.FenEntreprise;
 
 public class GestionFenetrePrincipale implements ActionListener{
 	private FenetrePrincipale fen;
@@ -74,17 +75,23 @@ public class GestionFenetrePrincipale implements ActionListener{
 				layeredPane4.add(bat, JLayeredPane.DEFAULT_LAYER);
 				bat.setVisible(true);
 			  break;
+			case "Entreprise":
+				FenEntreprise ent = new FenEntreprise(this.fen);
+				JLayeredPane layeredPane5 = fen.getLayeredPane();
+				layeredPane5.add(ent, JLayeredPane.DEFAULT_LAYER);
+				ent.setVisible(true);
+			  break;
 			case "Facture":
 				FenFacture fac = new FenFacture(this.fen);
-				JLayeredPane layeredPane5 = fen.getLayeredPane();
-				layeredPane5.add(fac, JLayeredPane.DEFAULT_LAYER);
+				JLayeredPane layeredPane6 = fen.getLayeredPane();
+				layeredPane6.add(fac, JLayeredPane.DEFAULT_LAYER);
 				fac.setVisible(true);
 	            break;
 			case "Calcul charges":
 				System.out.println("Calcul Charges");
 				FenCharges charg = new FenCharges(this.fen);
-				JLayeredPane layeredPane6 = fen.getLayeredPane();
-				layeredPane6.add(charg, JLayeredPane.DEFAULT_LAYER);
+				JLayeredPane layeredPane7 = fen.getLayeredPane();
+				layeredPane7.add(charg, JLayeredPane.DEFAULT_LAYER);
 				charg.setVisible(true);
 	            break;
 		}      
