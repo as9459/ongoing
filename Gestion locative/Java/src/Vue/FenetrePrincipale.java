@@ -27,7 +27,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
 
-public class FenetrePrincipale extends JFrame implements ActionListener {
+public class FenetrePrincipale extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private CictOracleDataSource bd;
@@ -274,9 +274,4 @@ public class FenetrePrincipale extends JFrame implements ActionListener {
         btnConnceter.setVisible(false); 
     }
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 }
